@@ -190,6 +190,49 @@ message(sprintf("\nImported %d measurements from %d sections",
 # Apply QC filters
 xrf_qc <- apply_qc_filters(xrf_raw, mse_threshold = 10, cps_min = 20000)
 
+# ==============================================================================
+# Apply user-defined exclusion zones (foam, gaps, etc.)
+# ==============================================================================
+
+exclusion_file <- file.path(base_path, "data", "exclusion_zones.csv")
+
+if (file.exists(exclusion_file)) {
+  exclusions <- read_csv(exclusion_file, show_col_types = FALSE) %>%
+    filter(!is.na(exclude_start_mm))
+
+  if (nrow(exclusions) > 0) {
+    message(sprintf("\nApplying %d exclusion zones...", nrow(exclusions)))
+
+    # Mark excluded points
+    xrf_qc <- xrf_qc %>%
+      mutate(excluded = FALSE)
+
+    for (i in 1:nrow(exclusions)) {
+      sect <- exclusions$section[i]
+      start_mm <- exclusions$exclude_start_mm[i]
+      end_mm <- exclusions$exclude_end_mm[i]
+
+      n_excluded <- sum(xrf_qc$section == sect &
+                        xrf_qc$position_mm >= start_mm &
+                        xrf_qc$position_mm <= end_mm)
+
+      xrf_qc <- xrf_qc %>%
+        mutate(excluded = excluded |
+                 (section == sect & position_mm >= start_mm & position_mm <= end_mm))
+
+      message(sprintf("  %s: %.0f-%.0f mm (%s) - %d points excluded",
+                      sect, start_mm, end_mm, exclusions$notes[i], n_excluded))
+    }
+
+    # Update qc_pass to exclude these zones
+    xrf_qc <- xrf_qc %>%
+      mutate(qc_pass = qc_pass & !excluded)
+
+    message(sprintf("Total excluded: %d points", sum(xrf_qc$excluded)))
+    message(sprintf("Remaining after exclusions: %d QC-pass points", sum(xrf_qc$qc_pass)))
+  }
+}
+
 # Summary by core series
 xrf_qc %>%
   group_by(core_series) %>%
