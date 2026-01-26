@@ -23,7 +23,13 @@ dir.create(fig_path, showWarnings = FALSE, recursive = TRUE)
 # Image brightness adjustment
 BRIGHTNESS_BOOST <- 40
 CONTRAST_BOOST <- 10
+GAMMA_CORRECTION <- 1.3  # >1 brightens midtones
 WINDOW_SIZE <- 5
+
+# Load exclusion zones for foam masking
+exclusion_zones <- read_csv(file.path(base_path, "data", "exclusion_zones.csv"),
+                            show_col_types = FALSE) %>%
+  filter(!is.na(exclude_start_mm) & notes == "foam")
 
 # ==============================================================================
 # SECTION TO PATH MAPPING (based on actual directory structure)
@@ -34,11 +40,13 @@ section_paths <- tribble(
   # GROUP1 - TAM
   "TAM-1-2-3B-A", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-A",
   "TAM-1-2-3B-B", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-B",
+  "TAM-1-2-3B-C", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-C",
 
   # GROUP2 - TAM
   "TAM-3A-4-5CDE-A", "GROUP2/TAM-3A-4-5CDE/TAM-3A-4-5CDE-A",
   "TAM-3A-4-5CDE-B", "GROUP2/TAM-3A-4-5CDE/TAM-3A-4-5CDE-B",
   "TAM-3A-4-5CDE-RUN2-C", "GROUP2/TAM-3A-4-5CDE/TAM-3A-4-5CDE-RUN2-C",
+  "TAM-3A-4-5CDE-RUN2-D", "GROUP2/TAM-3A-4-5CDE/TAM-3A-4-5CDE-RUN2-D",
   "TAM-3A-4-5CDE-RUN2-E", "GROUP2/TAM-3A-4-5CDE/TAM-3A-4-5CDE-RUN2-E",
 
   # GROUP3 - TAM
@@ -105,13 +113,53 @@ read_document_params <- function(doc_path) {
   ))
 }
 
-brighten_image <- function(img, brightness = BRIGHTNESS_BOOST, contrast = CONTRAST_BOOST) {
+brighten_image <- function(img, brightness = BRIGHTNESS_BOOST, contrast = CONTRAST_BOOST, gamma = GAMMA_CORRECTION) {
+  # Apply gamma correction first (brightens midtones without clipping)
+  if (gamma != 1.0) {
+    img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/gamma)
+  }
+
+  # Then brightness and contrast
   img %>%
     image_modulate(brightness = 100 + brightness) %>%
     image_contrast(sharpen = contrast)
 }
 
-process_section <- function(section_name, optical_path) {
+mask_foam_sections <- function(img, section_name, xrf_start, xrf_end, pixels_per_mm) {
+  # Get foam zones for this section
+  foam_zones <- exclusion_zones %>%
+    filter(section == section_name)
+
+  if (nrow(foam_zones) == 0) return(img)
+
+  img_info <- image_info(img)
+
+  for (i in seq_len(nrow(foam_zones))) {
+    zone <- foam_zones[i, ]
+
+    # Convert foam mm positions to pixels relative to XRF range
+    foam_start_px <- round((zone$exclude_start_mm - xrf_start) * pixels_per_mm)
+    foam_end_px <- round((zone$exclude_end_mm - xrf_start) * pixels_per_mm)
+
+    # Skip if outside visible range
+    if (foam_end_px < 0 || foam_start_px > img_info$width) next
+
+    # Clamp to image bounds
+    foam_start_px <- max(0, foam_start_px)
+    foam_end_px <- min(img_info$width, foam_end_px)
+    foam_width <- foam_end_px - foam_start_px
+
+    if (foam_width > 0) {
+      # Create gray mask for foam region
+      foam_mask <- image_blank(foam_width, img_info$height, color = "#808080")
+      img <- image_composite(img, foam_mask, offset = sprintf("+%d+0", foam_start_px))
+    }
+  }
+
+  return(img)
+}
+
+process_section <- function(section_name, optical_path, mask_foam = TRUE) {
   section_dir <- file.path(data_path, optical_path)
   img_path <- file.path(section_dir, "optical.tif")
   doc_path <- file.path(section_dir, "document.txt")
@@ -137,6 +185,18 @@ process_section <- function(section_name, optical_path) {
 
   crop_geom <- sprintf("%dx%d+%d+0", crop_width, img_info$height, xrf_start_px)
   img_cropped <- image_crop(img, crop_geom)
+
+  # Calculate pixels_per_mm for the cropped image (same as original)
+  cropped_pixels_per_mm <- crop_width / (params$xrf_end - params$xrf_start)
+
+  # Apply foam masking before brightening
+  if (mask_foam) {
+    img_cropped <- mask_foam_sections(img_cropped, section_name,
+                                       params$xrf_start, params$xrf_end,
+                                       cropped_pixels_per_mm)
+  }
+
+  # Apply brightness and gamma correction
   img_bright <- brighten_image(img_cropped)
 
   return(list(

@@ -17,10 +17,16 @@ output_path <- file.path(base_path, "output")
 xrf_qc <- read_csv(file.path(output_path, "tables", "xrf_data_qc.csv"),
                    show_col_types = FALSE)
 
-# Filter to QC-passing measurements only
+# Filter to QC-passing measurements (keep excluded for optional masking)
 xrf <- xrf_qc %>% filter(qc_pass)
 
-message(sprintf("Loaded %d QC-passing measurements", nrow(xrf)))
+# Ensure 'excluded' column exists (may be missing in older data)
+if (!"excluded" %in% names(xrf)) {
+  xrf <- xrf %>% mutate(excluded = FALSE)
+}
+
+message(sprintf("Loaded %d QC-passing measurements (%d in exclusion zones)",
+                nrow(xrf), sum(xrf$excluded, na.rm = TRUE)))
 
 # ==============================================================================
 # 2. ELEMENT RATIO DEFINITIONS
@@ -87,10 +93,6 @@ calculate_element_ratios <- function(data) {
       # -------------------------------------------------------------------
       # PRODUCTIVITY / ORGANIC MATTER
       # -------------------------------------------------------------------
-      # Br/Ti: Marine/brackish organic matter
-      # Higher = more organic matter (Br associated with organics)
-      Br_Ti = Br / Ti,
-
       # Ba/Ti: Paleoproductivity (Ba scavenged by organic particles)
       Ba_Ti = Ba / Ti,
 
@@ -121,9 +123,19 @@ message("Calculating element ratios...")
 xrf_ratios <- xrf %>%
   calculate_element_ratios()
 
+# Add Br_Ti if Br column exists (not always in calibrated data)
+if ("Br" %in% names(xrf_ratios)) {
+  xrf_ratios <- xrf_ratios %>%
+    mutate(Br_Ti = Br / Ti)
+  message("  Br_Ti ratio calculated (Br available in data)")
+} else {
+  message("  Br_Ti ratio skipped (Br not available in calibrated data)")
+}
+
 # Check for infinite values (division by zero)
 ratio_cols <- c("Ca_Ti", "Si_Ti", "Fe_Mn", "K_Ti", "Rb_Sr", "Zr_Rb", "Si_Al",
-                "Br_Ti", "Ba_Ti", "Fe_Ti", "K_Rb", "inc_coh")
+                "Ba_Ti", "Fe_Ti", "K_Rb", "inc_coh")
+if ("Br_Ti" %in% names(xrf_ratios)) ratio_cols <- c(ratio_cols, "Br_Ti")
 
 for (col in ratio_cols) {
   n_inf <- sum(is.infinite(xrf_ratios[[col]]), na.rm = TRUE)

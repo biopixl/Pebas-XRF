@@ -3,12 +3,14 @@
 # ==============================================================================
 # Interactive Shiny app for overlaying XRF data trends on core images
 # Export publication-quality figures with customizable styling
+# Includes foam section masking and improved image enhancement
 # ==============================================================================
 
 library(shiny)
 library(tidyverse)
 library(magick)
 library(zoo)
+library(patchwork)
 library(grid)
 library(gridExtra)
 library(png)
@@ -27,6 +29,11 @@ dir.create(export_path, showWarnings = FALSE, recursive = TRUE)
 xrf_data <- read_csv(file.path(output_path, "tables", "xrf_data_stacked.csv"),
                      show_col_types = FALSE)
 
+# Load exclusion zones for foam masking
+exclusion_zones <- read_csv(file.path(base_path, "data", "exclusion_zones.csv"),
+                            show_col_types = FALSE) %>%
+  filter(!is.na(exclude_start_mm) & notes == "foam")
+
 # Available proxies
 proxy_info <- list(
   Ca_Ti = list(name = "Ca/Ti (Carbonate)", color = "#1B7837", threshold = c(2, 5, 10)),
@@ -36,6 +43,45 @@ proxy_info <- list(
   Fe = list(name = "Fe (Terrigenous)", color = "#8C510A", threshold = NULL),
   Ca = list(name = "Ca (Carbonate)", color = "#01665E", threshold = NULL)
 )
+
+# Helper for help text (must be defined before UI)
+help_text <- HTML("
+  <h3>Publication Figure Generator - Help</h3>
+
+  <h4>Core Selection</h4>
+  <p>Select from 7 core groups: GROUP1-3 (Tamshiyacu) and GROUP4-7 (Santa Corina).</p>
+
+  <h4>Proxy Display</h4>
+  <ul>
+    <li><strong>Ca/Ti</strong>: Carbonate vs terrigenous balance. Higher = more biogenic carbonate.</li>
+    <li><strong>Fe/Mn</strong>: Redox indicator. Values >50 indicate reducing conditions.</li>
+    <li><strong>K/Ti</strong>: Chemical weathering intensity proxy.</li>
+    <li><strong>Zr/Rb</strong>: Grain size/depositional energy proxy.</li>
+  </ul>
+
+  <h4>Filter Window Size</h4>
+  <p>Moving window filter to reduce noise. Larger = smoother curves. At 3mm step, window of 5 = 15mm effective resolution.</p>
+
+  <h4>Image Settings</h4>
+  <ul>
+    <li><strong>Brightness</strong>: Adjust core image brightness (-50 to +100).</li>
+    <li><strong>Gamma</strong>: Correct for dark images. Values >1 brighten midtones without clipping highlights.</li>
+    <li><strong>Contrast</strong>: Enhance visual separation between light and dark regions.</li>
+    <li><strong>Core Width</strong>: Width of core image strip in pixels.</li>
+    <li><strong>Mask Foam (Image)</strong>: Gray out foam/gap sections in optical image.</li>
+    <li><strong>Mask Foam (Spectra)</strong>: Exclude XRF measurements from foam/gap sections.</li>
+    <li><strong>Raw Data</strong>: Show individual measurement points.</li>
+  </ul>
+
+  <h4>Thresholds</h4>
+  <ul>
+    <li><strong>Ca/Ti</strong>: 2, 5, 10 (Clastic/Mixed/Carbonate/Shell-rich)</li>
+    <li><strong>Fe/Mn</strong>: 50 (Oxic/Reducing boundary)</li>
+  </ul>
+
+  <h4>Export</h4>
+  <p>PNG for presentations/web, PDF for publication. Standard journal size: 7-10 inches wide, 300 DPI.</p>
+")
 
 # ==============================================================================
 # UI
@@ -78,10 +124,20 @@ ui <- fluidPage(
       h4("Image Settings"),
 
       sliderInput("brightness", "Image Brightness:",
-                  min = 0, max = 100, value = 40),
+                  min = -50, max = 100, value = 50),
+
+      sliderInput("gamma", "Gamma Correction:",
+                  min = 0.5, max = 2.5, value = 1.2, step = 0.1),
+
+      sliderInput("contrast", "Contrast:",
+                  min = 0, max = 50, value = 15),
 
       sliderInput("core_width", "Core Image Width:",
                   min = 50, max = 300, value = 150),
+
+      checkboxInput("mask_foam", "Mask Foam Sections (Image)", value = TRUE),
+
+      checkboxInput("mask_spectra", "Mask Foam Sections (Spectra)", value = TRUE),
 
       checkboxInput("show_raw", "Show Raw Data Points", value = FALSE),
 
@@ -122,49 +178,11 @@ ui <- fluidPage(
         tabPanel("Statistics",
                  verbatimTextOutput("stats_output"),
                  tableOutput("facies_table")),
-        tabPanel("Help",
-                 includeMarkdown_or_text())
+        tabPanel("Help", help_text)
       )
     )
   )
 )
-
-# Helper for help text
-includeMarkdown_or_text <- function() {
-  HTML("
-    <h3>Publication Figure Generator - Help</h3>
-
-    <h4>Core Selection</h4>
-    <p>Select from 7 core groups: GROUP1-3 (Tamshiyacu) and GROUP4-7 (Santa Corina).</p>
-
-    <h4>Proxy Display</h4>
-    <ul>
-      <li><strong>Ca/Ti</strong>: Carbonate vs terrigenous balance. Higher = more biogenic carbonate.</li>
-      <li><strong>Fe/Mn</strong>: Redox indicator. Values >50 indicate reducing conditions.</li>
-      <li><strong>K/Ti</strong>: Chemical weathering intensity proxy.</li>
-      <li><strong>Zr/Rb</strong>: Grain size/depositional energy proxy.</li>
-    </ul>
-
-    <h4>Filter Window Size</h4>
-    <p>Moving window filter to reduce noise. Larger = smoother curves. At 3mm step, window of 5 = 15mm effective resolution.</p>
-
-    <h4>Image Settings</h4>
-    <ul>
-      <li><strong>Brightness</strong>: Adjust core image brightness (0-100%).</li>
-      <li><strong>Core Width</strong>: Width of core image strip in pixels.</li>
-      <li><strong>Raw Data</strong>: Show individual measurement points.</li>
-    </ul>
-
-    <h4>Thresholds</h4>
-    <ul>
-      <li><strong>Ca/Ti</strong>: 2, 5, 10 (Clastic/Mixed/Carbonate/Shell-rich)</li>
-      <li><strong>Fe/Mn</strong>: 50 (Oxic/Reducing boundary)</li>
-    </ul>
-
-    <h4>Export</h4>
-    <p>PNG for presentations/web, PDF for publication. Standard journal size: 7-10 inches wide, 300 DPI.</p>
-  ")
-}
 
 # ==============================================================================
 # SERVER
@@ -180,6 +198,11 @@ server <- function(input, output, session) {
       filter(group == input$group) %>%
       arrange(position_mm) %>%
       mutate(depth_cm = position_mm / 10)
+
+    # Apply spectra mask if enabled (filter out excluded points)
+    if (input$mask_spectra && "excluded" %in% names(data)) {
+      data <- data %>% filter(!excluded)
+    }
 
     # Apply moving window filter
     if (input$window_size > 1) {
@@ -213,6 +236,21 @@ server <- function(input, output, session) {
     data
   })
 
+  # Reactive: Get foam exclusion zones for current group
+  group_foam_zones <- reactive({
+    req(input$group)
+
+    # Get sections for this group
+    group_sections <- xrf_data %>%
+      filter(group == input$group) %>%
+      pull(section) %>%
+      unique()
+
+    # Get foam zones for these sections
+    exclusion_zones %>%
+      filter(section %in% group_sections)
+  })
+
   # Reactive: Load and process core image
   core_image <- reactive({
     req(input$group)
@@ -224,11 +262,63 @@ server <- function(input, output, session) {
     }
 
     img <- image_read(img_path)
+    img_info <- image_info(img)
 
-    # Apply brightness
-    if (input$brightness != 40) {
-      brightness_adj <- (input$brightness - 40) + 100
+    # Get XRF data range for coordinate mapping
+    data <- xrf_data %>%
+      filter(group == input$group)
+    depth_min <- min(data$position_mm)
+    depth_max <- max(data$position_mm)
+
+    # Apply foam masking if enabled
+    if (input$mask_foam) {
+      foam_zones <- group_foam_zones()
+
+      if (nrow(foam_zones) > 0) {
+        # Calculate pixels per mm based on image height
+        pixels_per_mm <- img_info$height / (depth_max - depth_min)
+
+        for (i in seq_len(nrow(foam_zones))) {
+          zone <- foam_zones[i, ]
+          # Convert mm to pixels (relative to data range)
+          y_start <- (zone$exclude_start_mm - depth_min) * pixels_per_mm
+          y_end <- (zone$exclude_end_mm - depth_min) * pixels_per_mm
+
+          # Skip if outside visible range
+          if (y_end < 0 || y_start > img_info$height) next
+
+          # Clamp to image bounds
+          y_start <- max(0, y_start)
+          y_end <- min(img_info$height, y_end)
+
+          # Create gray overlay for foam region
+          foam_height <- ceiling(y_end - y_start)
+          if (foam_height > 0) {
+            foam_mask <- image_blank(img_info$width, foam_height, color = "#808080")
+            img <- image_composite(img, foam_mask, offset = sprintf("+0+%d", floor(y_start)))
+          }
+        }
+      }
+    }
+
+    # Apply image enhancements in optimal order:
+    # 1. Gamma correction first (affects midtones most)
+    if (input$gamma != 1.0) {
+      # Apply gamma using level adjustment for better results
+      img <- image_level(img, black_point = 0, white_point = 100,
+                         mid_point = 1/input$gamma)
+    }
+
+    # 2. Brightness adjustment
+    if (input$brightness != 0) {
+      brightness_adj <- 100 + input$brightness
       img <- image_modulate(img, brightness = brightness_adj)
+    }
+
+    # 3. Contrast enhancement (sigmoidal contrast is more natural)
+    if (input$contrast > 0) {
+      # Use sigmoidal contrast for more natural enhancement
+      img <- image_contrast(img, sharpen = input$contrast)
     }
 
     # Resize to target width

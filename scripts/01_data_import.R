@@ -29,9 +29,9 @@ all_elements <- c(major_elements, minor_elements, trace_elements)
 # 2. DATA IMPORT FUNCTIONS
 # ==============================================================================
 
-#' Import a single Itrax result.txt file
+#' Import a single Itrax Results.txt file (post-processing calibrated data)
 #'
-#' @param file_path Path to the result.txt file
+#' @param file_path Path to the Results.txt file
 #' @return A tibble with XRF data and metadata
 import_itrax_result <- function(file_path) {
 
@@ -50,7 +50,7 @@ import_itrax_result <- function(file_path) {
   group_idx <- which(str_detect(path_parts, "^GROUP"))
   group <- if (length(group_idx) > 0) path_parts[group_idx[1]] else NA_character_
 
-  # Get section name (parent directory of result.txt)
+  # Get section name (parent directory of Results.txt)
   section <- basename(dirname(file_path))
 
   # Determine core series (TAM or SC)
@@ -104,11 +104,12 @@ import_itrax_result <- function(file_path) {
 #' @return A tibble with all XRF data combined
 import_all_itrax <- function(base_dir, exclude_copied = TRUE) {
 
-  # Find all result.txt files
+
+  # Find all Results.txt files (capital R = post-processing calibrated data)
   result_files <- dir_ls(
     base_dir,
     recurse = TRUE,
-    regexp = "result\\.txt$"
+    regexp = "Results\\.txt$"
   )
 
   # Exclude copied directories if requested
@@ -224,12 +225,11 @@ if (file.exists(exclusion_file)) {
                       sect, start_mm, end_mm, exclusions$notes[i], n_excluded))
     }
 
-    # Update qc_pass to exclude these zones
-    xrf_qc <- xrf_qc %>%
-      mutate(qc_pass = qc_pass & !excluded)
-
-    message(sprintf("Total excluded: %d points", sum(xrf_qc$excluded)))
-    message(sprintf("Remaining after exclusions: %d QC-pass points", sum(xrf_qc$qc_pass)))
+    # Note: Do NOT filter out excluded zones - mark them for optional masking
+    # This keeps data available for visualization with toggle option
+    message(sprintf("Total marked as excluded: %d points", sum(xrf_qc$excluded)))
+    message(sprintf("QC-pass points (excluding foam/gaps): %d", sum(xrf_qc$qc_pass & !xrf_qc$excluded)))
+    message(sprintf("QC-pass points (including foam/gaps): %d", sum(xrf_qc$qc_pass)))
   }
 }
 

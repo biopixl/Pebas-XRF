@@ -35,7 +35,13 @@ xrf_data <- read_csv(file.path(output_path, "tables", "xrf_data_ratios.csv"),
                      show_col_types = FALSE) %>%
   filter(qc_pass == TRUE)
 
-message(sprintf("Loaded %d QC-passed measurements", nrow(xrf_data)))
+# Ensure excluded column exists for masking
+if (!"excluded" %in% names(xrf_data)) {
+  xrf_data <- xrf_data %>% mutate(excluded = FALSE)
+}
+
+message(sprintf("Loaded %d QC-passed measurements (%d in exclusion zones)",
+                nrow(xrf_data), sum(xrf_data$excluded, na.rm = TRUE)))
 
 # ==============================================================================
 # CALCULATE CUMULATIVE DEPTH
