@@ -216,17 +216,24 @@ create_section_qc_figure <- function(section_name, xrf_data, exclusions,
 }
 
 # ==============================================================================
-# GENERATE ALL FIGURES
+# GENERATE FIGURES ONLY FOR SECTIONS WITH EXCLUSIONS
 # ==============================================================================
 
-message("\nGenerating appendix figures...")
+message("\nGenerating appendix figures for excluded sections only...")
 
 # Data path for reading document.txt files
 data_path <- file.path(base_path, "TAM-SC-IsaacA")
 
-sections <- sort(unique(xrf_data$section))
+# Only process sections that have exclusions
+sections_with_exclusions <- exclusions %>%
+  filter(!is.na(exclude_start_mm)) %>%
+  pull(section) %>%
+  unique() %>%
+  sort()
 
-for (sect in sections) {
+message(sprintf("Generating figures for %d sections with exclusions", length(sections_with_exclusions)))
+
+for (sect in sections_with_exclusions) {
   message(sprintf("Processing: %s", sect))
 
   fig_temp <- create_section_qc_figure(sect, xrf_data, exclusions, optical_path, data_path)
@@ -237,6 +244,71 @@ for (sect in sections) {
     unlink(fig_temp)
   }
 }
+
+# ==============================================================================
+# CREATE COMBINED SUMMARY FIGURE
+# ==============================================================================
+
+message("\nCreating QC exclusion summary figure...")
+
+# Calculate exclusion statistics
+exclusion_stats <- exclusions %>%
+  filter(!is.na(exclude_start_mm)) %>%
+  mutate(excluded_mm = exclude_end_mm - exclude_start_mm) %>%
+  group_by(section) %>%
+  summarise(
+    n_zones = n(),
+    total_excluded_mm = sum(excluded_mm),
+    .groups = "drop"
+  ) %>%
+  left_join(
+    xrf_data %>%
+      group_by(section) %>%
+      summarise(
+        total_mm = max(position_mm) - min(position_mm),
+        n_points = n(),
+        .groups = "drop"
+      ),
+    by = "section"
+  ) %>%
+  mutate(
+    pct_excluded = 100 * total_excluded_mm / total_mm,
+    core_series = ifelse(grepl("^TAM", section), "TAM", "SC")
+  ) %>%
+  arrange(core_series, section)
+
+# Create summary bar plot
+png(file.path(appendix_path, "qc_exclusion_summary.png"),
+    width = 12, height = 8, units = "in", res = 150)
+
+par(mar = c(8, 5, 3, 2))
+
+barplot(
+  exclusion_stats$pct_excluded,
+  names.arg = exclusion_stats$section,
+  las = 2,
+  col = ifelse(exclusion_stats$core_series == "TAM", "steelblue", "darkorange"),
+  ylab = "% of scan length excluded",
+  main = "QC Exclusions by Section (foam fills removed)",
+  cex.names = 0.7,
+  ylim = c(0, max(exclusion_stats$pct_excluded) * 1.1)
+)
+
+# Add legend
+legend("topright", legend = c("TAM (Tamshiyacu)", "SC (Santa Corina)"),
+       fill = c("steelblue", "darkorange"), bty = "n")
+
+# Add count labels
+text(
+  x = seq(0.7, by = 1.2, length.out = nrow(exclusion_stats)),
+  y = exclusion_stats$pct_excluded + 1,
+  labels = paste0(exclusion_stats$n_zones, " zone(s)"),
+  cex = 0.6, col = "gray30"
+)
+
+dev.off()
+
+message("Summary figure saved: qc_exclusion_summary.png")
 
 # ==============================================================================
 # CREATE SUMMARY TABLE FOR MANUSCRIPT
@@ -330,8 +402,8 @@ message(sprintf("LaTeX table saved to: %s", file.path(appendix_path, "exclusion_
 # ==============================================================================
 
 message("\n=== EXCLUSION SUMMARY ===")
-message(sprintf("Total sections: %d", length(sections)))
-message(sprintf("Sections with exclusions: %d", sum(exclusion_summary$n_exclusions > 0)))
+message(sprintf("Total sections: %d", n_distinct(xrf_data$section)))
+message(sprintf("Sections with exclusions: %d", length(sections_with_exclusions)))
 message(sprintf("Total exclusion zones: %d", sum(exclusion_summary$n_exclusions)))
 
 # Print sections with exclusions
