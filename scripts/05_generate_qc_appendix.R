@@ -37,14 +37,62 @@ exclusions <- read_csv(exclusion_file, show_col_types = FALSE) %>%
 message(sprintf("Loaded %d exclusion zones", nrow(exclusions)))
 
 # ==============================================================================
+# HELPER FUNCTIONS
+# ==============================================================================
+
+#' Get optical image info from document.txt
+get_optical_info <- function(section_name, data_path) {
+  # Find the section folder
+  section_dirs <- list.dirs(data_path, recursive = TRUE)
+  section_dir <- section_dirs[basename(section_dirs) == section_name &
+                               !grepl("/copied/", section_dirs)]
+
+  if (length(section_dir) == 0) return(NULL)
+  section_dir <- section_dir[1]
+
+  doc_file <- file.path(section_dir, "document.txt")
+  if (!file.exists(doc_file)) return(NULL)
+
+  doc <- readLines(doc_file, warn = FALSE, encoding = "latin1")
+
+  # Parse XRF scan coordinates
+  xrf_line <- grep("^Start coordinate", doc, value = TRUE)
+  if (length(xrf_line) > 0) {
+    parts <- strsplit(xrf_line, "\t")[[1]]
+    xrf_start <- as.numeric(parts[2])
+    xrf_stop <- as.numeric(parts[4])
+  } else {
+    return(NULL)
+  }
+
+  # Parse optical image coordinates
+  optical_line <- grep("^Optical Start", doc, value = TRUE)
+  if (length(optical_line) > 0) {
+    parts <- strsplit(optical_line, "\t")[[1]]
+    optical_start <- as.numeric(parts[2])
+    optical_end <- as.numeric(parts[4])
+  } else {
+    optical_start <- 0
+    optical_end <- 1500
+  }
+
+  list(
+    optical_start = optical_start,
+    optical_end = optical_end,
+    xrf_start = xrf_start,
+    xrf_stop = xrf_stop
+  )
+}
+
+# ==============================================================================
 # GENERATE INDIVIDUAL SECTION FIGURES
 # ==============================================================================
 
 #' Create QC figure for a single section
 #'
-#' Shows optical image with XRF profile and exclusion zones marked
+#' Shows optical image aligned with XRF profile on shared x-axis
 create_section_qc_figure <- function(section_name, xrf_data, exclusions,
-                                      optical_path, element = "Fe") {
+                                      optical_path, data_path, element = "Fe") {
 
   # Get section data
   sect_data <- xrf_data %>% filter(section == section_name)
@@ -57,81 +105,114 @@ create_section_qc_figure <- function(section_name, xrf_data, exclusions,
   # Get exclusions for this section
   sect_excl <- exclusions %>% filter(section == section_name)
 
-  # Position range
+  # Get optical image info for alignment
+  info <- get_optical_info(section_name, data_path)
+
+  # Position range from XRF data
   pos_min <- min(sect_data$position_mm, na.rm = TRUE)
   pos_max <- max(sect_data$position_mm, na.rm = TRUE)
-
-  # Create XRF profile plot
-  p_xrf <- ggplot(sect_data, aes(x = position_mm, y = .data[[element]])) +
-    geom_line(color = "steelblue", linewidth = 0.6) +
-    scale_y_log10() +
-    labs(x = "Position (mm)", y = paste0(element, " (cps)")) +
-    theme_minimal(base_size = 10) +
-    theme(
-      panel.grid.minor = element_blank(),
-      axis.title = element_text(size = 9)
-    )
-
-  # Add exclusion zones
-  if (nrow(sect_excl) > 0) {
-    for (i in 1:nrow(sect_excl)) {
-      p_xrf <- p_xrf +
-        annotate("rect",
-                 xmin = sect_excl$exclude_start_mm[i],
-                 xmax = sect_excl$exclude_end_mm[i],
-                 ymin = -Inf, ymax = Inf,
-                 fill = "red", alpha = 0.3) +
-        annotate("segment",
-                 x = sect_excl$exclude_start_mm[i],
-                 xend = sect_excl$exclude_start_mm[i],
-                 y = -Inf, yend = Inf,
-                 color = "red", linetype = "dashed", linewidth = 0.5) +
-        annotate("segment",
-                 x = sect_excl$exclude_end_mm[i],
-                 xend = sect_excl$exclude_end_mm[i],
-                 y = -Inf, yend = Inf,
-                 color = "red", linetype = "dashed", linewidth = 0.5)
-    }
-  }
 
   # Try to load optical image
   optical_file <- file.path(optical_path, paste0("optical_", section_name, ".png"))
 
-  if (file.exists(optical_file)) {
+  # Create the figure using base R for proper alignment
+  fig_file <- tempfile(fileext = ".png")
+
+  png(fig_file, width = 14, height = 8, units = "in", res = 150)
+
+  # Set up layout: optical on top, XRF below
+  par(mfrow = c(2, 1), mar = c(1, 5, 3, 2), oma = c(3, 0, 2, 0))
+
+  # X-axis range with small padding
+  x_range <- pos_max - pos_min
+  x_min <- pos_min - x_range * 0.02
+  x_max <- pos_max + x_range * 0.02
+
+  # === PANEL 1: Optical Image ===
+  if (file.exists(optical_file) && !is.null(info)) {
     img <- readPNG(optical_file)
+    img_width <- ncol(img)
+    img_height <- nrow(img)
 
-    # Create optical plot using annotation_custom
-    p_optical <- ggplot() +
-      annotation_custom(
-        rasterGrob(img, interpolate = TRUE),
-        xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
-      ) +
-      theme_void() +
-      coord_fixed(ratio = nrow(img) / ncol(img) * 10)
+    # Calculate pixel positions for XRF range
+    mm_per_pixel <- (info$optical_end - info$optical_start) / img_width
 
-    # Combine plots
-    combined <- p_optical / p_xrf +
-      plot_layout(heights = c(1, 2)) +
-      plot_annotation(
-        title = section_name,
-        subtitle = sprintf("Position: %.0f - %.0f mm | %d measurements | %d exclusion zones",
-                           pos_min, pos_max, nrow(sect_data), nrow(sect_excl)),
-        theme = theme(
-          plot.title = element_text(face = "bold", size = 12),
-          plot.subtitle = element_text(size = 9, color = "gray40")
-        )
-      )
+    px_start <- (x_min - info$optical_start) / mm_per_pixel
+    px_end <- (x_max - info$optical_start) / mm_per_pixel
+
+    # Crop image to XRF range (with bounds checking)
+    px_start <- max(1, floor(px_start))
+    px_end <- min(img_width, ceiling(px_end))
+
+    if (px_end > px_start) {
+      img_crop <- img[, px_start:px_end, , drop = FALSE]
+
+      # Plot cropped image aligned with XRF x-axis
+      plot(0, 0, type = "n", xlim = c(x_min, x_max), ylim = c(0, 1),
+           xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+           main = "")
+
+      rasterImage(img_crop, x_min, 0, x_max, 1)
+
+      # Add exclusion zones as semi-transparent overlays
+      if (nrow(sect_excl) > 0) {
+        for (i in 1:nrow(sect_excl)) {
+          rect(sect_excl$exclude_start_mm[i], 0,
+               sect_excl$exclude_end_mm[i], 1,
+               col = rgb(1, 0, 0, 0.4), border = "red", lwd = 3)
+        }
+      }
+
+      # Add position scale ticks
+      axis(1, at = pretty(c(x_min, x_max)), labels = FALSE, tck = -0.03)
+      mtext("Optical Image (aligned to XRF scan range)", side = 3, line = 0.5, cex = 1)
+    }
   } else {
-    # No optical image, just XRF plot
-    combined <- p_xrf +
-      ggtitle(
-        section_name,
-        subtitle = sprintf("Position: %.0f - %.0f mm | %d measurements | %d exclusion zones",
-                           pos_min, pos_max, nrow(sect_data), nrow(sect_excl))
-      )
+    plot.new()
+    text(0.5, 0.5, "Optical image not available", cex = 1.5)
   }
 
-  return(combined)
+  # === PANEL 2: XRF Profile ===
+  y_vals <- sect_data[[element]]
+  y_vals_log <- log10(pmax(y_vals, 1))
+
+  plot(sect_data$position_mm, y_vals_log, type = "l", col = "steelblue", lwd = 2,
+       xlim = c(x_min, x_max),
+       xlab = "", ylab = paste0("log10(", element, " cps)"),
+       main = paste(element, "Profile"), cex.main = 1.2, cex.lab = 1.1)
+  points(sect_data$position_mm, y_vals_log, pch = 16, cex = 0.6, col = "steelblue")
+
+  # Add exclusion zones
+  if (nrow(sect_excl) > 0) {
+    for (i in 1:nrow(sect_excl)) {
+      rect(sect_excl$exclude_start_mm[i], par("usr")[3],
+           sect_excl$exclude_end_mm[i], par("usr")[4],
+           col = rgb(1, 0, 0, 0.3), border = NA)
+      abline(v = c(sect_excl$exclude_start_mm[i], sect_excl$exclude_end_mm[i]),
+             col = "red", lty = 2, lwd = 2)
+
+      # Label the exclusion
+      mid_x <- mean(c(sect_excl$exclude_start_mm[i], sect_excl$exclude_end_mm[i]))
+      text(mid_x, par("usr")[4] - 0.1 * diff(par("usr")[3:4]),
+           sect_excl$notes[i], col = "red", cex = 1, font = 2)
+    }
+  }
+
+  grid(nx = NA, ny = NULL, col = "gray80", lty = 1)
+
+  # Shared x-axis label
+  mtext("Position (mm)", side = 1, outer = TRUE, line = 1.5, cex = 1.2)
+
+  # Main title
+  n_excl <- nrow(sect_excl)
+  excl_text <- ifelse(n_excl > 0, sprintf(" | %d exclusion zone(s)", n_excl), "")
+  mtext(sprintf("%s | Position: %.0f - %.0f mm | N = %d%s",
+                section_name, pos_min, pos_max, nrow(sect_data), excl_text),
+        side = 3, outer = TRUE, line = 0.5, cex = 1.3, font = 2)
+
+  dev.off()
+
+  return(fig_file)
 }
 
 # ==============================================================================
@@ -140,20 +221,20 @@ create_section_qc_figure <- function(section_name, xrf_data, exclusions,
 
 message("\nGenerating appendix figures...")
 
+# Data path for reading document.txt files
+data_path <- file.path(base_path, "TAM-SC-IsaacA")
+
 sections <- sort(unique(xrf_data$section))
 
 for (sect in sections) {
   message(sprintf("Processing: %s", sect))
 
-  fig <- create_section_qc_figure(sect, xrf_data, exclusions, optical_path)
+  fig_temp <- create_section_qc_figure(sect, xrf_data, exclusions, optical_path, data_path)
 
-  if (!is.null(fig)) {
+  if (!is.null(fig_temp)) {
     filename <- paste0("appendix_qc_", gsub("[^A-Za-z0-9_-]", "_", sect), ".png")
-    ggsave(
-      file.path(appendix_path, filename),
-      fig,
-      width = 10, height = 6, dpi = 150, bg = "white"
-    )
+    file.copy(fig_temp, file.path(appendix_path, filename), overwrite = TRUE)
+    unlink(fig_temp)
   }
 }
 
