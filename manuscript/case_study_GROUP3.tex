@@ -1,0 +1,258 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+
+% Title
+\title{High-Resolution XRF Geochemistry of a Miocene Lacustrine Sequence: \\
+A Case Study from the Pebas Formation, Western Amazonia}
+
+\author{Isaac Adebayo Adekanmbi}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a high-resolution XRF core scanning record from the Pebas Formation at Tamshiyacu, Peru, representing one of the most detailed geochemical datasets from Miocene Amazonian lacustrine sediments. The 1.12-meter continuous record (GROUP3, TAM-5AB-6-7) comprises 303 measurements at 3.7~mm resolution, enabling sub-centimeter paleoenvironmental reconstruction. Elemental proxy analysis reveals a tripartite depositional history: (1) a basal shell-rich carbonate interval (Ca/Ti $>$10) with mixed redox conditions, (2) a transitional mixed facies zone, and (3) an upper clastic-dominated sequence with persistently reducing conditions (Fe/Mn $>$50 in 97--100\% of samples). Strong Fe-Ti-Rb correlations (r $>$0.7) validate terrigenous proxy interpretations, while Ca-Sr associations (r = 0.60) confirm biogenic carbonate signals likely representing mollusk shell material characteristic of Pebas endemic fauna. This case study demonstrates the potential of high-resolution XRF scanning for reconstructing fine-scale environmental variability in ancient Amazonian aquatic systems.
+\end{abstract}
+
+\section{Introduction}
+
+The Pebas Formation represents one of the most extensive Miocene sedimentary sequences in western Amazonia, recording the evolution of the ``Pebas mega-wetland''---a long-lived lacustrine-fluvial system that dominated the region from approximately 23 to 10~Ma \citep{Hoorn2010,Wesselingh2002}. Understanding environmental variability within this system is critical for reconstructing Amazonian paleoclimate and the evolution of its endemic biota.
+
+X-ray fluorescence (XRF) core scanning provides non-destructive, high-resolution elemental data that can serve as proxies for paleoenvironmental conditions \citep{Croudace2006,Rothwell2015}. However, most XRF studies of Amazonian sediments operate at centimeter-scale resolution, potentially missing fine-scale environmental fluctuations.
+
+This case study presents a detailed analysis of a 1.12-meter continuous XRF record from the Tamshiyacu locality, representing one of the highest-resolution geochemical datasets from the Pebas Formation. We demonstrate the utility of millimeter-scale XRF scanning for discriminating depositional facies and reconstructing redox conditions in ancient Amazonian lacustrine environments.
+
+\section{Materials and Methods}
+
+\subsection{Sample Material}
+
+Core GROUP3 was collected from the Tamshiyacu outcrop along the Amazon River, approximately 30~km downstream of Iquitos, Peru. The core spans sections TAM-5AB-6-7-A, TAM-5AB-6-7-B-RUN2, and TAM-5AB-6-7-C, representing a continuous 1.12-meter stratigraphic interval.
+
+\subsection{XRF Core Scanning}
+
+Samples were analyzed using an Itrax XRF core scanner (Cox Analytical Systems) equipped with a Mo tube operated at 30~kV and 55~mA. Measurements were acquired at 3~mm step intervals with 10-second exposure times, yielding 303 data points over the analyzed interval. Element intensities are reported in counts per second (cps).
+
+\subsection{Data Processing}
+
+Raw XRF data underwent quality control filtering to remove measurements affected by core gaps, foam inserts, and instrumental artifacts. A 5-point moving window filter (\textasciitilde18.5~mm window at 3.7~mm mean step size) was applied to reduce measurement noise while preserving stratigraphic trends. Elemental ratios were calculated to normalize for matrix effects and water content variations \citep{Weltje2008}.
+
+\subsection{Proxy Interpretation}
+
+We employed the following geochemical proxies based on established literature:
+\begin{itemize}
+    \item \textbf{Ca/Ti}: Carbonate (biogenic/authigenic) versus terrigenous input \citep{Haug2001}
+    \item \textbf{Fe/Mn}: Bottom water oxygenation; values $>$50 indicate reducing conditions \citep{Calvert1996}
+    \item \textbf{K/Ti}: Chemical weathering intensity in the source region \citep{Nesbitt1982}
+    \item \textbf{Zr/Rb}: Grain size and depositional energy \citep{Dypvik2001}
+\end{itemize}
+
+Geochemical facies were defined based on Ca/Ti thresholds: Shell-rich ($>$10), Carbonate (5--10), Mixed (2--5), and Clastic ($<$2).
+
+\section{Results}
+
+\subsection{Data Quality}
+
+The GROUP3 record exhibits the highest measurement consistency among all analyzed cores, with a mean step size of 3.71~mm (CV = 204\%, reflecting intentional section boundaries) and complete coverage across the 1.12-meter interval. Element detection rates exceeded 99\% for major elements (Fe, Ca, Ti, K, Si).
+
+\subsection{Element Statistics}
+
+Table~\ref{tab:elements} summarizes elemental concentrations across the GROUP3 record. Iron dominates the signal (mean = 423~cps), consistent with the Fe-rich clay mineralogy typical of Pebas Formation sediments. Calcium shows high variability (CV = 99\%), reflecting alternation between carbonate-rich and clastic-dominated intervals.
+
+\begin{table}[h]
+\centering
+\caption{Element statistics for GROUP3 (n = 303)}
+\label{tab:elements}
+\begin{tabular}{lrrrr}
+\toprule
+Element & Mean (cps) & SD & Min & Max \\
+\midrule
+Fe & 423 & 175 & 7 & 1146 \\
+Ca & 123 & 122 & 1 & 596 \\
+Ti & 26 & 9 & 0 & 59 \\
+K & 30 & 10 & 0 & 45 \\
+Mn & 8 & 7 & 0 & 62 \\
+Sr & 9 & 3 & 0 & 18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Proxy Correlations}
+
+Element correlations validate the geochemical proxy framework (Table~\ref{tab:correlations}). The strong Fe-Ti association (r = 0.75) confirms their shared terrigenous origin. Fe-Rb correlation (r = 0.71) reflects clay mineral associations. The Ca-Sr correlation (r = 0.60) supports interpretation of Ca as biogenic carbonate, likely from mollusk shells characteristic of Pebas endemic fauna.
+
+\begin{table}[h]
+\centering
+\caption{Selected element correlations (Pearson r)}
+\label{tab:correlations}
+\begin{tabular}{lccc}
+\toprule
+Element Pair & r & Expected & Validation \\
+\midrule
+Fe--Ti & 0.75 & Positive & Valid \\
+Fe--Rb & 0.71 & Positive & Valid \\
+Ca--Sr & 0.60 & Positive & Valid \\
+Zr--Rb & 0.21 & Weak/Negative & Valid \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Geochemical Facies Distribution}
+
+Four geochemical facies were identified based on Ca/Ti ratios (Table~\ref{tab:facies}):
+
+\begin{table}[h]
+\centering
+\caption{Geochemical facies characteristics}
+\label{tab:facies}
+\begin{tabular}{lrrrr}
+\toprule
+Facies & n (\%) & Ca/Ti & Fe/Mn & \% Reducing \\
+\midrule
+Shell-rich & 43 (14\%) & 15.2 $\pm$ 4.6 & 49.3 $\pm$ 21.7 & 49\% \\
+Carbonate & 53 (18\%) & 7.4 $\pm$ 1.1 & 44.9 $\pm$ 12.1 & 40\% \\
+Mixed & 89 (29\%) & 2.6 $\pm$ 0.7 & 71.0 $\pm$ 22.8 & 75\% \\
+Clastic & 118 (39\%) & 1.6 $\pm$ 0.3 & 81.6 $\pm$ 26.6 & 92\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Stratigraphic Zonation}
+
+The record reveals a clear tripartite stratigraphy (Figure~\ref{fig:stratigraphy}):
+
+\textbf{Zone I (0--60~cm)}: Shell-rich to carbonate facies with elevated Ca/Ti (mean = 8.7) and mixed redox conditions (40--48\% reducing). This interval likely represents periods of stable lacustrine conditions favorable for mollusk colonization.
+
+\textbf{Zone II (60--80~cm)}: Transitional mixed facies with decreasing Ca/Ti and increasing Fe/Mn. Reducing conditions become more prevalent (67\%), suggesting deepening or reduced circulation.
+
+\textbf{Zone III (80--112~cm)}: Clastic-dominated facies with persistently reducing conditions (97--100\% of samples with Fe/Mn $>$50). Ca/Ti values remain low (mean = 1.7), indicating minimal carbonate production or preservation. This interval records either increased terrigenous flux or unfavorable conditions for benthic fauna.
+
+\section{Discussion}
+
+\subsection{Depositional Environment}
+
+The geochemical record documents a transition from carbonate-producing, variably oxygenated conditions to a clastic-dominated, persistently reducing environment. The strong Ca-Sr correlation and elevated Ca/Ti values in Zone I suggest biogenic carbonate accumulation, consistent with the endemic mollusk fauna (e.g., \textit{Pachydon}, \textit{Dyris}) characteristic of Pebas lacustrine facies \citep{Wesselingh2002}.
+
+The progressive increase in Fe/Mn ratios up-section indicates deteriorating bottom-water oxygenation. Values exceeding 50 throughout Zone III (mean = 84--103) suggest sustained dysoxic to anoxic conditions, potentially limiting benthic colonization and carbonate preservation.
+
+\subsection{Paleoenvironmental Implications}
+
+The observed facies succession may reflect:
+\begin{enumerate}
+    \item \textbf{Lake-level change}: Transgression leading to deeper, stratified conditions and reduced benthic oxygenation
+    \item \textbf{Increased terrigenous flux}: Enhanced sediment supply from Andean sources diluting autochthonous carbonate production
+    \item \textbf{Productivity shifts}: Changes in surface productivity affecting organic matter flux and bottom-water oxygen demand
+\end{enumerate}
+
+The K/Ti weathering proxy shows moderate variation (mean = 1.15 $\pm$ 0.37), suggesting relatively stable source area weathering conditions throughout deposition.
+
+\subsection{Methodological Considerations}
+
+This case study demonstrates that millimeter-scale XRF scanning can resolve sub-decimeter environmental variability in Pebas Formation sediments. The 3.7~mm measurement spacing corresponds to approximately 1--10 years of deposition assuming sedimentation rates of 0.4--4~mm/yr typical of lacustrine settings, enabling detection of decadal-scale environmental fluctuations.
+
+\section{Conclusions}
+
+High-resolution XRF core scanning of a 1.12-meter Pebas Formation sequence reveals:
+\begin{enumerate}
+    \item A tripartite depositional history from carbonate-rich to clastic-dominated facies
+    \item Progressive transition from mixed to persistently reducing conditions
+    \item Strong elemental associations validating standard geochemical proxy interpretations
+    \item Potential for millimeter-scale paleoenvironmental reconstruction in Miocene Amazonian sediments
+\end{enumerate}
+
+This dataset provides a framework for integrating co-measured magnetic susceptibility, CT radiodensity, and fossil occurrence data to develop a comprehensive paleoenvironmental reconstruction of the Pebas mega-wetland system.
+
+\section*{Data Availability}
+
+XRF data and analysis scripts are available at: \url{https://github.com/biopixl/Pebas-XRF}
+
+\bibliographystyle{apalike}
+\begin{thebibliography}{99}
+
+\bibitem[Calvert and Pedersen, 1996]{Calvert1996}
+Calvert, S.E. and Pedersen, T.F. (1996).
+\newblock Sedimentary geochemistry of manganese: implications for the environment of formation of manganiferous black shales.
+\newblock \textit{Economic Geology}, 91:36--47.
+
+\bibitem[Croudace et al., 2006]{Croudace2006}
+Croudace, I.W., Rindby, A., and Rothwell, R.G. (2006).
+\newblock ITRAX: description and evaluation of a new multi-function X-ray core scanner.
+\newblock \textit{Geological Society, London, Special Publications}, 267:51--63.
+
+\bibitem[Dypvik and Harris, 2001]{Dypvik2001}
+Dypvik, H. and Harris, N.B. (2001).
+\newblock Geochemical facies analysis of fine-grained siliciclastics using Th/U, Zr/Rb and (Zr+Rb)/Sr ratios.
+\newblock \textit{Chemical Geology}, 181:131--146.
+
+\bibitem[Haug et al., 2001]{Haug2001}
+Haug, G.H., Hughen, K.A., Sigman, D.M., Peterson, L.C., and R{\"o}hl, U. (2001).
+\newblock Southward migration of the intertropical convergence zone through the Holocene.
+\newblock \textit{Science}, 293:1304--1308.
+
+\bibitem[Hoorn et al., 2010]{Hoorn2010}
+Hoorn, C., Wesselingh, F.P., ter Steege, H., et al. (2010).
+\newblock Amazonia through time: Andean uplift, climate change, landscape evolution, and biodiversity.
+\newblock \textit{Science}, 330:927--931.
+
+\bibitem[Nesbitt and Young, 1982]{Nesbitt1982}
+Nesbitt, H.W. and Young, G.M. (1982).
+\newblock Early Proterozoic climates and plate motions inferred from major element chemistry of lutites.
+\newblock \textit{Nature}, 299:715--717.
+
+\bibitem[Rothwell and Croudace, 2015]{Rothwell2015}
+Rothwell, R.G. and Croudace, I.W. (2015).
+\newblock Twenty years of XRF core scanning marine sediments: what do geochemical proxies tell us?
+\newblock \textit{Micro-XRF Studies of Sediment Cores}, Springer, pp. 25--102.
+
+\bibitem[Weltje and Tjallingii, 2008]{Weltje2008}
+Weltje, G.J. and Tjallingii, R. (2008).
+\newblock Calibration of XRF core scanners for quantitative geochemical logging of sediment cores: theory and application.
+\newblock \textit{Earth and Planetary Science Letters}, 274:423--438.
+
+\bibitem[Wesselingh et al., 2002]{Wesselingh2002}
+Wesselingh, F.P., Räsänen, M.E., Irion, G., et al. (2002).
+\newblock Lake Pebas: a palaeoecological reconstruction of a Miocene, long-lived lake complex in western Amazonia.
+\newblock \textit{Cainozoic Research}, 1:35--81.
+
+\end{thebibliography}
+
+\newpage
+\section*{Figures}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{../output/figures/case_study/fig1_stratigraphy_GROUP3.png}
+\caption{High-resolution geochemical stratigraphy of TAM GROUP3. From left: interpreted facies column, Ca/Ti (carbonate proxy), Fe/Mn (redox proxy with threshold at 50), Fe (terrigenous input), K/Ti (weathering), and Zr/Rb (grain size). Raw data shown as points; lines represent 5-point moving window filter.}
+\label{fig:stratigraphy}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{../output/figures/case_study/fig2_correlation_GROUP3.png}
+\caption{Element correlation matrix for GROUP3 (n=303). Strong positive correlations among Fe-Ti-Rb confirm terrigenous associations; Ca-Sr correlation supports biogenic carbonate interpretation.}
+\label{fig:correlation}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{../output/figures/case_study/fig3_bivariate_GROUP3.png}
+\caption{Bivariate proxy relationships. (A) Carbonate vs redox showing facies discrimination; (B) Weathering vs grain size; (C) Fe-Ti terrigenous association; (D) Ca-Sr carbonate association. Colors indicate geochemical facies classification.}
+\label{fig:bivariate}
+\end{figure}
+
+\end{document}
