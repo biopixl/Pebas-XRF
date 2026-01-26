@@ -1,0 +1,369 @@
+% ==============================================================================
+% Pebas-XRF: Manuscript for Plot Interpretation Review
+% ==============================================================================
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{siunitx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{lineno}
+\usepackage{setspace}
+
+% Line numbers for review
+\linenumbers
+\onehalfspacing
+
+% Custom commands
+\newcommand{\ratio}[2]{#1/#2}
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+\newcommand{\REVIEW}[1]{\textcolor{blue}{\textbf{[REVIEW: #1]}}}
+
+% Title
+\title{XRF Core Scanner Geochemistry of the Pebas Formation:\\
+Paleoenvironmental Reconstruction from Tamshiyacu and Santa Corina Cores}
+
+\author{Isaac Ayesu\textsuperscript{1}}
+
+\date{\today \\ \small Draft for Internal Review}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document presents preliminary XRF core scanner results from sediment cores collected from the Pebas Formation at Tamshiyacu (TAM) and Santa Corina (SC) localities in the Peruvian Amazon. We apply established geochemical proxies to interpret paleoenvironmental conditions including terrigenous input, redox state, chemical weathering intensity, and sediment provenance. Element ratios (Ca/Ti, Fe/Mn, K/Ti, Zr/Rb) are calculated following best practices for compositional data analysis, and principal component analysis (PCA) with centered log-ratio (CLR) transformation is used to identify multivariate geochemical signatures. This draft is intended for expert review of proxy interpretations against the established literature.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ==============================================================================
+\section{Introduction}
+% ==============================================================================
+
+The Pebas Formation represents a critical archive of Miocene environmental conditions in western Amazonia. Understanding the geochemical signatures preserved in these sediments provides insights into:
+
+\begin{itemize}
+    \item Paleolake/wetland dynamics during the Miocene
+    \item Andean uplift and its influence on sediment provenance
+    \item Redox conditions and organic matter preservation
+    \item Hydrological variability and terrigenous input
+\end{itemize}
+
+\subsection{Study Sites}
+
+Two core localities were analyzed:
+
+\begin{description}
+    \item[Tamshiyacu (TAM)] \TODO{Add coordinates and stratigraphic context}
+    \item[Santa Corina (SC)] \TODO{Add coordinates and stratigraphic context}
+\end{description}
+
+\subsection{Objectives}
+
+\begin{enumerate}
+    \item Characterize the major and trace element geochemistry of TAM and SC cores
+    \item Apply XRF-based paleoenvironmental proxies with appropriate normalization
+    \item Compare geochemical signatures between localities
+    \item Interpret depositional environments using multivariate analysis
+\end{enumerate}
+
+% ==============================================================================
+\section{Methods}
+% ==============================================================================
+
+\subsection{XRF Core Scanning}
+
+Sediment cores were analyzed using an Itrax XRF core scanner (Cox Analytical Systems) with the following parameters:
+
+\begin{table}[h]
+\centering
+\caption{Itrax XRF scanning parameters}
+\label{tab:scan_params}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+X-ray tube & Molybdenum (Mo) \\
+Voltage & \SI{30}{kV} \\
+Current & \SI{55}{mA} \\
+Exposure time & \SI{10}{s} \\
+Step size & \SI{3}{mm} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Mo tube configuration provides optimal detection for elements from Al to Mo, with good sensitivity for major rock-forming elements (Si, Al, K, Ca, Ti, Fe) and key trace elements (Mn, Rb, Sr, Zr, Ba).
+
+\subsection{Data Processing}
+
+\subsubsection{Quality Control}
+
+Measurements were filtered based on:
+\begin{itemize}
+    \item Mean Squared Error (MSE) of spectral fit: $\leq 10$
+    \item Total counts per second (cps): $\geq 20,000$
+    \item Sample surface distance: $< \SI{8}{mm}$ (detector proximity)
+    \item Validity flag: Valid measurements only
+\end{itemize}
+
+\subsubsection{Element Ratios}
+
+Element ratios were calculated to minimize matrix effects and closed-sum artifacts inherent to XRF core scanner data \citep{Weltje2008, Croudace2015}. The following ratios were computed:
+
+\begin{table}[h]
+\centering
+\caption{Element ratios and their paleoenvironmental interpretations}
+\label{tab:ratios}
+\begin{tabular}{lll}
+\toprule
+Ratio & Proxy For & Key References \\
+\midrule
+\ratio{Ca}{Ti} & Carbonate vs. terrigenous input & \citet{Haug2001, Davies2015} \\
+\ratio{Fe}{Mn} & Redox conditions & \citet{Croudace2006, Rothwell2015} \\
+\ratio{K}{Ti} & Chemical weathering intensity & \citet{Nesbitt1982} \\
+\ratio{Rb}{Sr} & Silicate weathering & \citet{Jin2001} \\
+\ratio{Zr}{Rb} & Grain size / energy & \citet{Dypvik2001} \\
+\ratio{Si}{Ti} & Biogenic silica & \citet{Brown2007} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Compositional Data Analysis}
+
+XRF element data are compositional (subject to closure constraints), which can produce spurious correlations in standard statistical analyses \citep{Aitchison1986}. Following best practices \citep{Weltje2015}, we applied centered log-ratio (CLR) transformation before principal component analysis:
+
+\begin{equation}
+\text{CLR}(x_i) = \ln\left(\frac{x_i}{g(\mathbf{x})}\right)
+\end{equation}
+
+where $g(\mathbf{x})$ is the geometric mean of all components.
+
+% ==============================================================================
+\section{Results}
+% ==============================================================================
+
+\subsection{Data Summary}
+
+\begin{table}[h]
+\centering
+\caption{Summary of XRF measurements by core series}
+\label{tab:data_summary}
+\begin{tabular}{lrrr}
+\toprule
+Core Series & Sections & Measurements & QC Pass Rate (\%) \\
+\midrule
+TAM (Tamshiyacu) & \TODO{n} & \TODO{n} & \TODO{n} \\
+SC (Santa Corina) & \TODO{n} & \TODO{n} & \TODO{n} \\
+\midrule
+Total & \TODO{n} & \TODO{n} & \TODO{n} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Stratigraphic Profiles}
+
+\REVIEW{Insert stratigraphic plots here and evaluate against expected patterns}
+
+\begin{figure}[h]
+\centering
+% \includegraphics[width=\textwidth]{figures/strat_example.png}
+\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}[Stratigraphic plot placeholder]\vspace{3cm}}}
+\caption{Multi-panel stratigraphic plot showing major element profiles and key ratios for representative section. \REVIEW{Verify depth orientation and ratio interpretations}}
+\label{fig:strat_example}
+\end{figure}
+
+\subsection{Element Ratio Distributions}
+
+\REVIEW{Compare ratio distributions between TAM and SC - what do differences indicate?}
+
+\begin{figure}[h]
+\centering
+% \includegraphics[width=0.8\textwidth]{figures/ratio_distributions.png}
+\fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}[Ratio distribution plot placeholder]\vspace{4cm}}}
+\caption{Kernel density distributions of key element ratios comparing Tamshiyacu (TAM) and Santa Corina (SC) cores.}
+\label{fig:ratio_dist}
+\end{figure}
+
+\subsection{Principal Component Analysis}
+
+\begin{figure}[h]
+\centering
+% \includegraphics[width=\textwidth]{figures/pca_biplot.png}
+\fbox{\parbox{0.9\textwidth}{\centering\vspace{5cm}[PCA biplot placeholder]\vspace{5cm}}}
+\caption{PCA biplot of CLR-transformed element data. Arrows indicate element loadings; points are colored by core series.}
+\label{fig:pca}
+\end{figure}
+
+\subsubsection{PC1 Interpretation}
+
+\REVIEW{Based on loadings, what does PC1 represent?}
+
+\begin{itemize}
+    \item Positive loadings: \TODO{List elements}
+    \item Negative loadings: \TODO{List elements}
+    \item Interpretation: \TODO{Terrigenous vs biogenic? Weathering? Grain size?}
+\end{itemize}
+
+\subsubsection{PC2 Interpretation}
+
+\REVIEW{Based on loadings, what does PC2 represent?}
+
+\begin{itemize}
+    \item Positive loadings: \TODO{List elements}
+    \item Negative loadings: \TODO{List elements}
+    \item Interpretation: \TODO{}
+\end{itemize}
+
+% ==============================================================================
+\section{Proxy Interpretation Guide}
+% ==============================================================================
+
+\REVIEW{This section provides literature-based expectations for each proxy. Compare observed patterns against these benchmarks.}
+
+\subsection{\ratio{Ca}{Ti} --- Carbonate vs. Terrigenous Input}
+
+\subsubsection{Literature Basis}
+\begin{itemize}
+    \item Ti is a conservative, immobile element of purely terrigenous origin \citep{Calvert1996}
+    \item Ca in lacustrine settings derives from: (1) authigenic carbonate precipitation, (2) biogenic carbonate (ostracods, mollusks), (3) detrital carbonate
+    \item Higher \ratio{Ca}{Ti} indicates increased carbonate production or reduced clastic dilution
+    \item In the Pebas Formation context: \TODO{What is expected based on known paleoecology?}
+\end{itemize}
+
+\subsubsection{Observed Pattern}
+\REVIEW{Describe observed \ratio{Ca}{Ti} patterns in TAM vs SC cores}
+
+\subsubsection{Interpretation}
+\TODO{Interpret in context of Pebas paleoenvironment}
+
+\subsection{\ratio{Fe}{Mn} --- Redox Conditions}
+
+\subsubsection{Literature Basis}
+\begin{itemize}
+    \item Mn is more readily mobilized under reducing conditions than Fe \citep{Calvert1996}
+    \item Under oxic bottom waters, Mn precipitates as oxides at the sediment-water interface
+    \item Under anoxic/dysoxic conditions, Mn diffuses upward and escapes, leaving Fe enriched
+    \item High \ratio{Fe}{Mn} $\rightarrow$ reducing (anoxic) conditions
+    \item Low \ratio{Fe}{Mn} $\rightarrow$ oxidizing (oxic) conditions
+    \item Typical oxic/anoxic threshold: \ratio{Fe}{Mn} $\approx$ 40--60 \citep{Rothwell2015}
+\end{itemize}
+
+\subsubsection{Observed Pattern}
+\REVIEW{What are the \ratio{Fe}{Mn} values in our cores? Above or below threshold?}
+
+\subsubsection{Interpretation}
+\TODO{Were Pebas paleolakes/wetlands oxic or anoxic?}
+
+\subsection{\ratio{K}{Ti} --- Chemical Weathering Intensity}
+
+\subsubsection{Literature Basis}
+\begin{itemize}
+    \item K is mobile during chemical weathering; Ti is immobile
+    \item Intense weathering depletes K relative to Ti (lower \ratio{K}{Ti})
+    \item Higher \ratio{K}{Ti} indicates less weathered, more ``fresh'' detritus
+    \item Related to Climate Index of Alteration (CIA) concept \citep{Nesbitt1982}
+\end{itemize}
+
+\subsubsection{Observed Pattern}
+\REVIEW{Do TAM and SC differ in \ratio{K}{Ti}? Any stratigraphic trends?}
+
+\subsubsection{Interpretation}
+\TODO{What does this suggest about source weathering intensity?}
+
+\subsection{\ratio{Zr}{Rb} --- Grain Size Proxy}
+
+\subsubsection{Literature Basis}
+\begin{itemize}
+    \item Zr concentrates in heavy minerals (zircon) in coarser fractions
+    \item Rb associates with clay minerals (illite, muscovite) in finer fractions
+    \item Higher \ratio{Zr}{Rb} indicates coarser sediment, higher depositional energy
+    \item Lower \ratio{Zr}{Rb} indicates finer sediment, lower energy (lacustrine, distal)
+    \item Validated against laser grain size in multiple studies \citep{Dypvik2001, Kylander2011}
+\end{itemize}
+
+\subsubsection{Observed Pattern}
+\REVIEW{How does \ratio{Zr}{Rb} vary between sites and with depth?}
+
+\subsubsection{Interpretation}
+\TODO{Implications for depositional energy and environment}
+
+\subsection{\ratio{Rb}{Sr} --- Silicate Weathering}
+
+\subsubsection{Literature Basis}
+\begin{itemize}
+    \item Sr is preferentially leached during silicate weathering; Rb is retained in clays
+    \item Higher \ratio{Rb}{Sr} indicates more intense chemical weathering of source rocks
+    \item Can also reflect provenance differences (felsic vs mafic sources)
+    \item Used extensively in loess-paleosol studies \citep{Jin2001}
+\end{itemize}
+
+\subsubsection{Observed Pattern}
+\REVIEW{Document \ratio{Rb}{Sr} patterns}
+
+% ==============================================================================
+\section{Discussion}
+% ==============================================================================
+
+\subsection{Comparison of TAM and SC Geochemistry}
+
+\REVIEW{Key questions to address:}
+\begin{enumerate}
+    \item Do TAM and SC represent the same or different depositional environments?
+    \item Are there systematic geochemical differences between sites?
+    \item What do PCA clusters suggest about sediment sources or environments?
+\end{enumerate}
+
+\subsection{Paleoenvironmental Reconstruction}
+
+\TODO{Synthesize proxy evidence into coherent paleoenvironmental interpretation}
+
+\subsubsection{Depositional Environment}
+\begin{itemize}
+    \item Evidence for lacustrine vs. fluvial vs. marginal marine?
+    \item Energy levels and water depth indicators?
+\end{itemize}
+
+\subsubsection{Redox Conditions}
+\begin{itemize}
+    \item Were bottom waters generally oxic or anoxic?
+    \item Any stratigraphic changes in redox state?
+\end{itemize}
+
+\subsubsection{Terrigenous Input and Weathering}
+\begin{itemize}
+    \item Source area weathering intensity?
+    \item Variations in clastic input through time?
+\end{itemize}
+
+\subsection{Comparison with Published Pebas Studies}
+
+\TODO{Compare our geochemical signatures with published work on Pebas Formation}
+
+Key references to compare:
+\begin{itemize}
+    \item \TODO{List relevant Pebas geochemistry/paleoenvironment papers}
+\end{itemize}
+
+% ==============================================================================
+\section{Conclusions}
+% ==============================================================================
+
+\TODO{Summarize key findings after review}
+
+% ==============================================================================
+% References
+% ==============================================================================
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}
