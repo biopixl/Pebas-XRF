@@ -389,6 +389,29 @@ server <- function(input, output, session) {
     }
   })
 
+  # Helper function to save exclusions to file
+  save_to_file <- function(excl_data) {
+    # Get all valid exclusions
+    valid_excl <- excl_data %>% filter(!is.na(exclude_start_mm))
+
+    # Create full list with all sections
+    all_sections <- tibble(section = sections)
+
+    # For sections without exclusions, add NA row
+    # For sections with exclusions, keep all their exclusion rows
+    sections_with_excl <- unique(valid_excl$section)
+    sections_without <- setdiff(sections, sections_with_excl)
+
+    final <- bind_rows(
+      valid_excl,
+      tibble(section = sections_without, exclude_start_mm = NA_real_,
+             exclude_end_mm = NA_real_, notes = NA_character_)
+    ) %>% arrange(section, exclude_start_mm)
+
+    write_csv(final, EXCLUSION_FILE)
+    return(sum(!is.na(final$exclude_start_mm)))
+  }
+
   # Add exclusion
   observeEvent(input$add_exclusion, {
     req(input$excl_start, input$excl_end)
@@ -403,13 +426,18 @@ server <- function(input, output, session) {
       notes = ifelse(input$excl_notes == "", "excluded", input$excl_notes)
     )
 
-    exclusions(bind_rows(exclusions(), new_excl))
+    updated <- bind_rows(exclusions(), new_excl)
+    exclusions(updated)
+
+    # AUTO-SAVE immediately
+    n_saved <- save_to_file(updated)
 
     updateNumericInput(session, "excl_start", value = NA)
     updateNumericInput(session, "excl_end", value = NA)
     updateTextInput(session, "excl_notes", value = "")
 
-    showNotification(sprintf("Added: %.0f-%.0f mm", start_val, end_val), type = "message")
+    showNotification(sprintf("Added & saved: %.0f-%.0f mm (%d total zones)",
+                             start_val, end_val, n_saved), type = "message")
   })
 
   # Clear inputs
@@ -426,22 +454,19 @@ server <- function(input, output, session) {
 
     if (length(sect_rows) > 0) {
       last_row <- max(sect_rows)
-      exclusions(current[-last_row, ])
-      showNotification("Removed last exclusion", type = "warning")
+      updated <- current[-last_row, ]
+      exclusions(updated)
+
+      # AUTO-SAVE immediately
+      n_saved <- save_to_file(updated)
+      showNotification(sprintf("Removed & saved (%d total zones)", n_saved), type = "warning")
     }
   })
 
-  # Save all exclusions
+  # Manual save (backup, auto-save should handle most cases)
   observeEvent(input$save_all, {
-    all_sections <- tibble(section = sections)
-
-    final <- all_sections %>%
-      left_join(exclusions() %>% filter(!is.na(exclude_start_mm)), by = "section")
-
-    write_csv(final, EXCLUSION_FILE)
-
-    n_zones <- sum(!is.na(final$exclude_start_mm))
-    showNotification(sprintf("Saved %d exclusion zones", n_zones),
+    n_saved <- save_to_file(exclusions())
+    showNotification(sprintf("Saved %d exclusion zones to file", n_saved),
                      type = "message", duration = 5)
   })
 
