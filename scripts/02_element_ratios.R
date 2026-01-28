@@ -33,7 +33,10 @@ message(sprintf("Loaded %d QC-passing measurements (%d in exclusion zones)",
 # ==============================================================================
 
 # Key paleoenvironmental ratios for lacustrine/fluvial sediments
-# Based on literature review (Croudace & Rothwell 2015; Davies et al. 2015)
+# Adapted for Miocene Pebas Formation context (tropical freshwater mega-wetland)
+# Based on literature review: Croudace & Rothwell 2015; Davies et al. 2015;
+# Wesselingh et al. 2002; Vonhof et al. 1998, 2003
+# See docs/proxy_relevance_report.md for detailed proxy evaluation
 
 #' Calculate standard element ratios
 #'
@@ -43,73 +46,114 @@ calculate_element_ratios <- function(data) {
 
   data %>%
     mutate(
+      # ===================================================================
+      # PRIMARY PROXIES - High confidence for Pebas Formation
+      # ===================================================================
+
       # -------------------------------------------------------------------
-      # TERRIGENOUS vs BIOGENIC INPUT
+      # TERRIGENOUS vs BIOGENIC INPUT (HIGH RELEVANCE)
       # -------------------------------------------------------------------
-      # Ca/Ti: Carbonate (biogenic/authigenic) vs detrital input
-      # Higher = more carbonate precipitation or less clastic input
+      # Ca/Ti: Carbonate (authigenic/biogenic) vs detrital input
+      # In Pebas context: Higher = authigenic carbonate precipitation
+      # during drier/evaporative periods; Lower = terrigenous dominance
       Ca_Ti = Ca / Ti,
       log_Ca_Ti = log10(Ca / Ti),
 
+      # -------------------------------------------------------------------
+      # CARBONATE MINERALOGY / SALINITY (HIGH RELEVANCE - NEW)
+      # -------------------------------------------------------------------
+      # Sr/Ca: Discriminates carbonate type and salinity influence
+      # Higher Sr/Ca = aragonite (ostracods, molluscs) or brackish influence
+      # Lower Sr/Ca = freshwater calcite precipitation
+      # Useful for detecting oligohaline incursion events in Pebas
+      Sr_Ca = Sr / Ca,
+      log_Sr_Ca = log10(Sr / Ca),
+
+      # -------------------------------------------------------------------
+      # DETRITAL COMPOSITION / WEATHERING (HIGH RELEVANCE)
+      # -------------------------------------------------------------------
+      # Fe/Ti: Lateritic weathering indicator, runoff intensity
+      # Higher = enhanced transport of weathered material from catchment
+      # Excellent detection with Mo tube; less redox-affected than Fe/Mn
+      Fe_Ti = Fe / Ti,
+      log_Fe_Ti = log10(Fe / Ti),
+
+      # -------------------------------------------------------------------
+      # GRAIN SIZE / HYDRODYNAMIC ENERGY (MODERATE-HIGH RELEVANCE)
+      # -------------------------------------------------------------------
+      # Zr/Rb: Coarse (heavy minerals) vs fine (clays) fraction
+      # Higher = coarser sediment, higher energy environment
+      # Note: Some provenance effects possible (Andean vs cratonic sources)
+      Zr_Rb = Zr / Rb,
+      log_Zr_Rb = log10(Zr / Rb),
+
+      # ===================================================================
+      # SECONDARY PROXIES - Use with caveats
+      # ===================================================================
+
+      # -------------------------------------------------------------------
+      # REDOX CONDITIONS (MODERATE RELEVANCE - USE CAUTIOUSLY)
+      # -------------------------------------------------------------------
+      # Fe/Mn: Redox indicator at sediment-water interface
+      # CAUTION: Interpretation complicated by:
+      # - Detrital Fe input from lateritic catchment
+      # - Diagenetic Mn trapping under permanent anoxia
+      # - Lake-specific calibration required
+      Fe_Mn = Fe / Mn,
+      log_Fe_Mn = log10(Fe / Mn),
+
+      # Mn/Ca: Alternative redox-carbonate coupling indicator
+      # May track bottom water oxygenation during carbonate precipitation
+      Mn_Ca = Mn / Ca,
+
+      # -------------------------------------------------------------------
+      # BIOGENIC SILICA (MODERATE RELEVANCE - DETECTION LIMITED)
+      # -------------------------------------------------------------------
       # Si/Ti: Biogenic silica (diatoms) vs detrital silica
-      # Higher = more diatom productivity (in lacustrine settings)
+      # CAUTION: Si detection marginal with Mo tube
+      # Needs microscopic validation of diatom presence
       Si_Ti = Si / Ti,
       log_Si_Ti = log10(Si / Ti),
 
       # -------------------------------------------------------------------
-      # REDOX CONDITIONS
+      # SALINITY INDICATOR (MODERATE - REINTERPRETED)
       # -------------------------------------------------------------------
-      # Fe/Mn: Redox indicator at sediment-water interface
-      # Higher = more reducing (anoxic) conditions
-      # Mn is preferentially mobilized under reducing conditions
-      Fe_Mn = Fe / Mn,
-      log_Fe_Mn = log10(Fe / Mn),
-
-      # -------------------------------------------------------------------
-      # CHEMICAL WEATHERING INTENSITY
-      # -------------------------------------------------------------------
-      # K/Ti: Clay composition, weathering intensity
-      # Higher K = more illite/muscovite, less weathered
-      K_Ti = K / Ti,
-      log_K_Ti = log10(K / Ti),
-
-      # Rb/Sr: Silicate weathering intensity
-      # Higher = more intense chemical weathering
-      Rb_Sr = Rb / Sr,
-      log_Rb_Sr = log10(Rb / Sr),
-
-      # -------------------------------------------------------------------
-      # GRAIN SIZE / ENERGY PROXIES
-      # -------------------------------------------------------------------
-      # Zr/Rb: Coarse (heavy minerals) vs fine (clays) fraction
-      # Higher = coarser sediment, higher energy environment
-      Zr_Rb = Zr / Rb,
-      log_Zr_Rb = log10(Zr / Rb),
-
-      # Si/Al: Quartz (coarse) vs clay (fine) content
-      # Higher = coarser sediment
-      Si_Al = Si / Al,
-
-      # -------------------------------------------------------------------
-      # PRODUCTIVITY / ORGANIC MATTER
-      # -------------------------------------------------------------------
-      # Ba/Ti: Paleoproductivity (Ba scavenged by organic particles)
+      # Ba/Ti: In freshwater settings, tracks salinity NOT productivity
+      # Higher Ba = possible oligohaline conditions (barite precipitation)
+      # Marine Ba/Ti productivity interpretation NOT valid for Pebas
       Ba_Ti = Ba / Ti,
 
       # -------------------------------------------------------------------
-      # DETRITAL COMPOSITION
+      # Rb/Sr: REINTERPRETED as carbonate/salinity indicator
+      # NOT weathering proxy in Pebas context (Sr dominated by carbonates)
+      # Lower Rb/Sr = carbonate-rich or brackish intervals
       # -------------------------------------------------------------------
-      # Fe/Ti: Fe-bearing minerals relative to Ti
-      Fe_Ti = Fe / Ti,
+      Rb_Sr = Rb / Sr,
+      log_Rb_Sr = log10(Rb / Sr),
 
-      # K/Rb: Potassium feldspar vs clay
+      # ===================================================================
+      # LIMITED RELEVANCE PROXIES - Retained for completeness
+      # ===================================================================
+
+      # K/Ti: LIMITED RELEVANCE in tropical setting
+      # Catchment already intensely weathered (CIA 80-100); K depleted
+      # May only detect unusual K-enriched layers (volcanic ash?)
+      K_Ti = K / Ti,
+      log_K_Ti = log10(K / Ti),
+
+      # Si/Al: NOT RECOMMENDED - poor Al and Si detection with Mo tube
+      # Use Zr/Rb for grain size instead
+      Si_Al = Si / Al,
+
+      # K/Rb: LIMITED - both elements depleted in tropical weathering
       K_Rb = K / Rb,
 
       # -------------------------------------------------------------------
-      # MATRIX CORRECTION
+      # MATRIX CORRECTION (MODERATE RELEVANCE)
       # -------------------------------------------------------------------
       # Incoherent/Coherent scatter ratio (Compton correction)
       # Related to average atomic number of matrix
+      # May track organic-rich vs mineral-rich intervals
       inc_coh = Mo_inc / Mo_coh
     )
 }
@@ -133,8 +177,17 @@ if ("Br" %in% names(xrf_ratios)) {
 }
 
 # Check for infinite values (division by zero)
-ratio_cols <- c("Ca_Ti", "Si_Ti", "Fe_Mn", "K_Ti", "Rb_Sr", "Zr_Rb", "Si_Al",
-                "Ba_Ti", "Fe_Ti", "K_Rb", "inc_coh")
+# Updated ratio list including new proxies for Pebas Formation context
+ratio_cols <- c(
+  # Primary proxies (high confidence)
+  "Ca_Ti", "Sr_Ca", "Fe_Ti", "Zr_Rb",
+  # Secondary proxies (use with caveats)
+  "Fe_Mn", "Mn_Ca", "Si_Ti", "Ba_Ti", "Rb_Sr",
+  # Limited relevance (retained for completeness)
+  "K_Ti", "Si_Al", "K_Rb",
+  # Matrix correction
+  "inc_coh"
+)
 if ("Br_Ti" %in% names(xrf_ratios)) ratio_cols <- c(ratio_cols, "Br_Ti")
 
 for (col in ratio_cols) {
@@ -153,13 +206,13 @@ xrf_ratios <- xrf_ratios %>%
 # 4. SUMMARY STATISTICS
 # ==============================================================================
 
-# Summary by core series
+# Summary by core series - focus on primary proxies for Pebas context
 ratio_summary <- xrf_ratios %>%
   group_by(core_series) %>%
   summarise(
     n = n(),
     across(
-      all_of(c("Ca_Ti", "Fe_Mn", "K_Ti", "Zr_Rb")),
+      all_of(c("Ca_Ti", "Sr_Ca", "Fe_Ti", "Zr_Rb", "Fe_Mn")),
       list(
         median = ~median(., na.rm = TRUE),
         iqr = ~IQR(., na.rm = TRUE)
