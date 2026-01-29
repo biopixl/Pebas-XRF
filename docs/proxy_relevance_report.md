@@ -1,402 +1,234 @@
-# XRF Proxy Relevance Report for Pebas Formation Sediments
+# XRF Proxy Evaluation for Pebas Formation Sediments
 
-## Miocene Western Amazonian Paleoenvironmental Context
-
-**Report Date:** January 2026
-**Project:** Pebas-XRF Core Scanner Analysis
-**Context:** Middle-Late Miocene (c. 17-10 Ma) lacustrine-wetland sediments from the Pebas Mega-Wetland System
+## Miocene Western Amazonian Lacustrine-Wetland System
 
 ---
 
-## 1. Paleoenvironmental Setting
+## Executive Summary
 
-The Pebas Formation represents a unique and complex freshwater to paralic paleoenvironment characterized by:
+This report evaluates XRF elemental proxies for paleoenvironmental reconstruction of Middle-Late Miocene (c. 17-10 Ma) sediments from the Pebas Mega-Wetland System. Evaluation criteria include: (1) detection quality with Mo tube, (2) relevance to tropical freshwater setting, (3) empirical utility in this dataset.
 
-- **Predominantly freshwater conditions** - Sr isotope ratios (87Sr/86Sr: 0.7081-0.7085) from molluscs indicate dominantly Andean-sourced freshwater drainage
-- **Occasional oligohaline episodes** - Limited marine incursions during Middle to Late Miocene (c. 11-12 Ma) with maximum salinities ~5 psu
-- **Tropical humid climate** - Intense chemical weathering in catchment with kaolinite/gibbsite-dominated clay assemblages
-- **Lake/wetland mosaic** - Shallow lakes, fluvial channels, swamps, and lowland forests covering >1 million km2
-
-**Key References:**
-- [Wesselingh et al. (2002) - Lake Pebas reconstruction](https://www.academia.edu/70400849/Lake_Pebas_a_palaeoecological_reconstruction_of_a_Miocene_long_lived_lake_complex_in_western_Amazonia)
-- [Vonhof et al. (1998, 2003) - Sr isotope paleosalinity](https://www.sciencedirect.com/science/article/abs/pii/S0031018298000108)
-- [Frontiers - Saline Waters in Miocene Western Amazonia](https://www.frontiersin.org/journals/earth-science/articles/10.3389/feart.2020.00116/full)
+**Key Finding:** Several commonly-used ratios (especially Ca/Ti) are statistically redundant with raw element counts in this dataset. We recommend a streamlined proxy suite based on empirical analysis.
 
 ---
 
-## 2. Element Detectability with Itrax Mo Tube
+## 1. Paleoenvironmental Context
 
-### Optimal Detection (Mo tube at 60 kV, 30 mA)
-
-| Element | Atomic # | Response | Detection Quality | Notes |
-|---------|----------|----------|-------------------|-------|
-| **Fe** | 26 | Excellent | Primary strength of Mo tube | Most reliable major element |
-| **Ti** | 22 | Very Good | ~40,000 cps typical | Excellent normalizer |
-| **K** | 19 | Good | ~40,000 cps typical | Well above sensitivity threshold |
-| **Ca** | 20 | Very Good | High response | Reliable for carbonate tracking |
-| **Mn** | 25 | Good | Moderate | Adequate for redox proxies |
-| **Rb** | 37 | Very Good | High atomic number advantage | Excellent with Mo tube |
-| **Sr** | 38 | Very Good | High atomic number advantage | Excellent with Mo tube |
-| **Zr** | 40 | Very Good | High atomic number advantage | Excellent with Mo tube |
-| **Ba** | 56 | Good | Moderate | Adequate signal |
-
-### Marginal Detection (Mo tube limitations)
-
-| Element | Atomic # | Detection Quality | Notes |
-|---------|----------|-------------------|-------|
-| **Al** | 13 | Marginal | Only reliable >22,000 ppm (2.2%); Cr tube preferred |
-| **Si** | 14 | Marginal | Better with Cr tube; air/He atmosphere matters |
-| **P** | 15 | Poor | Very low sensitivity with Mo tube |
-| **S** | 16 | Poor | Unreliable quantification |
-
-### Implications for Proxy Selection
-
-- **Preferred proxies:** Those using Fe, Ti, K, Ca, Mn, Rb, Sr, Zr as primary components
-- **Caution required:** Proxies heavily dependent on Al, Si detection (e.g., Si/Al, CIA)
-- **Not recommended:** P-based productivity proxies (P/Ti) without independent validation
-
-**Reference:** [ITRAX methods paper (Croudace et al. 2006)](https://boscorf.org/sites/default/files/documents/itrax_methods_paper.pdf)
+| Parameter | Pebas Formation Characteristics |
+|-----------|--------------------------------|
+| Age | Middle-Late Miocene (c. 17-10 Ma) |
+| Setting | Freshwater mega-wetland, >1 million km² |
+| Salinity | Predominantly freshwater (⁸⁷Sr/⁸⁶Sr: 0.7081-0.7085); rare oligohaline episodes |
+| Climate | Tropical humid; intense chemical weathering (CIA 80-100) |
+| Drainage | Dominantly Andean-sourced |
 
 ---
 
-## 3. Proxy Evaluation: Currently Used Ratios
+## 2. Empirical Proxy Evaluation
 
-### 3.1 Ca/Ti - RECOMMENDED (with caveats)
+### Redundancy Analysis
 
-**Current interpretation:** Carbonate (biogenic/authigenic) vs detrital input
+Ratios where r(element, ratio) > 0.85 provide no additional information beyond the raw element.
 
-**Relevance to Pebas Formation:** HIGH
+| Ratio | Correlation with Numerator | Assessment |
+|-------|---------------------------|------------|
+| Ca/Ti | r = 0.89 | **REDUNDANT** - Use raw Ca instead |
+| Ba/Ti | r = 0.75 | Borderline - consider raw Ba |
+| Zr/Rb | r = 0.60 | **USEFUL** - ratio adds information |
+| Si/Ti | r = 0.56 | **USEFUL** - ratio adds information |
+| Fe/Ti | r = 0.48 | **USEFUL** - ratio adds information |
+| K/Ti | r = 0.39 | **USEFUL** - ratio adds information |
+| Fe/Mn | r = 0.25 | **USEFUL** - ratio adds information |
+| Rb/Sr | r = -0.17 | **USEFUL** - ratio adds information |
 
-**Mechanism:**
-- Higher Ca/Ti indicates increased carbonate precipitation or reduced clastic input
-- In freshwater Pebas lakes, authigenic carbonate (aragonite needles, ostracod shells) precipitates during warmer/drier periods with increased evaporation
-- Low Ca/Ti indicates terrigenous dominance during wetter periods with enhanced runoff
+### Element Variability
 
-**Caveats for Pebas:**
-- Distinguish between authigenic vs detrital carbonate
-- Oligohaline incursion events may introduce marine carbonate signals
-- Sr/Ca ratios can help discriminate aragonite (high Sr) vs calcite (low Sr)
-
-**Detection:** Excellent - both Ca and Ti well-detected by Mo tube
-
----
-
-### 3.2 Fe/Mn - CONDITIONAL USE
-
-**Current interpretation:** Redox indicator at sediment-water interface
-
-**Relevance to Pebas Formation:** MODERATE (with significant limitations)
-
-**Mechanism:**
-- Under reducing (anoxic) conditions, Mn2+ is more soluble than Fe2+ and diffuses upward
-- Higher Fe/Mn theoretically indicates more reducing bottom water conditions
-
-**CRITICAL LIMITATIONS for Pebas:**
-
-1. **Detrital Fe interference:** Variable detrital Fe input from Andean sources obscures redox signal
-2. **Tropical weathering effects:** Lateritic soils in catchment have highly elevated Fe/Al ratios
-3. **Diagenetic trapping:** Under permanent anoxia, Mn is trapped as carbonates/oxides, inverting the expected relationship
-4. **Lake-specific calibration required:** Fe/Mn interpretation varies between individual lake basins
-
-**Recommendation:** Use with caution; combine with independent redox indicators (e.g., S enrichment, organic carbon preservation). Do not over-interpret small variations.
-
-**Reference:** [Variations of sedimentary Fe and Mn fractions (Scholtysik et al.)](https://www.sciencedirect.com/science/article/pii/S0048969720369497)
+| Element | CV (%) | Detection | Notes |
+|---------|--------|-----------|-------|
+| Ca | 81% | Excellent | Highest variance; carbonate signal |
+| Fe | 46% | Excellent | Moderate variance; detrital + redox |
+| Zr | 43% | Excellent | Heavy mineral indicator |
+| K | 37% | Good | Clay/weathering indicator |
+| Ti | 36% | Excellent | Stable detrital normalizer |
+| Al | 36% | Marginal | Mo tube detection limited |
+| Rb | 29% | Excellent | Clay mineral indicator |
 
 ---
 
-### 3.3 K/Ti - LIMITED RELEVANCE
-
-**Current interpretation:** Clay composition, weathering intensity
-
-**Relevance to Pebas Formation:** LOW
-
-**Major Problems:**
-
-1. **Already intensely weathered catchment:** Miocene tropical Amazonia had CIA values of 80-100, meaning K-bearing minerals were already largely depleted in source areas
-2. **Kaolinite dominance:** Mature tropical soils produce kaolinite (K-free) rather than illite (K-bearing)
-3. **Signal saturation:** When chemical weathering is already intense, K/Ti shows minimal dynamic range
-4. **Provenance effects:** K/Ti variations may reflect sediment source changes rather than weathering intensity
-
-**Recommendation:** REMOVE or use only to identify unusual K-enriched layers (possible volcanic ash, feldspar-rich inputs)
-
-**Reference:** [Chemical weathering of crystalline rocks in contrasting climatic conditions](https://www.sciencedirect.com/science/article/abs/pii/S0031018220303187)
-
----
-
-### 3.4 Rb/Sr - LIMITED RELEVANCE
-
-**Current interpretation:** Silicate weathering intensity
-
-**Relevance to Pebas Formation:** LOW to MODERATE
-
-**Problems:**
-
-1. **Timescale dependency:** Rb/Sr is more sensitive to long-term (glacial-interglacial) weathering changes than Miocene tropical conditions with continuously high weathering
-2. **Sr behavior in carbonates:** Sr substitutes readily into aragonite; in carbonate-rich Pebas sediments, Sr reflects carbonate chemistry more than silicate weathering
-3. **Physical vs chemical weathering:** In high-runoff tropical settings, physical sediment transport may dominate over chemical weathering signals
-4. **Grain size effects:** Hydrodynamic sorting affects Rb/Sr independently of weathering
-
-**Alternative Interpretation:** In Pebas context, low Rb/Sr may indicate:
-- Carbonate-rich intervals (Sr enrichment from aragonite)
-- Marine/brackish incursion events (higher Sr)
-
-**Recommendation:** Interpret as carbonate/salinity indicator rather than weathering proxy
-
----
-
-### 3.5 Zr/Rb - CONDITIONAL USE
-
-**Current interpretation:** Grain size proxy (coarse vs fine fraction)
-
-**Relevance to Pebas Formation:** MODERATE
-
-**Mechanism:**
-- Zr concentrates in heavy minerals (zircon) in coarse fraction
-- Rb concentrates in clay minerals in fine fraction
-- Higher Zr/Rb indicates higher energy depositional conditions
-
-**Advantages:**
-- Both elements well-detected by Mo tube
-- Insensitive to redox and diagenetic effects
-- Good correlation with measured grain size in many settings
-
-**Limitations for Pebas:**
-1. **Provenance effects:** Multiple sediment sources (Andean, shield) with different Zr/Rb signatures
-2. **Heavy mineral concentration:** Zr can reflect placer-like concentration rather than overall grain size
-3. **Log transformation recommended:** Use ln(Zr/Rb) to improve linearity
-
-**Recommendation:** Retain as hydrodynamic energy proxy; acknowledge provenance complications
-
-**Reference:** [Evaluating Zr/Rb Ratio as Grain-Size Indicator](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2020GC009350)
-
----
-
-### 3.6 Si/Al - NOT RECOMMENDED
-
-**Current interpretation:** Quartz (coarse) vs clay (fine) content
-
-**Relevance to Pebas Formation:** LOW
-
-**Critical Problems:**
-1. **Poor Al detection:** Mo tube unreliable for Al at typical sediment concentrations
-2. **Poor Si detection:** Mo tube not optimal for light elements
-3. **Better alternatives exist:** Zr/Rb provides equivalent grain size information with better detection
-
-**Recommendation:** REMOVE - use Zr/Rb instead
-
----
-
-### 3.7 Ba/Ti - LIMITED RELEVANCE
-
-**Current interpretation:** Paleoproductivity (Ba scavenged by organic particles)
-
-**Relevance to Pebas Formation:** LOW
-
-**Problems:**
-1. **Marine-centric proxy:** Ba/Ti productivity proxy developed for marine settings where barite precipitation occurs
-2. **Freshwater limitations:** In freshwater lakes, Ba behavior differs; may reflect salinity changes (BaSO4 precipitates at higher salinity)
-3. **Diagenetic mobility:** Under sulfate-reducing conditions, barite dissolves
-
-**Alternative Interpretation for Pebas:**
-- Ba enrichment during oligohaline incursion events (elevated sulfate enables barite precipitation)
-- High Ba may indicate brackish rather than productive conditions
-
-**Recommendation:** Retain but reinterpret as potential salinity indicator rather than productivity proxy
-
----
-
-### 3.8 Si/Ti - CONDITIONAL USE
-
-**Current interpretation:** Biogenic silica (diatoms) vs detrital silica
-
-**Relevance to Pebas Formation:** MODERATE
-
-**Mechanism:**
-- In lacustrine settings, elevated Si/Ti may indicate diatom productivity
-- Diatoms can be abundant in shallow Amazonian lakes
-
-**Limitations:**
-1. **Si detection issues:** Mo tube not optimal for Si
-2. **Detrital silica dominance:** Quartz-rich Andean sediments may overwhelm biogenic signal
-3. **Need independent verification:** Diatom abundance should be confirmed microscopically
-
-**Recommendation:** Retain with caveats; useful only if biogenic silica is significant component
-
----
-
-### 3.9 Fe/Ti - RECOMMENDED
-
-**Current interpretation:** Fe-bearing minerals relative to Ti (detrital composition)
-
-**Relevance to Pebas Formation:** HIGH
-
-**Mechanism:**
-- Tracks variations in Fe-bearing detrital minerals (oxides, hydroxides, clays)
-- In tropical settings, reflects intensity of lateritic weathering in catchment
-- Higher Fe/Ti may indicate enhanced runoff transporting weathered material
-
-**Advantages:**
-- Both elements excellently detected by Mo tube
-- Less affected by redox complications than Fe/Mn
-- Good indicator of terrigenous sediment character
-
-**Recommendation:** Retain - robust detrital composition indicator
-
----
-
-### 3.10 K/Rb - LIMITED USE
-
-**Current interpretation:** Potassium feldspar vs clay
-
-**Relevance to Pebas Formation:** LOW
-
-**Problem:** In intensely weathered tropical settings, both K and Rb are depleted together; ratio shows limited diagnostic value.
-
-**Recommendation:** REMOVE or use only for identifying unusual feldspar-rich layers
-
----
-
-## 4. ADDITIONAL PROXIES TO CONSIDER
-
-### 4.1 Ti/Al - Detrital Flux Proxy (if Al detectable)
-
-**Mechanism:** Ti/Al tracks heavy mineral concentration in detrital input
-
-**Relevance:** Could identify changes in sediment provenance (Andean vs cratonic sources)
-
-**Caveat:** Requires adequate Al detection; may need longer dwell times
-
----
-
-### 4.2 Sr/Ca - Carbonate Mineralogy/Salinity
-
-**Mechanism:**
-- Aragonite has higher Sr/Ca than calcite
-- Marine/brackish carbonates have higher Sr/Ca than freshwater
-
-**Relevance to Pebas:** HIGH - could discriminate:
-- Freshwater authigenic carbonate (low Sr/Ca calcite)
-- Brackish/incursion-related carbonate (higher Sr/Ca aragonite)
-- Ostracod shell vs bulk carbonate composition
-
-**Recommendation:** ADD this proxy
-
----
-
-### 4.3 CIA - Chemical Index of Alteration (calculated)
-
-**Formula:** CIA = [Al2O3 / (Al2O3 + CaO* + Na2O + K2O)] x 100
-
-**Mechanism:**
-- Measures feldspar to clay mineral conversion
-- Values 80-100 indicate intense tropical weathering
-
-**Relevance to Pebas:** MODERATE
-
-**Caveats:**
-- Requires reliable Al detection (problematic with Mo tube)
-- CaO* correction needed for carbonate-bound Ca
-- K2O correction for diagenetic illitization
-
-**Recommendation:** Calculate where possible; acknowledge detection limitations
-
-**Reference:** [Chemical Index of Alteration - Nesbitt & Young](https://chemostratigraphy.com/chemical-index-of-alteration-nesbitt-young-1982/)
-
----
-
-### 4.4 Mn/Ca - Redox-Carbonate Coupling
-
-**Mechanism:**
-- Mn can substitute into carbonates under reducing conditions
-- Mn/Ca in carbonate-rich intervals may indicate bottom-water oxygenation
-
-**Relevance:** Potentially useful for understanding redox conditions during carbonate precipitation events
-
-**Recommendation:** CONSIDER adding; may be more diagnostic than Fe/Mn in this setting
-
----
-
-### 4.5 Inc/Coh (Mo scattering ratio) - Matrix Correction
-
-**Current status:** Already calculated (inc_coh)
-
-**Mechanism:**
-- Ratio of incoherent (Compton) to coherent (Rayleigh) X-ray scattering
-- Related to average atomic number of sample matrix
-- Higher values indicate lighter matrix (more organic matter, water)
-
-**Relevance to Pebas:** MODERATE - may track organic-rich vs mineral-rich intervals
-
-**Recommendation:** Retain for matrix correction and organic matter indicator
-
----
-
-## 5. SUMMARY: RECOMMENDED PROXY SUITE FOR PEBAS FORMATION
-
-### Primary Proxies (High Confidence)
-
-| Proxy | Interpretation | Detection | Relevance |
-|-------|---------------|-----------|-----------|
-| **Ca/Ti** | Carbonate vs detrital input | Excellent | High |
-| **Fe/Ti** | Lateritic weathering intensity, runoff | Excellent | High |
-| **Zr/Rb** | Grain size / hydrodynamic energy | Excellent | Moderate-High |
-| **Sr/Ca** | Carbonate mineralogy / salinity | Excellent | High |
-| **Inc/Coh** | Matrix composition / organic matter | Excellent | Moderate |
-
-### Secondary Proxies (Use with Caveats)
-
-| Proxy | Interpretation | Caveats |
-|-------|---------------|---------|
-| **Fe/Mn** | Redox (tentative) | Detrital Fe interference; diagenetic complications |
-| **Si/Ti** | Biogenic silica (if present) | Poor Si detection; needs microscopic validation |
-| **Ba/Ti** | Salinity (not productivity) | Reinterpret for freshwater setting |
-| **Rb/Sr** | Carbonate/salinity (not weathering) | Sr dominated by carbonate chemistry |
-
-### Proxies to Remove or Downweight
+## 3. Recommended Proxy Suite for Manuscript
+
+### Tier 1: Primary Proxies (Plot in Main Figures)
+
+| Proxy | Type | Interpretation | Justification |
+|-------|------|----------------|---------------|
+| **Ca** | Element | Authigenic/biogenic carbonate | High variance (CV=81%); Ca/Ti redundant |
+| **Ti** | Element | Terrigenous detrital flux | Stable conservative element; excellent detection |
+| **Fe/Mn** | Ratio | Redox conditions | r=0.25 with Fe; adds unique information |
+| **Zr/Rb** | Ratio | Grain size / hydrodynamic energy | r=0.60; robust grain size proxy |
+
+### Tier 2: Supporting Proxies (Plot in Supplementary or Select Figures)
+
+| Proxy | Type | Interpretation | Justification |
+|-------|------|----------------|---------------|
+| **Fe** | Element | Lateritic input / catchment weathering | Independent of Ti normalization issues |
+| **Sr** | Element | Carbonate mineralogy / salinity indicator | Track aragonite vs calcite; incursion events |
+| **K/Ti** | Ratio | Relative weathering intensity | r=0.39; useful despite limited tropical relevance |
+| **Rb/Sr** | Ratio | Carbonate influence (inverse) | r=-0.17; tracks Sr enrichment in carbonates |
+
+### Tier 3: Contextual (Report but Don't Feature)
+
+| Proxy | Notes |
+|-------|-------|
+| Inc/Coh | Matrix composition; organic matter indicator |
+| Ba | Potential salinity indicator (not productivity in freshwater) |
+| Mn | Context for Fe/Mn interpretation |
+
+### Not Recommended
 
 | Proxy | Reason |
 |-------|--------|
-| **K/Ti** | Irrelevant in intensely weathered tropical catchment |
-| **Si/Al** | Poor detection of both elements with Mo tube |
-| **K/Rb** | Limited diagnostic value in tropical setting |
+| Ca/Ti | Statistically redundant with Ca (r=0.89) |
+| Si/Al | Poor Mo tube detection for both elements |
+| CIA | Requires reliable Al; tropical setting at weathering ceiling |
 
 ---
 
-## 6. ENVIRONMENTAL CHANGE MECHANISMS
+## 4. Proxy Mechanisms for Pebas Formation
 
-### Sequence of Events Traceable with XRF Proxies
+### Ca (Carbonate Signal)
 
-**Wet/Flood Periods:**
-- Increased terrigenous input: Higher Ti, Fe/Ti, lower Ca/Ti
-- Finer sediment transport: Lower Zr/Rb
-- Dilution of authigenic components: Lower Ca, Sr
+**Mechanism:** Authigenic carbonate precipitation in shallow lakes during evaporative/dry periods. Ostracod and mollusc shell material. Possibly detrital carbonate from catchment.
 
-**Dry/Evaporative Periods:**
-- Authigenic carbonate precipitation: Higher Ca/Ti, Sr/Ca
-- Coarser residual sediment: Higher Zr/Rb
-- Concentration of evaporite components: Higher Ba if sulfate present
+**Interpretation:**
+- High Ca → Carbonate-dominated sedimentation; reduced clastic input; drier/evaporative conditions
+- Low Ca → Terrigenous-dominated sedimentation; enhanced runoff; wetter conditions
 
-**Oligohaline Incursion Events:**
-- Elevated Sr (marine source): Higher Sr/Ca, lower Rb/Sr
-- Possible Ba enrichment: Higher Ba/Ti (barite precipitation)
-- Distinct carbonate chemistry: Changes in Sr/Ca ratios
-
-**Redox Changes (interpret cautiously):**
-- Bottom water anoxia: Potentially higher Fe/Mn (but complicated)
-- Organic matter preservation: Lower Inc/Coh (lighter matrix)
+**Caveats:** Cannot distinguish authigenic vs detrital carbonate without Sr/Ca or isotopic analysis.
 
 ---
 
-## 7. REFERENCES
+### Ti (Terrigenous Flux)
+
+**Mechanism:** Ti is hosted in resistant heavy minerals (ilmenite, rutile, titanite) derived from Andean and cratonic sources. Immobile during weathering and diagenesis.
+
+**Interpretation:**
+- High Ti → Enhanced terrigenous sediment delivery; higher runoff/discharge
+- Low Ti → Reduced clastic input; carbonate or organic-dominated intervals
+
+**Caveats:** Ti concentration affected by dilution from carbonates or organics.
+
+---
+
+### Fe/Mn (Redox Proxy)
+
+**Mechanism:** Under reducing (anoxic) conditions at the sediment-water interface, Mn²⁺ is more soluble than Fe²⁺ and diffuses upward out of sediments.
+
+**Interpretation:**
+- High Fe/Mn → More reducing bottom water conditions
+- Low Fe/Mn → More oxic conditions; Mn retained in sediments
+
+**Critical Caveats for Pebas:**
+1. Detrital Fe from lateritic catchment can obscure redox signal
+2. Under permanent anoxia, Mn may be trapped as authigenic carbonates
+3. Lake-specific; do not over-interpret small variations
+4. Best used to identify major redox transitions, not subtle changes
+
+---
+
+### Zr/Rb (Grain Size Proxy)
+
+**Mechanism:** Zr concentrates in heavy minerals (zircon) in coarse fraction; Rb substitutes for K in clay minerals in fine fraction.
+
+**Interpretation:**
+- High Zr/Rb → Coarser sediment; higher energy depositional environment
+- Low Zr/Rb → Finer sediment; lower energy; suspended load dominance
+
+**Caveats:**
+1. Provenance effects possible (Andean vs cratonic sources have different Zr/Rb)
+2. Heavy mineral concentration (placer effects) can elevate Zr independently
+3. Use ln(Zr/Rb) for improved linearity with grain size
+
+---
+
+### Sr (Salinity/Carbonate Mineralogy)
+
+**Mechanism:** Sr substitutes readily into aragonite (high Sr/Ca) but less into calcite (low Sr/Ca). Marine/brackish waters have higher Sr.
+
+**Interpretation:**
+- High Sr → Aragonite-rich intervals (molluscs, ostracods); possible brackish influence
+- Low Sr → Calcite-dominated; freshwater authigenic carbonate
+
+**Application:** Use Sr alongside Ca to discriminate carbonate types and detect oligohaline incursion events documented in Pebas Formation.
+
+---
+
+### K/Ti (Weathering/Clay Composition)
+
+**Mechanism:** K hosted in illite, muscovite, K-feldspar; depleted during intense chemical weathering. Ti is conservative.
+
+**Interpretation:**
+- High K/Ti → Less weathered material; illite-rich clays; possibly different provenance
+- Low K/Ti → Intensely weathered material; kaolinite-dominated
+
+**Limited Relevance:** Miocene Amazonian catchment was already at weathering ceiling (CIA 80-100). K/Ti may show minimal dynamic range. Most useful for detecting anomalous K-enriched layers (volcanic ash, feldspar-rich inputs).
+
+---
+
+## 5. Recommended Figure Structure for Manuscript
+
+### Main Text Figure: Composite Stratigraphic Profile
+
+**Panel Layout (left to right):**
+
+1. **Core Image** - Optical scan with depth scale
+2. **Ca** (log scale) - Carbonate/authigenic signal
+3. **Ti** - Terrigenous flux
+4. **Fe/Mn** (log scale) - Redox indicator
+5. **Zr/Rb** (log scale) - Grain size proxy
+6. **Facies Interpretation** - Summary column
+
+**Rationale:** Four geochemical tracks plus image and interpretation. Each track provides independent information (confirmed by redundancy analysis).
+
+### Supplementary Figure: Extended Element Suite
+
+**Additional panels:**
+- Fe, Sr, K, Mn, Rb (raw elements)
+- K/Ti, Rb/Sr (secondary ratios)
+- Inc/Coh (matrix indicator)
+
+### Cross-Plot Figures
+
+1. **Ca vs Ti** - Carbonate-detrital mixing
+2. **Fe vs Mn** - Redox systematics
+3. **Zr vs Rb** - Grain size relationship
+4. **Sr vs Ca** - Carbonate mineralogy
+
+---
+
+## 6. Statistical Recommendations
+
+### Data Presentation
+
+- Use **log₁₀ transformation** for ratios (Fe/Mn, Zr/Rb) to improve visualization
+- Present elements in **counts per second (cps)** or calibrated units
+- Report **median ± IQR** rather than mean ± SD for skewed distributions
+
+### Avoid
+
+- Plotting redundant ratio alongside its numerator element
+- Over-interpreting small Fe/Mn variations without independent redox evidence
+- Applying marine proxy interpretations (Ba/Ti productivity) to freshwater setting
+
+---
+
+## 7. Key References
 
 1. Croudace, I.W. & Rothwell, R.G. (2015). *Micro-XRF Studies of Sediment Cores*. Springer.
-2. Davies, S.J. et al. (2015). Micro-XRF Core Scanning in Palaeolimnology. In: *Micro-XRF Studies of Sediment Cores*.
-3. Wesselingh, F.P. et al. (2002). Lake Pebas: a palaeoecological reconstruction. *Cainozoic Research* 1, 35-81.
-4. Vonhof, H.B. et al. (1998). Reconstruction of the Miocene western Amazonian aquatic system using molluscan isotopic signatures. *Palaeogeography, Palaeoclimatology, Palaeoecology* 141, 85-93.
-5. Nesbitt, H.W. & Young, G.M. (1982). Early Proterozoic climates and plate motions inferred from major element chemistry of lutites. *Nature* 299, 715-717.
-6. Wu et al. (2020). Evaluating Zr/Rb Ratio From XRF Scanning as an Indicator of Grain-Size Variations. *Geochemistry, Geophysics, Geosystems* 21, e2020GC009350.
-7. Scholtysik et al. (2020). Variations of sedimentary Fe and Mn fractions under changing lake mixing regimes. *Science of the Total Environment* 755, 143497.
+2. Wesselingh, F.P. et al. (2002). Lake Pebas: a palaeoecological reconstruction. *Cainozoic Research* 1, 35-81.
+3. Vonhof, H.B. et al. (1998). Reconstruction of the Miocene western Amazonian aquatic system. *Palaeogeogr. Palaeoclimatol. Palaeoecol.* 141, 85-93.
+4. Weltje, G.J. & Tjallingii, R. (2008). Calibration of XRF core scanners. *Earth Planet. Sci. Lett.* 274, 423-438.
+5. Wu et al. (2020). Evaluating Zr/Rb as grain-size indicator. *Geochem. Geophys. Geosyst.* 21, e2020GC009350.
 
 ---
 
-*Report prepared for integration with Pebas-XRF manuscript*
+*Report version: 2.0 | Updated with empirical redundancy analysis*

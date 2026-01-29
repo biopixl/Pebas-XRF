@@ -2,6 +2,8 @@
 # Pebas-XRF: Element Ratio Calculations
 # ==============================================================================
 # Calculates paleoenvironmentally-relevant element ratios from XRF data
+# Optimized for Miocene Pebas Formation tropical lacustrine setting
+# See docs/proxy_relevance_report.md for detailed proxy evaluation
 # ==============================================================================
 
 library(tidyverse)
@@ -29,16 +31,28 @@ message(sprintf("Loaded %d QC-passing measurements (%d in exclusion zones)",
                 nrow(xrf), sum(xrf$excluded, na.rm = TRUE)))
 
 # ==============================================================================
-# 2. ELEMENT RATIO DEFINITIONS
+# 2. PROXY DEFINITIONS - Based on Empirical Redundancy Analysis
+# ==============================================================================
+#
+# TIER 1 (Primary - Main Figures):
+#   Ca      - Carbonate/authigenic signal (Ca/Ti redundant, r=0.89)
+#   Ti      - Terrigenous detrital flux
+#   Fe/Mn   - Redox indicator (r=0.25 with Fe; adds information)
+#   Zr/Rb   - Grain size proxy (r=0.60 with Zr; adds information)
+#
+# TIER 2 (Supporting - Supplementary):
+#   Fe      - Lateritic input
+#   Sr      - Carbonate mineralogy / salinity
+#   K/Ti    - Weathering indicator (r=0.39; useful)
+#   Rb/Sr   - Inverse carbonate indicator (r=-0.17; useful)
+#
+# NOT RECOMMENDED:
+#   Ca/Ti   - Redundant with Ca (r=0.89)
+#   Si/Al   - Poor Mo tube detection
+#   Ba/Ti   - Marine productivity interpretation invalid for freshwater
 # ==============================================================================
 
-# Key paleoenvironmental ratios for lacustrine/fluvial sediments
-# Adapted for Miocene Pebas Formation context (tropical freshwater mega-wetland)
-# Based on literature review: Croudace & Rothwell 2015; Davies et al. 2015;
-# Wesselingh et al. 2002; Vonhof et al. 1998, 2003
-# See docs/proxy_relevance_report.md for detailed proxy evaluation
-
-#' Calculate standard element ratios
+#' Calculate element ratios for Pebas Formation analysis
 #'
 #' @param data XRF data tibble with element columns
 #' @return Data with added ratio columns
@@ -46,115 +60,82 @@ calculate_element_ratios <- function(data) {
 
   data %>%
     mutate(
-      # ===================================================================
-      # PRIMARY PROXIES - High confidence for Pebas Formation
-      # ===================================================================
+      # =================================================================
+      # TIER 1: PRIMARY PROXIES (Main Figures)
+      # =================================================================
 
-      # -------------------------------------------------------------------
-      # TERRIGENOUS vs BIOGENIC INPUT (HIGH RELEVANCE)
-      # -------------------------------------------------------------------
-      # Ca/Ti: Carbonate (authigenic/biogenic) vs detrital input
-      # In Pebas context: Higher = authigenic carbonate precipitation
-      # during drier/evaporative periods; Lower = terrigenous dominance
-      Ca_Ti = Ca / Ti,
-      log_Ca_Ti = log10(Ca / Ti),
-
-      # -------------------------------------------------------------------
-      # CARBONATE MINERALOGY / SALINITY (HIGH RELEVANCE - NEW)
-      # -------------------------------------------------------------------
-      # Sr/Ca: Discriminates carbonate type and salinity influence
-      # Higher Sr/Ca = aragonite (ostracods, molluscs) or brackish influence
-      # Lower Sr/Ca = freshwater calcite precipitation
-      # Useful for detecting oligohaline incursion events in Pebas
-      Sr_Ca = Sr / Ca,
-      log_Sr_Ca = log10(Sr / Ca),
-
-      # -------------------------------------------------------------------
-      # DETRITAL COMPOSITION / WEATHERING (HIGH RELEVANCE)
-      # -------------------------------------------------------------------
-      # Fe/Ti: Lateritic weathering indicator, runoff intensity
-      # Higher = enhanced transport of weathered material from catchment
-      # Excellent detection with Mo tube; less redox-affected than Fe/Mn
-      Fe_Ti = Fe / Ti,
-      log_Fe_Ti = log10(Fe / Ti),
-
-      # -------------------------------------------------------------------
-      # GRAIN SIZE / HYDRODYNAMIC ENERGY (MODERATE-HIGH RELEVANCE)
-      # -------------------------------------------------------------------
-      # Zr/Rb: Coarse (heavy minerals) vs fine (clays) fraction
-      # Higher = coarser sediment, higher energy environment
-      # Note: Some provenance effects possible (Andean vs cratonic sources)
-      Zr_Rb = Zr / Rb,
-      log_Zr_Rb = log10(Zr / Rb),
-
-      # ===================================================================
-      # SECONDARY PROXIES - Use with caveats
-      # ===================================================================
-
-      # -------------------------------------------------------------------
-      # REDOX CONDITIONS (MODERATE RELEVANCE - USE CAUTIOUSLY)
-      # -------------------------------------------------------------------
-      # Fe/Mn: Redox indicator at sediment-water interface
-      # CAUTION: Interpretation complicated by:
-      # - Detrital Fe input from lateritic catchment
-      # - Diagenetic Mn trapping under permanent anoxia
-      # - Lake-specific calibration required
+      # Fe/Mn: Redox conditions at sediment-water interface
+      # r = 0.25 with Fe - ratio adds substantial information
+      # Higher = more reducing (anoxic) conditions
+      # CAVEAT: Detrital Fe can obscure signal; use for major transitions only
       Fe_Mn = Fe / Mn,
       log_Fe_Mn = log10(Fe / Mn),
 
-      # Mn/Ca: Alternative redox-carbonate coupling indicator
-      # May track bottom water oxygenation during carbonate precipitation
-      Mn_Ca = Mn / Ca,
+      # Zr/Rb: Grain size / hydrodynamic energy proxy
+      # r = 0.60 with Zr - ratio adds information
+      # Higher = coarser sediment, higher energy environment
+      Zr_Rb = Zr / Rb,
+      log_Zr_Rb = log10(Zr / Rb),
 
-      # -------------------------------------------------------------------
-      # BIOGENIC SILICA (MODERATE RELEVANCE - DETECTION LIMITED)
-      # -------------------------------------------------------------------
-      # Si/Ti: Biogenic silica (diatoms) vs detrital silica
-      # CAUTION: Si detection marginal with Mo tube
-      # Needs microscopic validation of diatom presence
-      Si_Ti = Si / Ti,
-      log_Si_Ti = log10(Si / Ti),
+      # =================================================================
+      # TIER 2: SUPPORTING PROXIES (Supplementary Figures)
+      # =================================================================
 
-      # -------------------------------------------------------------------
-      # SALINITY INDICATOR (MODERATE - REINTERPRETED)
-      # -------------------------------------------------------------------
-      # Ba/Ti: In freshwater settings, tracks salinity NOT productivity
-      # Higher Ba = possible oligohaline conditions (barite precipitation)
-      # Marine Ba/Ti productivity interpretation NOT valid for Pebas
-      Ba_Ti = Ba / Ti,
-
-      # -------------------------------------------------------------------
-      # Rb/Sr: REINTERPRETED as carbonate/salinity indicator
-      # NOT weathering proxy in Pebas context (Sr dominated by carbonates)
-      # Lower Rb/Sr = carbonate-rich or brackish intervals
-      # -------------------------------------------------------------------
-      Rb_Sr = Rb / Sr,
-      log_Rb_Sr = log10(Rb / Sr),
-
-      # ===================================================================
-      # LIMITED RELEVANCE PROXIES - Retained for completeness
-      # ===================================================================
-
-      # K/Ti: LIMITED RELEVANCE in tropical setting
-      # Catchment already intensely weathered (CIA 80-100); K depleted
-      # May only detect unusual K-enriched layers (volcanic ash?)
+      # K/Ti: Clay composition / weathering indicator
+      # r = 0.39 with K - ratio adds information
+      # Limited relevance in tropical setting (already at weathering ceiling)
+      # Useful for detecting K-enriched anomalies (ash layers?)
       K_Ti = K / Ti,
       log_K_Ti = log10(K / Ti),
 
-      # Si/Al: NOT RECOMMENDED - poor Al and Si detection with Mo tube
-      # Use Zr/Rb for grain size instead
+      # Rb/Sr: Inverse carbonate indicator
+      # r = -0.17 with Rb - strongly differentiated from raw Rb
+      # Lower values = more Sr-rich carbonate intervals
+      Rb_Sr = Rb / Sr,
+      log_Rb_Sr = log10(Rb / Sr),
+
+      # Sr/Ca: Carbonate mineralogy discriminator
+      # Aragonite (molluscs, ostracods) has higher Sr/Ca than calcite
+      # Useful for detecting brackish incursion events
+      Sr_Ca = Sr / Ca,
+
+      # =================================================================
+      # TIER 3: CONTEXTUAL (Report but don't feature)
+      # =================================================================
+
+      # Fe/Ti: Detrital composition
+      # r = 0.48 with Fe - provides some additional information
+      Fe_Ti = Fe / Ti,
+
+      # Si/Ti: Biogenic silica indicator (if diatoms present)
+      # r = 0.56 with Si - useful but Si detection marginal
+      Si_Ti = Si / Ti,
+
+      # Ba/Ti: Salinity indicator (NOT productivity in freshwater)
+      # r = 0.75 with Ba - borderline redundant
+      Ba_Ti = Ba / Ti,
+
+      # Mn/Ca: Alternative redox-carbonate coupling
+      Mn_Ca = Mn / Ca,
+
+      # Inc/Coh: Matrix composition / organic matter indicator
+      inc_coh = Mo_inc / Mo_coh,
+
+      # =================================================================
+      # DEPRECATED - Retained for backwards compatibility only
+      # =================================================================
+
+      # Ca/Ti: REDUNDANT with Ca (r = 0.89)
+      # Ti variance too low relative to Ca; ratio dominated by Ca
+      # USE RAW Ca INSTEAD for carbonate signal
+      Ca_Ti = Ca / Ti,
+      log_Ca_Ti = log10(Ca / Ti),
+
+      # Si/Al: NOT RECOMMENDED - poor Mo tube detection for both
       Si_Al = Si / Al,
 
-      # K/Rb: LIMITED - both elements depleted in tropical weathering
-      K_Rb = K / Rb,
-
-      # -------------------------------------------------------------------
-      # MATRIX CORRECTION (MODERATE RELEVANCE)
-      # -------------------------------------------------------------------
-      # Incoherent/Coherent scatter ratio (Compton correction)
-      # Related to average atomic number of matrix
-      # May track organic-rich vs mineral-rich intervals
-      inc_coh = Mo_inc / Mo_coh
+      # K/Rb: Limited diagnostic value in tropical setting
+      K_Rb = K / Rb
     )
 }
 
@@ -167,29 +148,19 @@ message("Calculating element ratios...")
 xrf_ratios <- xrf %>%
   calculate_element_ratios()
 
-# Add Br_Ti if Br column exists (not always in calibrated data)
-if ("Br" %in% names(xrf_ratios)) {
-  xrf_ratios <- xrf_ratios %>%
-    mutate(Br_Ti = Br / Ti)
-  message("  Br_Ti ratio calculated (Br available in data)")
-} else {
-  message("  Br_Ti ratio skipped (Br not available in calibrated data)")
-}
+# Define ratio columns for QC checking
+ratio_cols <- c(
+  # Tier 1
+  "Fe_Mn", "Zr_Rb",
+  # Tier 2
+  "K_Ti", "Rb_Sr", "Sr_Ca",
+  # Tier 3
+  "Fe_Ti", "Si_Ti", "Ba_Ti", "Mn_Ca", "inc_coh",
+  # Deprecated
+  "Ca_Ti", "Si_Al", "K_Rb"
+)
 
 # Check for infinite values (division by zero)
-# Updated ratio list including new proxies for Pebas Formation context
-ratio_cols <- c(
-  # Primary proxies (high confidence)
-  "Ca_Ti", "Sr_Ca", "Fe_Ti", "Zr_Rb",
-  # Secondary proxies (use with caveats)
-  "Fe_Mn", "Mn_Ca", "Si_Ti", "Ba_Ti", "Rb_Sr",
-  # Limited relevance (retained for completeness)
-  "K_Ti", "Si_Al", "K_Rb",
-  # Matrix correction
-  "inc_coh"
-)
-if ("Br_Ti" %in% names(xrf_ratios)) ratio_cols <- c(ratio_cols, "Br_Ti")
-
 for (col in ratio_cols) {
   n_inf <- sum(is.infinite(xrf_ratios[[col]]), na.rm = TRUE)
   n_na <- sum(is.na(xrf_ratios[[col]]))
@@ -203,47 +174,85 @@ xrf_ratios <- xrf_ratios %>%
   mutate(across(all_of(ratio_cols), ~ifelse(is.infinite(.), NA_real_, .)))
 
 # ==============================================================================
-# 4. SUMMARY STATISTICS
+# 4. SUMMARY STATISTICS - Primary Proxies
 # ==============================================================================
 
-# Summary by core series - focus on primary proxies for Pebas context
+message("\n=== PRIMARY PROXY SUMMARY (Tier 1) ===")
+
+# Summary by core series - focus on recommended proxies
 ratio_summary <- xrf_ratios %>%
+  filter(!excluded) %>%
   group_by(core_series) %>%
   summarise(
     n = n(),
-    across(
-      all_of(c("Ca_Ti", "Sr_Ca", "Fe_Ti", "Zr_Rb", "Fe_Mn")),
-      list(
-        median = ~median(., na.rm = TRUE),
-        iqr = ~IQR(., na.rm = TRUE)
-      ),
-      .names = "{.col}_{.fn}"
-    )
+    # Tier 1 elements
+    Ca_median = median(Ca, na.rm = TRUE),
+    Ti_median = median(Ti, na.rm = TRUE),
+    # Tier 1 ratios
+    Fe_Mn_median = median(Fe_Mn, na.rm = TRUE),
+    Zr_Rb_median = median(Zr_Rb, na.rm = TRUE),
+    # Tier 2
+    Sr_median = median(Sr, na.rm = TRUE),
+    Fe_median = median(Fe, na.rm = TRUE)
   )
 
 print(ratio_summary)
 
 # ==============================================================================
-# 5. CORRELATION ANALYSIS
+# 5. REDUNDANCY CHECK - Confirm Ca/Ti is redundant
 # ==============================================================================
 
-# Correlation matrix for key elements
+message("\n=== REDUNDANCY ANALYSIS ===")
+message("Ratios with r > 0.85 vs numerator are redundant:\n")
+
+redundancy_check <- tibble(
+  ratio = c("Ca/Ti", "Fe/Mn", "Zr/Rb", "K/Ti", "Rb/Sr", "Fe/Ti", "Ba/Ti"),
+  numerator = c("Ca", "Fe", "Zr", "K", "Rb", "Fe", "Ba"),
+  r = c(
+    cor(xrf_ratios$Ca, xrf_ratios$Ca_Ti, use = "complete.obs"),
+    cor(xrf_ratios$Fe, xrf_ratios$Fe_Mn, use = "complete.obs"),
+    cor(xrf_ratios$Zr, xrf_ratios$Zr_Rb, use = "complete.obs"),
+    cor(xrf_ratios$K, xrf_ratios$K_Ti, use = "complete.obs"),
+    cor(xrf_ratios$Rb, xrf_ratios$Rb_Sr, use = "complete.obs"),
+    cor(xrf_ratios$Fe, xrf_ratios$Fe_Ti, use = "complete.obs"),
+    cor(xrf_ratios$Ba, xrf_ratios$Ba_Ti, use = "complete.obs")
+  )
+) %>%
+  mutate(
+    status = ifelse(abs(r) > 0.85, "REDUNDANT", "USEFUL"),
+    r = round(r, 3)
+  ) %>%
+  arrange(desc(abs(r)))
+
+print(redundancy_check)
+
+# ==============================================================================
+# 6. CORRELATION MATRIX - Key Elements
+# ==============================================================================
+
+message("\n=== ELEMENT CORRELATION MATRIX ===")
+
 element_cors <- xrf_ratios %>%
-  select(all_of(c("Al", "Si", "K", "Ca", "Ti", "Fe", "Mn", "Rb", "Sr", "Zr"))) %>%
+  filter(!excluded) %>%
+  select(all_of(c("Ca", "Ti", "Fe", "Mn", "K", "Rb", "Sr", "Zr"))) %>%
   cor(use = "pairwise.complete.obs")
 
-# Save correlation matrix
 write.csv(element_cors, file.path(output_path, "tables", "element_correlations.csv"))
-
-message("\nElement correlation matrix:")
 print(round(element_cors, 2))
 
 # ==============================================================================
-# 6. SAVE RESULTS
+# 7. SAVE RESULTS
 # ==============================================================================
 
 write_csv(xrf_ratios, file.path(output_path, "tables", "xrf_data_ratios.csv"))
 message(sprintf("\nRatio data saved to: %s",
                 file.path(output_path, "tables", "xrf_data_ratios.csv")))
 
+# Save redundancy analysis
+write_csv(redundancy_check, file.path(output_path, "tables", "proxy_redundancy_analysis.csv"))
+
+message("\n=== RECOMMENDED PROXIES FOR MANUSCRIPT ===")
+message("MAIN FIGURES: Ca, Ti, Fe/Mn, Zr/Rb")
+message("SUPPLEMENTARY: Fe, Sr, K/Ti, Rb/Sr")
+message("AVOID: Ca/Ti (redundant), Si/Al (poor detection)")
 message("\nRatio calculation complete! Next step: run 03_stratigraphic_plots.R")
