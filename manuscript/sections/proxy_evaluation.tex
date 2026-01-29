@@ -1,0 +1,197 @@
+% ==============================================================================
+% PROXY EVALUATION SECTION
+% XRF Geochemical Proxies for Pebas Formation Paleoenvironmental Reconstruction
+% ==============================================================================
+
+\section{Geochemical Proxy Evaluation}
+\label{sec:proxy_evaluation}
+
+The application of XRF-derived elemental proxies to Miocene lacustrine sediments requires careful evaluation of both analytical limitations and paleoenvironmental relevance. We present a systematic assessment of proxy utility for the Pebas Formation based on three criteria: (1) element detection quality with the Itrax Mo tube, (2) statistical independence from raw element counts, and (3) mechanistic relevance to tropical freshwater mega-wetland settings.
+
+\subsection{Analytical Considerations}
+\label{subsec:analytical}
+
+XRF core scanning with a molybdenum (Mo) X-ray tube provides optimal detection for elements with atomic numbers greater than vanadium (Z $>$ 23), while lighter elements (Al, Si, P, S) suffer from reduced sensitivity \citep{Croudace2006}. Table~\ref{tab:detection} summarizes detection quality for elements relevant to this study.
+
+\begin{table}[htbp]
+\centering
+\caption{Element detection quality with Itrax Mo tube at 60 kV, 30 mA}
+\label{tab:detection}
+\begin{tabular}{llll}
+\toprule
+\textbf{Element} & \textbf{Z} & \textbf{Detection} & \textbf{Notes} \\
+\midrule
+Fe & 26 & Excellent & Primary Mo tube strength \\
+Ti & 22 & Very Good & Stable conservative element \\
+Ca & 20 & Very Good & High response rate \\
+Mn & 25 & Good & Adequate for redox proxies \\
+Rb & 37 & Excellent & High-Z advantage \\
+Sr & 38 & Excellent & High-Z advantage \\
+Zr & 40 & Excellent & High-Z advantage \\
+K & 19 & Good & Above sensitivity threshold \\
+\midrule
+Al & 13 & Marginal & Reliable only $>$22,000 ppm \\
+Si & 14 & Marginal & Cr tube preferred \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Proxy Redundancy Analysis}
+\label{subsec:redundancy}
+
+Elemental ratios are commonly employed to normalize for matrix effects and sediment dilution \citep{Weltje2008}. However, when the normalizing element (denominator) shows limited variance relative to the numerator, the resulting ratio becomes statistically redundant with the raw element count. We evaluated this by computing Pearson correlations between each ratio and its numerator element (Figure~\ref{fig:redundancy}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/proxy_evaluation/fig_S1_redundancy_analysis.png}
+\caption{Proxy redundancy analysis. (A) Ca/Ti is highly correlated with raw Ca ($r$ = 0.89), indicating Ti normalization adds minimal information. (B--C) Fe/Mn and Zr/Rb show lower correlations with their numerators, confirming these ratios provide independent signals. (D) Summary of redundancy assessment; ratios exceeding the threshold ($|r| > 0.85$) are considered redundant.}
+\label{fig:redundancy}
+\end{figure}
+
+The Ca/Ti ratio, widely used as a carbonate vs.\ detrital indicator \citep{Rothwell2015}, proved statistically redundant in this dataset ($r$ = 0.89 with raw Ca). This results from Ca exhibiting substantially higher coefficient of variation (CV = 81\%) than Ti (CV = 36\%), such that the ratio is dominated by Ca variability. In contrast, Fe/Mn ($r$ = 0.27) and Zr/Rb ($r$ = 0.60) ratios provide genuinely independent information beyond their constituent elements (Table~\ref{tab:redundancy}).
+
+\begin{table}[htbp]
+\centering
+\caption{Proxy redundancy evaluation based on correlation with numerator element}
+\label{tab:redundancy}
+\begin{tabular}{llll}
+\toprule
+\textbf{Ratio} & \textbf{Correlation ($r$)} & \textbf{Status} & \textbf{Recommendation} \\
+\midrule
+Ca/Ti & 0.89 & Redundant & Use raw Ca \\
+Ba/Ti & 0.74 & Borderline & Consider raw Ba \\
+Zr/Rb & 0.60 & Useful & Retain \\
+Fe/Ti & 0.57 & Useful & Retain \\
+K/Ti & 0.44 & Useful & Retain \\
+Fe/Mn & 0.27 & Useful & Retain \\
+Rb/Sr & $-$0.11 & Useful & Retain \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Recommended Proxy Suite}
+\label{subsec:proxies}
+
+Based on the above evaluation, we adopt a tiered proxy framework optimized for the Pebas Formation paleoenvironmental context (Table~\ref{tab:proxies}).
+
+\begin{table}[htbp]
+\centering
+\caption{Recommended proxy suite for Pebas Formation XRF analysis}
+\label{tab:proxies}
+\begin{tabular}{p{2cm}p{2cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Proxy} & \textbf{Type} & \textbf{Interpretation} & \textbf{Mechanism} \\
+\midrule
+\multicolumn{4}{l}{\textit{Tier 1: Primary proxies (main figures)}} \\
+Ca & Element & Carbonate/authigenic signal & Authigenic precipitation; shell material \\
+Ti & Element & Terrigenous detrital flux & Conservative heavy minerals (ilmenite, rutile) \\
+Fe/Mn & Ratio & Redox conditions & Differential Mn mobility under anoxia \\
+Zr/Rb & Ratio & Grain size/energy & Zr in heavy minerals; Rb in clays \\
+\midrule
+\multicolumn{4}{l}{\textit{Tier 2: Supporting proxies (supplementary)}} \\
+Fe & Element & Lateritic input & Weathered Fe-oxides from catchment \\
+Sr & Element & Carbonate mineralogy & Sr partitioning: aragonite $>$ calcite \\
+K/Ti & Ratio & Weathering indicator & K depletion in intense weathering \\
+Rb/Sr & Ratio & Carbonate influence & Inverse indicator of Sr enrichment \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Carbonate Signal (Ca)}
+
+Calcium concentrations track authigenic and biogenic carbonate in the Pebas lacustrine system. Elevated Ca values indicate periods of reduced clastic input and/or enhanced carbonate precipitation associated with drier, more evaporative conditions. The strong positive correlation between Ca and Sr ($r$ = 0.62; Figure~\ref{fig:crossplots}D) supports a common carbonate source, with Sr/Ca variations potentially discriminating aragonite-rich (molluscan, ostracode) from calcite-rich intervals.
+
+\subsubsection{Terrigenous Flux (Ti)}
+
+Titanium serves as a conservative tracer of detrital siliciclastic input, hosted primarily in resistant heavy minerals (ilmenite, rutile, titanite) derived from Andean and cratonic sources. Ti is immobile during weathering and diagenesis, making it a robust indicator of terrigenous sediment delivery. Anti-correlation between Ca and Ti (Figure~\ref{fig:crossplots}A) reflects end-member mixing between carbonate-dominated and siliciclastic-dominated depositional regimes.
+
+\subsubsection{Redox Conditions (Fe/Mn)}
+
+The Fe/Mn ratio provides a first-order indicator of bottom-water redox conditions at the sediment-water interface. Under reducing (anoxic) conditions, Mn$^{2+}$ is preferentially mobilized relative to Fe$^{2+}$, leading to elevated Fe/Mn values in the remaining sediment \citep{Davison1993}. Our data reveal systematically higher Fe/Mn in TAM cores (median = 93.4) compared to SC cores (median = 50.7), suggesting more reducing conditions in the TAM depositional setting (Figure~\ref{fig:crossplots}B).
+
+\textbf{Caveats:} Fe/Mn interpretation in the Pebas Formation requires caution due to (1) variable detrital Fe input from lateritic catchment soils, (2) potential diagenetic trapping of Mn as authigenic carbonates under permanent anoxia, and (3) lake-specific baseline variability \citep{Scholtysik2020}. We restrict Fe/Mn interpretation to identification of major redox transitions rather than subtle variations.
+
+\subsubsection{Grain Size Proxy (Zr/Rb)}
+
+The Zr/Rb ratio serves as a grain size proxy, with Zr concentrated in heavy minerals (primarily zircon) in coarse fractions and Rb substituting for K in clay minerals of the fine fraction \citep{Wu2020}. Higher Zr/Rb values indicate coarser sediment and higher depositional energy. Both elements show excellent detection with the Mo tube (Table~\ref{tab:detection}), and the ratio adds substantial information beyond raw Zr counts ($r$ = 0.60).
+
+\subsubsection{Limited Relevance: Weathering Proxies}
+
+Traditional weathering proxies (K/Ti, Rb/Sr, CIA) have limited applicability in the Pebas Formation context. The Miocene Amazonian catchment experienced intense tropical weathering, with Chemical Index of Alteration (CIA) values approaching 80--100 characteristic of mature lateritic soils \citep{Nesbitt1982}. Under such conditions, mobile elements (K, Na, Ca) are already substantially depleted, limiting the dynamic range of weathering-sensitive ratios. K/Ti may primarily track anomalous K-enriched inputs (e.g., volcanic ash) rather than weathering intensity variations.
+
+\subsection{Element Variability and Geochemical Associations}
+\label{subsec:variability}
+
+Element variability, expressed as coefficient of variation (CV), constrains the interpretive potential of each proxy (Figure~\ref{fig:variability}). Ca exhibits the highest variance (CV = 81\%), reflecting the fundamental control of carbonate vs.\ siliciclastic sedimentation in the Pebas system. The detrital element suite (Ti, Fe, K, Rb) shows moderate, inter-correlated variability (CV = 29--46\%), with strong positive correlations (Ti--Rb: $r$ = 0.81; Ti--K: $r$ = 0.77; Figure~\ref{fig:correlation}) indicating coherent terrigenous sediment delivery.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/proxy_evaluation/fig_S2_element_variability.png}
+\caption{Element variability (coefficient of variation) and Mo tube detection quality. High variance indicates greater signal dynamic range; detection quality affects measurement reliability.}
+\label{fig:variability}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/proxy_evaluation/fig_S3_correlation_matrix.png}
+\caption{Element correlation matrix for Pebas Formation XRF data. Strong positive correlations among Ti, Fe, K, and Rb reflect coherent detrital input. Ca shows weak correlation with detrital elements but strong association with Sr (carbonate system).}
+\label{fig:correlation}
+\end{figure}
+
+\subsection{Cross-Plot Analysis}
+\label{subsec:crossplots}
+
+Element cross-plots provide additional constraints on proxy interpretation and core-to-core variability (Figure~\ref{fig:crossplots}). The Ca--Ti relationship (Figure~\ref{fig:crossplots}A) demonstrates end-member mixing between carbonate-dominated and terrigenous-dominated compositions, with both TAM and SC cores spanning similar compositional ranges. Fe--Mn systematics (Figure~\ref{fig:crossplots}B) reveal distinct redox signatures, with TAM cores plotting at higher Fe/Mn than SC cores across the full range of Fe concentrations. This systematic offset suggests fundamental differences in bottom-water oxygenation between the two depositional settings.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/proxy_evaluation/fig_S4_crossplots.png}
+\caption{Interpretive cross-plots for proxy evaluation. (A) Ca vs.\ Ti showing carbonate-detrital mixing. (B) Fe vs.\ Mn with redox systematics; dashed lines indicate Fe/Mn = 50 and 100. (C) Zr vs.\ Rb grain size relationship. (D) Sr vs.\ Ca carbonate mineralogy discrimination.}
+\label{fig:crossplots}
+\end{figure}
+
+\subsection{Core-to-Core Comparison}
+\label{subsec:comparison}
+
+Distribution analysis reveals systematic geochemical differences between TAM and SC core series (Figure~\ref{fig:distributions}; Table~\ref{tab:summary}). TAM cores exhibit higher median Fe/Mn (93.4 vs.\ 50.7), suggesting more reducing depositional conditions, potentially reflecting deeper water or more restricted circulation. SC cores show higher median Ti (14,329 vs.\ 10,157 cps), indicating enhanced terrigenous sediment supply. These differences provide independent constraints on paleoenvironmental interpretation of the stratigraphic record.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/proxy_evaluation/fig_S5_distributions.png}
+\caption{Proxy distributions by core series. Density plots reveal systematic differences between TAM (orange) and SC (blue) cores across multiple proxies.}
+\label{fig:distributions}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Summary statistics for primary proxies by core series}
+\label{tab:summary}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Core} & \textbf{n} & \textbf{Ca (cps)} & \textbf{Ti (cps)} & \textbf{Fe/Mn} & \textbf{Zr/Rb} \\
+\midrule
+TAM & 712 & 44,729 & 10,157 & 93.4 & 1.00 \\
+SC & 875 & 43,168 & 14,329 & 50.7 & 0.92 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item Values are medians. n = number of QC-passing, non-excluded measurements.
+\end{tablenotes}
+\end{table}
+
+\subsection{Stratigraphic Application}
+\label{subsec:stratigraphic}
+
+The recommended four-proxy suite (Ca, Ti, Fe/Mn, Zr/Rb) provides complementary and statistically independent signals for stratigraphic interpretation (Figure~\ref{fig:stratigraphic}). Each proxy tracks a distinct environmental parameter: carbonate precipitation (Ca), terrigenous flux (Ti), bottom-water redox (Fe/Mn), and depositional energy (Zr/Rb). This multi-proxy approach enables robust paleoenvironmental reconstruction while avoiding redundant information.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/proxy_evaluation/fig_main_stratigraphic_example.png}
+\caption{Recommended proxy suite illustrated with stratigraphic example from section TAM-1-2-3B-A. Each proxy provides independent information on paleoenvironmental conditions: Ca (carbonate signal), Ti (detrital flux), Fe/Mn (redox), Zr/Rb (grain size).}
+\label{fig:stratigraphic}
+\end{figure}
+
+% ==============================================================================
+% END PROXY EVALUATION SECTION
+% ==============================================================================
