@@ -207,15 +207,59 @@ process_section <- function(section_name, optical_path, mask_foam = TRUE) {
   ))
 }
 
-create_composite_strip <- function(section_images, target_width = 150) {
+#' Create composite strip with proper gap handling
+#'
+#' @param section_images List of processed section images with xrf_start/xrf_end
+#' @param target_width Width of output strip in pixels
+#' @param total_depth_range Total depth range from XRF data (for scaling)
+#' @param pixels_per_mm Scaling factor for image height
+#' @return Composite image with gaps properly represented
+create_composite_strip <- function(section_images, target_width = 150,
+                                    total_depth_range = NULL, pixels_per_mm = 1.0) {
   if (length(section_images) == 0) return(NULL)
 
-  processed <- map(section_images, function(s) {
-    img_rotated <- image_rotate(s$image, 90)
-    image_resize(img_rotated, sprintf("%dx", target_width))
-  })
 
-  composite <- image_append(do.call(c, processed), stack = TRUE)
+  # Sort sections by xrf_start position
+  section_images <- section_images[order(sapply(section_images, function(s) s$xrf_start))]
+
+  # If no total range provided, calculate from sections (old behavior)
+  if (is.null(total_depth_range)) {
+    processed <- map(section_images, function(s) {
+      img_rotated <- image_rotate(s$image, 90)
+      image_resize(img_rotated, sprintf("%dx", target_width))
+    })
+    composite <- image_append(do.call(c, processed), stack = TRUE)
+    return(composite)
+  }
+
+  # Calculate total height based on actual depth range
+  total_height <- round(total_depth_range * pixels_per_mm)
+
+  # Start with blank canvas (gray background for gaps)
+  composite <- image_blank(target_width, total_height, color = "#404040")
+
+  # Get the minimum position (start of depth scale)
+  min_pos <- min(sapply(section_images, function(s) s$xrf_start))
+
+  # Place each section at correct position
+  for (s in section_images) {
+    # Rotate and resize section image
+    img_rotated <- image_rotate(s$image, 90)
+    img_resized <- image_resize(img_rotated, sprintf("%dx", target_width))
+
+    # Calculate vertical position for this section
+    section_depth <- s$xrf_end - s$xrf_start
+    section_height <- round(section_depth * pixels_per_mm)
+    y_offset <- round((s$xrf_start - min_pos) * pixels_per_mm)
+
+    # Resize to exact section height to match depth scale
+    img_scaled <- image_resize(img_resized, sprintf("%dx%d!", target_width, section_height))
+
+    # Composite onto canvas at correct position
+    composite <- image_composite(composite, img_scaled,
+                                  offset = sprintf("+0+%d", y_offset))
+  }
+
   return(composite)
 }
 
@@ -272,24 +316,30 @@ for (grp in groups) {
     message(sprintf("  No valid images for %s, creating plot without core image...", grp))
   }
 
-  # Create composite if we have images
+  # Calculate actual depth range from XRF data for proper image scaling
+  depth_min_full <- min(group_data$position_mm)
+  depth_max_full <- max(group_data$position_mm)
+  total_depth_range <- depth_max_full - depth_min_full
+
+  # Create composite if we have images - now with proper gap handling
   composite <- NULL
   if (length(section_images) > 0) {
-    composite <- create_composite_strip(section_images)
+    # Use 0.5 pixels per mm for reasonable image size
+    pixels_per_mm <- 0.5
+    composite <- create_composite_strip(section_images, target_width = 150,
+                                         total_depth_range = total_depth_range,
+                                         pixels_per_mm = pixels_per_mm)
     composite_path <- file.path(fig_path, sprintf("core_optical_%s.png", grp))
     image_write(composite, composite_path)
-    message(sprintf("  Saved: core_optical_%s.png", grp))
+    message(sprintf("  Saved: core_optical_%s.png (with gap alignment)", grp))
   }
 
-  # Prepare group data for plotting
-  group_data <- group_data %>%
+  # Prepare group data for plotting - FILTER EXCLUDED POINTS for spectra
+  # Keep all points for facies column but filter for curves
+  group_data_all <- group_data %>%
     arrange(position_mm) %>%
     mutate(
       depth_cm = position_mm / 10,
-      Ca_Ti_filt = zoo::rollmean(Ca_Ti, WINDOW_SIZE, fill = NA, align = "center"),
-      Fe_Mn_filt = zoo::rollmean(Fe_Mn, WINDOW_SIZE, fill = NA, align = "center"),
-      K_Ti_filt = zoo::rollmean(K_Ti, WINDOW_SIZE, fill = NA, align = "center"),
-      Zr_Rb_filt = zoo::rollmean(Zr_Rb, WINDOW_SIZE, fill = NA, align = "center"),
       facies = case_when(
         Ca_Ti > 10 ~ "Shell-rich",
         Ca_Ti > 5 ~ "Carbonate",
@@ -299,7 +349,17 @@ for (grp in groups) {
       facies = factor(facies, levels = c("Shell-rich", "Carbonate", "Mixed", "Clastic"))
     )
 
-  # Calculate statistics
+  # Filter to non-excluded points for spectra curves
+  group_data <- group_data_all %>%
+    filter(!excluded) %>%
+    mutate(
+      Ca_Ti_filt = zoo::rollmean(Ca_Ti, WINDOW_SIZE, fill = NA, align = "center"),
+      Fe_Mn_filt = zoo::rollmean(Fe_Mn, WINDOW_SIZE, fill = NA, align = "center"),
+      K_Ti_filt = zoo::rollmean(K_Ti, WINDOW_SIZE, fill = NA, align = "center"),
+      Zr_Rb_filt = zoo::rollmean(Zr_Rb, WINDOW_SIZE, fill = NA, align = "center")
+    )
+
+  # Calculate statistics (from non-excluded data only)
   site <- ifelse(grepl("^TAM", group_sections[1]), "TAM", "SC")
   site_name <- ifelse(site == "TAM", "Tamshiyacu", "Santa Corina")
 
@@ -308,7 +368,8 @@ for (grp in groups) {
       group = grp,
       site = site,
       n = n(),
-      depth_range_mm = max(position_mm) - min(position_mm),
+      n_excluded = sum(group_data_all$excluded),
+      depth_range_mm = depth_max_full - depth_min_full,
       Ca_Ti_mean = mean(Ca_Ti, na.rm = TRUE),
       Ca_Ti_sd = sd(Ca_Ti, na.rm = TRUE),
       Fe_Mn_mean = mean(Fe_Mn, na.rm = TRUE),
@@ -319,8 +380,9 @@ for (grp in groups) {
     )
   all_group_stats[[grp]] <- stats
 
-  depth_min <- min(group_data$position_mm)
-  depth_max <- max(group_data$position_mm)
+  # Use FULL depth range for image mapping (consistent with composite)
+  depth_min <- depth_min_full
+  depth_max <- depth_max_full
 
   # Create figure panels
   plot_list <- list()
@@ -341,12 +403,22 @@ for (grp in groups) {
             panel.grid = element_blank())
   }
 
-  # Panel: Facies
+  # Panel: Facies (use ALL data including excluded for complete depth coverage)
   facies_y_label <- if (is.null(composite)) "Depth (cm)" else ""
 
-  plot_list$facies <- ggplot(group_data, aes(y = depth_cm)) +
-    geom_tile(aes(x = 0.5, fill = facies), width = 1, height = 0.4) +
-    scale_fill_manual(values = facies_colors, name = "Facies") +
+  # Create facies data with foam indicator
+  facies_data <- group_data_all %>%
+    mutate(
+      facies_display = ifelse(excluded, "Excluded", as.character(facies)),
+      facies_display = factor(facies_display,
+                               levels = c("Shell-rich", "Carbonate", "Mixed", "Clastic", "Excluded"))
+    )
+
+  facies_colors_ext <- c(facies_colors, "Excluded" = "#808080")
+
+  plot_list$facies <- ggplot(facies_data, aes(y = depth_cm)) +
+    geom_tile(aes(x = 0.5, fill = facies_display), width = 1, height = 0.4) +
+    scale_fill_manual(values = facies_colors_ext, name = "Facies", drop = FALSE) +
     scale_y_reverse() +
     labs(x = NULL, y = facies_y_label, title = "Facies") +
     theme_minimal(base_size = 10) +
@@ -411,10 +483,10 @@ for (grp in groups) {
 
   fig <- fig + plot_annotation(
     title = sprintf("%s %s: Core Image with Geochemical Stratigraphy", site, grp),
-    subtitle = sprintf("%s | n=%d measurements | %.1f cm depth | %.0f%% reducing conditions",
-                       site_name, nrow(group_data),
+    subtitle = sprintf("%s | n=%d measurements (%d excluded) | %.1f cm depth | %.0f%% reducing",
+                       site_name, nrow(group_data), stats$n_excluded,
                        (depth_max - depth_min)/10, stats$pct_reducing),
-    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (oxic/reducing boundary)",
+    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (oxic/reducing) | Gray = excluded foam/gaps",
     theme = theme(
       plot.title = element_text(face = "bold", size = 12),
       plot.subtitle = element_text(size = 10, color = "gray40"),
@@ -434,6 +506,7 @@ for (grp in groups) {
 # ==============================================================================
 
 summary_table <- bind_rows(all_group_stats) %>%
+  distinct() %>%  # Remove duplicate rows from grouped summarise
   arrange(site, group)
 
 write_csv(summary_table, file.path(output_path, "tables", "all_groups_summary.csv"))
