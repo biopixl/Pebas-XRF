@@ -159,7 +159,15 @@ mask_foam_sections <- function(img, section_name, xrf_start, xrf_end, pixels_per
   return(img)
 }
 
-process_section <- function(section_name, optical_path, mask_foam = TRUE) {
+#' Process a single section's optical image
+#'
+#' @param section_name Section identifier
+#' @param optical_path Path to optical data
+#' @param mask_foam Whether to mask foam sections
+#' @param data_start Actual XRF data start position (mm) - overrides document.txt
+#' @param data_end Actual XRF data end position (mm) - overrides document.txt
+process_section <- function(section_name, optical_path, mask_foam = TRUE,
+                            data_start = NULL, data_end = NULL) {
   section_dir <- file.path(data_path, optical_path)
   img_path <- file.path(section_dir, "optical.tif")
   doc_path <- file.path(section_dir, "document.txt")
@@ -177,8 +185,13 @@ process_section <- function(section_name, optical_path, mask_foam = TRUE) {
   optical_range <- params$optical_end - params$optical_start
   pixels_per_mm <- img_info$width / optical_range
 
-  xrf_start_px <- max(0, round((params$xrf_start - params$optical_start) * pixels_per_mm))
-  xrf_end_px <- min(img_info$width, round((params$xrf_end - params$optical_start) * pixels_per_mm))
+  # Use actual XRF data positions if provided, otherwise fall back to document.txt
+  # This ensures image cropping matches actual data extent
+  xrf_start <- if (!is.null(data_start)) data_start else params$xrf_start
+  xrf_end <- if (!is.null(data_end)) data_end else params$xrf_end
+
+  xrf_start_px <- max(0, round((xrf_start - params$optical_start) * pixels_per_mm))
+  xrf_end_px <- min(img_info$width, round((xrf_end - params$optical_start) * pixels_per_mm))
   crop_width <- xrf_end_px - xrf_start_px
 
   if (crop_width <= 0) return(NULL)
@@ -186,13 +199,13 @@ process_section <- function(section_name, optical_path, mask_foam = TRUE) {
   crop_geom <- sprintf("%dx%d+%d+0", crop_width, img_info$height, xrf_start_px)
   img_cropped <- image_crop(img, crop_geom)
 
-  # Calculate pixels_per_mm for the cropped image (same as original)
-  cropped_pixels_per_mm <- crop_width / (params$xrf_end - params$xrf_start)
+  # Calculate pixels_per_mm for the cropped image
+  cropped_pixels_per_mm <- crop_width / (xrf_end - xrf_start)
 
   # Apply foam masking before brightening
   if (mask_foam) {
     img_cropped <- mask_foam_sections(img_cropped, section_name,
-                                       params$xrf_start, params$xrf_end,
+                                       xrf_start, xrf_end,
                                        cropped_pixels_per_mm)
   }
 
@@ -202,8 +215,8 @@ process_section <- function(section_name, optical_path, mask_foam = TRUE) {
   return(list(
     image = img_bright,
     section = section_name,
-    xrf_start = params$xrf_start,
-    xrf_end = params$xrf_end
+    xrf_start = xrf_start,
+    xrf_end = xrf_end
   ))
 }
 
@@ -290,7 +303,16 @@ for (grp in groups) {
   group_data <- xrf_data %>% filter(group == grp)
   group_sections <- unique(group_data$section)
 
-  # Process optical images for each section
+  # Calculate actual XRF data position ranges per section
+  section_ranges <- group_data %>%
+    group_by(section) %>%
+    summarise(
+      data_start = min(position_mm),
+      data_end = max(position_mm),
+      .groups = "drop"
+    )
+
+  # Process optical images for each section using ACTUAL data positions
   section_images <- list()
 
   for (sec in group_sections) {
@@ -301,11 +323,18 @@ for (grp in groups) {
       next
     }
 
-    result <- process_section(sec, path_info$optical_path[1])
+    # Get actual data range for this section
+    sec_range <- section_ranges %>% filter(section == sec)
+    data_start <- sec_range$data_start
+    data_end <- sec_range$data_end
+
+    # Process with actual data positions for precise alignment
+    result <- process_section(sec, path_info$optical_path[1],
+                               data_start = data_start, data_end = data_end)
 
     if (!is.null(result)) {
       section_images[[sec]] <- result
-      message(sprintf("  %s: %.0f-%.0f mm (brightened)",
+      message(sprintf("  %s: %.0f-%.0f mm (aligned to data)",
                       sec, result$xrf_start, result$xrf_end))
     } else {
       message(sprintf("  %s: image not found or invalid", sec))
@@ -416,10 +445,13 @@ for (grp in groups) {
 
   facies_colors_ext <- c(facies_colors, "Excluded" = "#808080")
 
+  # Define consistent y-axis limits for ALL panels (critical for alignment)
+  y_limits <- c(depth_max/10, depth_min/10)
+
   plot_list$facies <- ggplot(facies_data, aes(y = depth_cm)) +
     geom_tile(aes(x = 0.5, fill = facies_display), width = 1, height = 0.4) +
     scale_fill_manual(values = facies_colors_ext, name = "Facies", drop = FALSE) +
-    scale_y_reverse() +
+    scale_y_reverse(limits = y_limits) +
     labs(x = NULL, y = facies_y_label, title = "Facies") +
     theme_minimal(base_size = 10) +
     theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
@@ -434,7 +466,7 @@ for (grp in groups) {
     geom_point(aes(x = Ca_Ti), alpha = 0.3, size = 0.8, color = "darkgreen") +
     geom_path(aes(x = Ca_Ti_filt), color = "darkgreen", linewidth = 0.6, na.rm = TRUE) +
     geom_vline(xintercept = c(2, 5, 10), linetype = "dashed", color = "gray60", linewidth = 0.3) +
-    scale_y_reverse() +
+    scale_y_reverse(limits = y_limits) +
     labs(x = "Ca/Ti", y = NULL, title = "Carbonate") +
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
@@ -447,7 +479,7 @@ for (grp in groups) {
     geom_path(aes(x = Fe_Mn_filt), color = "purple", linewidth = 0.6, na.rm = TRUE) +
     geom_vline(xintercept = 50, linetype = "dashed", color = "red", linewidth = 0.5) +
     scale_fill_manual(values = c("Reducing" = "purple", "Oxic" = "orange"), guide = "none") +
-    scale_y_reverse() +
+    scale_y_reverse(limits = y_limits) +
     labs(x = "Fe/Mn", y = NULL, title = "Redox") +
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
@@ -456,7 +488,7 @@ for (grp in groups) {
   plot_list$kti <- ggplot(group_data, aes(y = depth_cm)) +
     geom_point(aes(x = K_Ti), alpha = 0.3, size = 0.8, color = "darkorange") +
     geom_path(aes(x = K_Ti_filt), color = "darkorange", linewidth = 0.6, na.rm = TRUE) +
-    scale_y_reverse() +
+    scale_y_reverse(limits = y_limits) +
     labs(x = "K/Ti", y = NULL, title = "Weathering") +
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
@@ -465,7 +497,7 @@ for (grp in groups) {
   plot_list$zrrb <- ggplot(group_data, aes(y = depth_cm)) +
     geom_point(aes(x = Zr_Rb), alpha = 0.3, size = 0.8, color = "darkred") +
     geom_path(aes(x = Zr_Rb_filt), color = "darkred", linewidth = 0.6, na.rm = TRUE) +
-    scale_y_reverse() +
+    scale_y_reverse(limits = y_limits) +
     labs(x = "Zr/Rb", y = NULL, title = "Grain Size") +
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
