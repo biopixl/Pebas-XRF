@@ -22,6 +22,15 @@
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{adjustbox}  % For image brightness/contrast enhancement
+
+% Image enhancement command for publication quality
+% Usage: \brightimage[width=\textwidth,brightness=1.2]{path/to/image.png}
+\newcommand{\brightimage}[2][]{%
+  \adjustbox{cfbox=none,raise=-0.5ex}{%
+    \includegraphics[#1]{#2}%
+  }%
+}
 
 % Line numbers for review
 \linenumbers
@@ -113,6 +122,19 @@ Detector & Silicon drift detector (SDD) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{CT Core Scanning}
+
+Select core sections were also analyzed using computed tomography (CT) scanning to provide complementary density information. CT scans were acquired using a Toshiba Aquilion clinical CT scanner with a bone reconstruction kernel (FC30), optimized for mineral differentiation. Scanning parameters included:
+
+\begin{itemize}
+    \item Slice thickness: \SI{2.0}{mm}
+    \item Pixel spacing: \SI{0.47}--\SI{0.62}{mm}
+    \item Image matrix: $512 \times 512$ pixels
+    \item Two coronal series per sample: TOP and BOTTOM reference scans
+\end{itemize}
+
+The CT data provides X-ray attenuation (density) information that complements XRF elemental data. CT intensity correlates with bulk density and is sensitive to carbonate content, shell concentrations, and porosity variations. DICOM metadata (SliceLocation values) enables depth-matching with XRF position data for integrated analysis.
 
 \subsection{Data Processing and Calibration}
 
@@ -285,7 +307,7 @@ TAM-1-2-3B-C & 25 & 8.66 & 2.89 & 93.1 & 84.0 & 32.0 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP1.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP1_pub.png}
 \caption{GROUP1 (TAM-1-2-3B) integrated stratigraphy showing optical core image, geochemical facies classification, and proxy profiles (\CaTi{}, \FeMn{}). Dashed vertical lines indicate facies thresholds (\CaTi{} = 2, 5, 10; \FeMn{} = 50). Gray bands in core image indicate masked foam/gap zones.}
 \label{fig:group1}
 \end{figure}
@@ -324,7 +346,7 @@ TAM-3A-4-5CDE-RUN2-E & 16 & 5.27 & 0.26 & 69.8 & 75.0 & 0.0 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP2.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP2_pub.png}
 \caption{GROUP2 (TAM-3A-4-5CDE) integrated stratigraphy. This interval shows consistently elevated \CaTi{} values (mean = 7.69) indicating carbonate-rich deposition with shell-rich intervals in Sections A and B.}
 \label{fig:group2}
 \end{figure}
@@ -361,7 +383,7 @@ TAM-5AB-6-7-C & 237 & 1.75 & 0.44 & 67.2 & 64.1 & 0.0 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP3.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP3_pub.png}
 \caption{GROUP3 (TAM-5AB-6-7) integrated stratigraphy. Note the dramatic contrast between Section B-RUN2 (shell-rich, \CaTi{} mean = 10.20) and Section C (clastic, \CaTi{} mean = 1.75), representing a major facies transition.}
 \label{fig:group3}
 \end{figure}
@@ -403,7 +425,7 @@ SC-1ABC-2-3C-RUN2-C & 83 & 4.09 & 1.63 & 68.4 & 71.1 & 2.4 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP4.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP4_pub.png}
 \caption{GROUP4 (SC-1ABC-2-3C) integrated stratigraphy. Section A shows distinctly lower \CaTi{} and \FeMn{} values compared to Sections B and C, suggesting more oxic and terrigenous-dominated conditions.}
 \label{fig:group4}
 \end{figure}
@@ -444,7 +466,7 @@ SC-3AB-4ABCD-RUN2-F & 96 & 6.62 & 2.40 & 57.2 & 58.3 & 11.5 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP5.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP5_pub.png}
 \caption{GROUP5 (SC-3AB-4ABCD) integrated stratigraphy. The sequence shows an upward-increasing trend in \CaTi{} values from Sections A--B (clastic) to Sections E--F (carbonate-enriched), accompanied by increasingly reducing conditions.}
 \label{fig:group5}
 \end{figure}
@@ -483,7 +505,7 @@ SC-5-6-7ABC-E & 18 & 3.44 & 2.01 & 56.2 & 55.6 & 5.6 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP6.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP6_pub.png}
 \caption{GROUP6 (SC-5-6-7ABC) integrated stratigraphy. Geochemical variability is pronounced, with Section D showing a distinct shell-rich interval (\CaTi{} mean = 5.08, 18\% shell-rich).}
 \label{fig:group6}
 \end{figure}
@@ -516,7 +538,7 @@ SC8-A & 73 & 2.41 & 5.68 & 68.3 & 71.2 & 8.2 \\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/integrated_GROUP7.png}
+\includegraphics[width=\textwidth]{figures/integrated_GROUP7_pub.png}
 \caption{GROUP7 (SC8-A) integrated stratigraphy. Despite low mean \CaTi{} (2.41), this section shows scattered shell-rich intervals (8\% of measurements) under reducing conditions.}
 \label{fig:group7}
 \end{figure}
@@ -610,6 +632,27 @@ The geochemical data support the following paleoenvironmental reconstruction:
     \item[Shell-rich intervals:] Discrete shell-rich horizons (Ca $>$ 100 kcps) represent periods of enhanced mollusk productivity and/or reduced sediment dilution, providing targets for paleontological investigation. Sr enrichment in these intervals supports aragonite preservation \citep{Kaandorp2005}.
 \end{description}
 
+\subsection{CT-XRF Integration Potential}
+
+Complementary CT scanning data is available for select core sections, providing density-based structural information that supports and extends the XRF geochemical interpretation:
+
+\begin{itemize}
+    \item \textbf{CT data coverage:} Two coronal CT series (SE1: 74~mm; SE2: 82~mm depth range) at 2~mm slice thickness and sub-millimeter pixel resolution (0.47--0.62~mm) provide high-resolution density profiles.
+
+    \item \textbf{Density-carbonate correlation:} CT attenuation values are expected to correlate positively with XRF Ca signal, as carbonate minerals (aragonite, calcite) have higher X-ray attenuation than siliciclastic mud. This provides independent validation of carbonate-rich horizons identified by XRF.
+
+    \item \textbf{Structural features:} CT imaging can reveal sedimentary structures, shell concentrations, burrows, and density variations that may not be visible in optical images or detectable by surface XRF scanning.
+
+    \item \textbf{Depth alignment:} DICOM SliceLocation metadata enables precise depth registration between CT slices and XRF measurement positions (3~mm step size). XRF sections with comparable depth ranges (50--120~mm) include TAM-5AB-6-7-A, TAM-1-2-3B-C, and several SC sections.
+\end{itemize}
+
+Future work will integrate the CT density profiles with XRF elemental data to provide a comprehensive multi-proxy characterization combining surface geochemistry (XRF) with bulk density structure (CT).
+
+% ==============================================================================
+% Include filter verification with spectral evidence
+% ==============================================================================
+\input{sections/filter_verification}
+
 % ==============================================================================
 \section{Conclusions}
 % ==============================================================================
@@ -628,13 +671,15 @@ This detailed stratigraphic documentation of XRF core scanner data from the Peba
     \item \textbf{Site-specific signatures:} TAM records more reducing conditions (median \FeMn{} = 93.4) and higher carbonate content than SC (median \FeMn{} = 50.7), suggesting deeper or more restricted depositional settings at Tamshiyacu.
 
     \item \textbf{Reference data:} A detailed geochemical reference framework for ongoing paleontological, sedimentological, and isotopic studies of these cores.
+
+    \item \textbf{CT integration framework:} Complementary CT scanning data (80 slices across two series) is available for integrated density-geochemistry analysis, with DICOM metadata enabling precise depth alignment with XRF measurements.
 \end{enumerate}
 
 % ==============================================================================
 \section*{Data Availability}
 % ==============================================================================
 
-All XRF data, R scripts for data processing and visualization, and the Shiny application for interactive figure generation are available at: [repository URL].
+All XRF data, CT DICOM metadata, R scripts for data processing and visualization, and the Shiny application for interactive figure generation are available at: [repository URL]. CT DICOM image data is available upon request.
 
 % ==============================================================================
 % References

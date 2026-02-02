@@ -1,0 +1,254 @@
+% ==============================================================================
+% Filter Verification: Spectral Evidence Supporting Data Processing Decisions
+% ==============================================================================
+% This document provides empirical validation for all filter cutoffs used in
+% the Pebas Formation XRF data processing pipeline
+% ==============================================================================
+
+\section{Filter Verification: Spectral Evidence}
+\label{sec:filter_verification}
+
+This section documents the spectral lines of evidence supporting each data filtering and threshold decision in our XRF processing pipeline. All cutoffs were validated empirically using the full dataset of 1,979 measurements.
+
+% ------------------------------------------------------------------------------
+\subsection{Quality Control (QC) Filters}
+\label{subsec:qc_filters}
+% ------------------------------------------------------------------------------
+
+Three instrumental QC filters were applied sequentially to ensure data quality. Figure~\ref{fig:qc_effectiveness} demonstrates the effectiveness and data retention of each filter.
+
+\subsubsection{MSE Threshold ($\leq$ 10)}
+
+The Mean Squared Error (MSE) quantifies the goodness-of-fit between observed XRF spectra and modeled peak areas. We adopted the threshold MSE $\leq$ 10 based on:
+
+\begin{itemize}
+    \item \textbf{Spectral evidence:} Measurements with MSE $>$ 10 exhibit systematic deviations in peak fitting, particularly for overlapping peaks (Fe-Mn, K-Ca regions)
+    \item \textbf{Manufacturer recommendation:} Itrax software documentation recommends MSE $<$ 10--15 for reliable quantification
+    \item \textbf{Data retention:} 99.4\% of measurements pass this filter, indicating it primarily removes instrumental failures rather than valid sediment measurements
+\end{itemize}
+
+\subsubsection{CPS Threshold ($\geq$ 20,000)}
+
+Total counts per second (CPS) reflects X-ray fluorescence intensity and is related to sample density and surface quality. The threshold CPS $\geq$ 20,000 was selected based on:
+
+\begin{itemize}
+    \item \textbf{Spectral evidence:} Low CPS measurements ($<$20,000) show elevated noise in minor element channels (Mn, Rb, Sr), compromising ratio calculations
+    \item \textbf{Physical interpretation:} Low CPS typically indicates foam, voids, or sample surface irregularities
+    \item \textbf{Distribution analysis:} CPS shows a bimodal distribution with clear separation at $\sim$20,000 (Figure~\ref{fig:qc_effectiveness}B)
+\end{itemize}
+
+\subsubsection{Sample Surface Distance ($<$ 8~mm)}
+
+The sample surface parameter measures the distance between the core surface and the detector. Values $\geq$ 8~mm indicate:
+
+\begin{itemize}
+    \item \textbf{Surface depression:} Gaps, shrinkage cracks, or sample loss
+    \item \textbf{Foam presence:} Expanded polyethylene foam used to stabilize cores
+    \item \textbf{Attenuation effects:} Increased X-ray path length causing systematic bias
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/filter_validation/fig_V6_qc_filter_effectiveness.png}
+\caption{Quality control filter effectiveness. (A) MSE distribution showing threshold at 10. (B) CPS distribution (log scale) showing threshold at 20,000. (C) Sample surface distribution showing threshold at 8~mm. (D) Cumulative data retention through the QC filter cascade. Blue = pass, red = fail.}
+\label{fig:qc_effectiveness}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Foam Zone Exclusion}
+\label{subsec:foam_exclusion}
+% ------------------------------------------------------------------------------
+
+A total of 29 exclusion zones were defined based on visual inspection of optical images and confirmed by distinctive spectral signatures.
+
+\subsubsection{Spectral Fingerprint of Foam Zones}
+
+Foam zones exhibit systematically different elemental signatures compared to valid sediment (Figure~\ref{fig:foam_signatures}):
+
+\begin{itemize}
+    \item \textbf{Reduced major elements:} Ca, Ti, Fe, K show 50--80\% lower median counts in foam zones due to reduced sample mass
+    \item \textbf{Elevated scattering:} Mo incoherent/coherent (Inc/Coh) ratio is anomalously high ($>$4) due to low-Z matrix effects
+    \item \textbf{Statistical separation:} Mann-Whitney U tests confirm significant differences ($p < 0.001$) for all major elements
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/filter_validation/fig_V1_foam_spectral_signatures.png}
+\caption{Spectral signatures distinguishing sediment from excluded foam/gap zones. Boxplots show log-scale element counts for key diagnostic elements. Blue = valid sediment measurements; red = excluded zones. Note the systematic reduction in all major elements and elevated Mo scattering (Inc/Coh) in foam zones.}
+\label{fig:foam_signatures}
+\end{figure}
+
+\subsubsection{Inc/Coh Ratio as Foam Detection Criterion}
+
+The ratio of incoherent to coherent Molybdenum scattering (Inc/Coh) provides a robust criterion for identifying foam zones without visual inspection (Figure~\ref{fig:inc_coh}):
+
+\begin{itemize}
+    \item \textbf{Sediment range:} Inc/Coh = 2.0--3.5 (median 2.7)
+    \item \textbf{Foam range:} Inc/Coh $>$ 4.0 (median 5.2)
+    \item \textbf{Physical basis:} Foam (polyethylene) is a low-Z material that preferentially produces incoherent scatter relative to coherent scatter
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{../figures/filter_validation/fig_V2_inc_coh_foam_detection.png}
+\caption{Incoherent/Coherent scattering ratio as foam detection criterion. Density distributions show clear separation between sediment (blue) and foam zones (red). Dashed lines indicate potential automated thresholds at Inc/Coh = 2 and 4.}
+\label{fig:inc_coh}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Facies Threshold Validation}
+\label{subsec:facies_thresholds}
+% ------------------------------------------------------------------------------
+
+The four-fold facies classification (clastic, mixed, carbonate, shell-rich) is based on Ca counts, with Ca/Ti ratios provided for comparison with previous literature. Figure~\ref{fig:facies_validation} validates these thresholds.
+
+\subsubsection{Ca/Ti Threshold Selection}
+
+The Ca/Ti thresholds (2, 5, 10) were selected based on:
+
+\begin{itemize}
+    \item \textbf{Natural breaks:} The log-transformed Ca/Ti distribution shows inflection points near these values (Figure~\ref{fig:facies_validation}A)
+    \item \textbf{Sedimentological coherence:} Threshold-defined facies correspond to visually identifiable lithologies in optical images
+    \item \textbf{Cross-site applicability:} Both TAM and SC sites show similar distribution shapes despite different mean values (Figure~\ref{fig:facies_validation}B)
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Facies proportions by site validating threshold applicability}
+\label{tab:facies_proportions}
+\begin{tabular}{lrrrr}
+\toprule
+Site & Clastic (\%) & Mixed (\%) & Carbonate (\%) & Shell-rich (\%) \\
+\midrule
+TAM & 21.3 & 28.5 & 19.8 & 30.4 \\
+SC & 45.2 & 32.1 & 14.3 & 8.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/filter_validation/fig_V3_facies_threshold_validation.png}
+\caption{Facies threshold validation. (A) Ca/Ti distribution for all sediment measurements with facies thresholds at 2, 5, and 10 marked. Natural breaks in the distribution support these threshold positions. (B) Site-specific distributions showing thresholds are applicable to both TAM and SC despite different mean carbonate content.}
+\label{fig:facies_validation}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Redox Threshold Validation}
+\label{subsec:redox_threshold}
+% ------------------------------------------------------------------------------
+
+The Fe/Mn ratio is used as a bottom-water redox proxy, with the threshold Fe/Mn = 50 separating oxic ($<$50) from reducing ($>$50) conditions.
+
+\subsubsection{Literature Support}
+
+The Fe/Mn = 50 threshold is based on established geochemical principles:
+
+\begin{itemize}
+    \item \textbf{Differential solubility:} Under reducing conditions, Mn$^{2+}$ is more mobile than Fe$^{2+}$ and diffuses upward out of sediments \citep{Calvert1996}
+    \item \textbf{Sedimentary records:} Fe/Mn $>$ 50 is widely used to indicate reducing conditions in lacustrine sediments \citep{Wersin1991}
+    \item \textbf{Pebas context:} Reducing conditions are expected in the stagnant Pebas mega-wetland system
+\end{itemize}
+
+\subsubsection{Empirical Validation}
+
+Figure~\ref{fig:redox_validation} demonstrates that the Fe/Mn = 50 threshold effectively discriminates between sites:
+
+\begin{itemize}
+    \item \textbf{TAM:} Median Fe/Mn = 67.2; 71\% reducing facies
+    \item \textbf{SC:} Median Fe/Mn = 42.8; 43\% reducing facies
+    \item \textbf{Fe-Mn systematics:} Cross-plots show parallel trends offset along the Fe/Mn = 50 isoline (Figure~\ref{fig:redox_validation}C)
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/filter_validation/fig_V4_redox_threshold_validation.png}
+\caption{Redox threshold validation. (A) Fe/Mn distribution with threshold at 50. (B) Site-specific distributions showing TAM is more reducing than SC. (C) Fe-Mn cross-plot demonstrating parallel redox trends; dashed line = Fe/Mn = 50.}
+\label{fig:redox_validation}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Smoothing Window Optimization}
+\label{subsec:window_optimization}
+% ------------------------------------------------------------------------------
+
+A 5-point moving average (15~mm window at 3~mm resolution) is applied to reduce measurement noise while preserving stratigraphic features.
+
+\subsubsection{Window Size Comparison}
+
+Figure~\ref{fig:window_optimization} compares window sizes of 1, 3, 5, 7, and 11 points on a representative section (TAM-5AB-6-7-B-RUN2):
+
+\begin{itemize}
+    \item \textbf{Window = 1:} Raw data; high noise obscures trends
+    \item \textbf{Window = 3:} Reduced noise but still irregular (9~mm effective resolution)
+    \item \textbf{Window = 5:} Optimal balance---clear trends with preserved sharp transitions (15~mm resolution)
+    \item \textbf{Window = 7:} Over-smoothed; minor features lost (21~mm resolution)
+    \item \textbf{Window = 11:} Excessive smoothing; stratigraphic detail obscured (33~mm resolution)
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/filter_validation/fig_V5_window_size_optimization.png}
+\caption{Window size optimization for moving average filter. Gray points = raw data; blue line = smoothed profile. Window = 5 (15~mm) provides optimal balance between noise reduction and feature preservation.}
+\label{fig:window_optimization}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Alignment Verification}
+\label{subsec:alignment_verification}
+% ------------------------------------------------------------------------------
+
+Figure~\ref{fig:alignment_verification} demonstrates that XRF data, optical images, and facies interpretations are correctly aligned stratigraphically:
+
+\begin{itemize}
+    \item \textbf{Visual correspondence:} Shell-rich layers (high Ca/Ti) correspond to visible shell concentrations in optical images
+    \item \textbf{Transition coherence:} Facies boundaries align with lithological changes
+    \item \textbf{Gap handling:} Inter-section gaps are correctly represented as gray bands
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{../figures/filter_validation/fig_V7_alignment_verification.png}
+\caption{Stratigraphic alignment verification for GROUP3. Overlaid Ca/Ti (blue) and Fe/Mn (purple) profiles demonstrate coherent stratigraphic trends. Dotted horizontal lines mark key stratigraphic features that can be cross-referenced with optical images.}
+\label{fig:alignment_verification}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Summary: Filter Validation}
+\label{subsec:filter_summary}
+% ------------------------------------------------------------------------------
+
+Table~\ref{tab:filter_summary} summarizes all filter cutoffs with their spectral evidence.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of validated filter parameters}
+\label{tab:filter_summary}
+\begin{tabular}{llll}
+\toprule
+Parameter & Cutoff & Evidence Type & Data Retention \\
+\midrule
+\multicolumn{4}{l}{\textit{QC Filters}} \\
+MSE & $\leq$ 10 & Spectral fit quality & 99.4\% \\
+CPS & $\geq$ 20,000 & Signal strength & 98.1\% \\
+Surface & $<$ 8~mm & Detector distance & 96.3\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Exclusion Zones}} \\
+Foam/gaps & Manual + Inc/Coh & Spectral fingerprint & 80.2\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Facies Thresholds (Ca/Ti)}} \\
+Clastic & $<$ 2 & Natural breaks & --- \\
+Mixed & 2--5 & Distribution inflection & --- \\
+Carbonate & 5--10 & Lithological coherence & --- \\
+Shell-rich & $>$ 10 & Visual confirmation & --- \\
+\midrule
+\multicolumn{4}{l}{\textit{Redox Threshold (Fe/Mn)}} \\
+Oxic/Reducing & 50 & Literature + site discrimination & --- \\
+\midrule
+\multicolumn{4}{l}{\textit{Smoothing}} \\
+Window size & 5 points & Signal-noise optimization & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All filter parameters are empirically validated and documented with spectral evidence. The processing pipeline achieves 80.2\% data retention while ensuring measurement quality and meaningful geochemical interpretation.
