@@ -21,10 +21,10 @@ output_path <- file.path(base_path, "output")
 fig_path <- file.path(base_path, "manuscript", "figures")
 dir.create(fig_path, showWarnings = FALSE, recursive = TRUE)
 
-# Image settings
-BRIGHTNESS_BOOST <- 40
-CONTRAST_BOOST <- 10
-GAMMA_CORRECTION <- 1.3
+# Image settings - SIGNIFICANTLY INCREASED for visibility
+BRIGHTNESS_BOOST <- 80      # Increased from 40
+CONTRAST_BOOST <- 30        # Increased from 10
+GAMMA_CORRECTION <- 2.0     # Increased from 1.3 (brightens midtones significantly)
 WINDOW_SIZE <- 5
 
 # Load exclusion zones
@@ -115,12 +115,22 @@ read_document_params <- function(doc_path) {
 }
 
 brighten_image <- function(img, brightness = BRIGHTNESS_BOOST, contrast = CONTRAST_BOOST, gamma = GAMMA_CORRECTION) {
-  if (gamma != 1.0) {
-    img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/gamma)
-  }
-  img %>%
-    image_modulate(brightness = 100 + brightness) %>%
-    image_contrast(sharpen = contrast)
+  # Step 1: Apply histogram equalization to maximize contrast
+  img <- image_equalize(img)
+
+  # Step 2: Apply very strong gamma correction (3.0 = extreme brightening of dark areas)
+  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/3.0)
+
+  # Step 3: Additional brightness boost
+  img <- image_modulate(img, brightness = 180)
+
+  # Step 4: Enhance contrast
+  img <- image_contrast(img, sharpen = 20)
+
+  # Step 5: Another gamma pass to lift shadows
+  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 0.5)
+
+  return(img)
 }
 
 mask_foam_sections <- function(img, section_name, xrf_start, xrf_end, pixels_per_mm) {
