@@ -57,7 +57,7 @@ Detailed Geochemical Documentation of Tamshiyacu and Santa Corina Sediment Cores
 \maketitle
 
 \begin{abstract}
-We present a comprehensive multi-proxy paleoenvironmental analysis of sediment cores from the Miocene Pebas Formation at two localities in the Peruvian Amazon: Tamshiyacu (TAM) and Santa Corina (SC). Integrating Itrax XRF core scanning, computed tomography (CT) density imaging, and optical core documentation, we develop a robust framework validated by independent lines of evidence. Seven core groups comprising 27 sections yield 1,979 calibrated XRF measurements at 3~mm resolution. We employ a statistically-validated four-proxy suite: Ca for authigenic/biogenic carbonate, Ti for terrigenous flux, \FeMn{} for redox conditions, and \ZrRb{} for grain size. Empirical redundancy analysis demonstrates that Ca/Ti is statistically redundant with raw Ca ($r$ = 0.89), while \FeMn{} ($r$ = 0.27) and \ZrRb{} ($r$ = 0.60) provide genuinely independent information. The XRF carbonate signal is independently validated by CT density correlations in two core sections spanning both localities: SC-5-6-7ABC-A ($r$ = 0.967, $p$ = 0.007) and TAM-5AB-6-7-B-RUN2 ($r$ = 0.994, $p$ = 0.0006), confirming that surface geochemistry faithfully tracks bulk sediment composition at regional scale. Systematic site differences---TAM records more reducing conditions (median \FeMn{} = 93.4 vs.\ 50.7) and higher carbonate content than SC---indicate spatial heterogeneity within the Pebas mega-wetland, with TAM representing a more distal or restricted depositional setting. This integrated multi-proxy documentation provides a reference framework for ongoing paleontological and sedimentological studies, with CT-validated shell-rich intervals identified as priority targets for fossil sampling and isotopic analysis.
+We present a comprehensive multi-proxy paleoenvironmental analysis of sediment cores from the Miocene Pebas Formation at two localities in the Peruvian Amazon: Tamshiyacu (TAM) and Santa Corina (SC). Integrating Itrax XRF core scanning with optical core documentation, we develop a robust geochemical framework validated through optical-lithological correspondence across all analyzed sections. Seven core groups comprising 27 sections yield 1,979 calibrated XRF measurements at 3~mm resolution. We employ a statistically-validated four-proxy suite: Ca for authigenic/biogenic carbonate, Ti for terrigenous flux, \FeMn{} for redox conditions, and \ZrRb{} for grain size. Empirical redundancy analysis demonstrates that Ca/Ti is statistically redundant with raw Ca ($r$ = 0.89), while \FeMn{} ($r$ = 0.27) and \ZrRb{} ($r$ = 0.60) provide genuinely independent information. Visual correspondence between XRF geochemical signals and lithological features in optical core images confirms that surface geochemistry faithfully tracks sedimentological variations. Systematic site differences---TAM records more reducing conditions (median \FeMn{} = 93.4 vs.\ 50.7) and higher carbonate content than SC---indicate spatial heterogeneity within the Pebas mega-wetland, with TAM representing a more distal or restricted depositional setting. This integrated multi-proxy documentation provides a reference framework for ongoing paleontological and sedimentological studies, with shell-rich intervals identified as priority targets for fossil sampling and isotopic analysis.
 \end{abstract}
 
 \tableofcontents
@@ -125,7 +125,7 @@ Detector & Silicon drift detector (SDD) \\
 
 \subsection{CT Core Scanning}
 
-Select core sections were also analyzed using computed tomography (CT) scanning to provide complementary density information. CT scans were acquired using a Toshiba Aquilion clinical CT scanner with a bone reconstruction kernel (FC30), optimized for mineral differentiation. Scanning parameters included:
+Computed tomography (CT) scanning was performed on a subset of core material using a Toshiba Aquilion clinical CT scanner with a bone reconstruction kernel (FC30), optimized for mineral differentiation. Scanning parameters included:
 
 \begin{itemize}
     \item Slice thickness: \SI{2.0}{mm}
@@ -134,7 +134,7 @@ Select core sections were also analyzed using computed tomography (CT) scanning 
     \item Two coronal series per sample: TOP and BOTTOM reference scans
 \end{itemize}
 
-The CT data provides X-ray attenuation (density) information that complements XRF elemental data. CT intensity correlates with bulk density and is sensitive to carbonate content, shell concentrations, and porosity variations. DICOM metadata (SliceLocation values) enables depth-matching with XRF position data for integrated analysis.
+The CT data provides X-ray attenuation (density) information sensitive to carbonate content, shell concentrations, and porosity variations. However, the specific core section identity for the CT-scanned material could not be confirmed from available metadata, precluding direct integration with XRF measurements in this study. The CT dataset is documented separately and available for future studies where sample provenance can be established.
 
 \subsection{Data Processing and Calibration}
 
@@ -577,26 +577,15 @@ Figure~\ref{fig:strat_sc} presents the complete composite stratigraphic profile 
 \section{Multi-Proxy Synthesis and Discussion}
 % ==============================================================================
 
-This section integrates all lines of evidence---XRF geochemistry, CT density scanning, optical imaging, and spectral validation---to construct a comprehensive paleoenvironmental framework for the Pebas Formation at Tamshiyacu and Santa Corina.
+This section integrates all lines of evidence---XRF geochemistry, optical imaging, and spectral validation---to construct a comprehensive paleoenvironmental framework for the Pebas Formation at Tamshiyacu and Santa Corina.
 
 \subsection{Convergence of Evidence: Methodological Validation}
 
 A fundamental strength of this study is the independent convergence of multiple analytical approaches, providing robust validation of our paleoenvironmental interpretations.
 
-\subsubsection{XRF-CT Correlation as Independent Validation}
-
-The strong positive correlation between CT density and XRF Ca signal ($r$ = 0.877, $p$ = 0.022; Figure~\ref{fig:ct_integration}) provides independent physical validation of carbonate content estimates. This correlation emerges from two fundamentally different measurement principles:
-
-\begin{itemize}
-    \item \textbf{XRF:} Surface elemental composition measured via X-ray fluorescence, detecting Ca from the upper $\sim$1~mm of sediment
-    \item \textbf{CT:} Bulk X-ray attenuation through the entire core cross-section, sensitive to material density
-\end{itemize}
-
-That these independent methods yield coherent signals confirms that XRF-derived Ca faithfully tracks bulk carbonate content. Higher Ca concentrations (more carbonate minerals and shell material) correspond to higher CT density (less negative raw values), as carbonates (density $\sim$2.7--2.9~g/cm$^3$) are denser than siliciclastic mud (density $\sim$2.4--2.6~g/cm$^3$).
-
 \subsubsection{Optical-Geochemical Correspondence}
 
-Visual examination of integrated core images (Figures~\ref{fig:group1}--\ref{fig:group7}) confirms correspondence between geochemical signals and lithological features across all 27 sections---providing validation coverage that complements the spatially-limited CT data:
+Visual examination of integrated core images (Figures~\ref{fig:group1}--\ref{fig:group7}) confirms correspondence between geochemical signals and lithological features across all 27 sections:
 
 \begin{itemize}
     \item Shell-rich intervals (Ca $>$ 100~kcps) correspond to visible shell concentrations in optical images
@@ -605,7 +594,7 @@ Visual examination of integrated core images (Figures~\ref{fig:group1}--\ref{fig
     \item Foam zones (gray-masked regions) show distinctive spectral signatures confirming exclusion criteria
 \end{itemize}
 
-This optical-geochemical correspondence validates the facies classification scheme across the full dataset (7.97~m composite stratigraphy) and demonstrates that XRF signals capture genuine sedimentological variations rather than analytical artifacts. Where CT data is unavailable, the optical correspondence provides qualitative but comprehensive validation.
+This optical-geochemical correspondence validates the facies classification scheme across the full dataset (7.97~m composite stratigraphy) and demonstrates that XRF signals capture genuine sedimentological variations rather than analytical artifacts.
 
 \subsubsection{Spectral Evidence for Data Quality}
 
@@ -660,7 +649,7 @@ Key differences between Tamshiyacu and Santa Corina (see also Section~\ref{subse
 
 \subsection{Integrated Paleoenvironmental Model}
 
-Synthesizing all lines of evidence---XRF geochemistry, CT density, optical imaging, and statistical validation---we construct the following comprehensive paleoenvironmental model for the Pebas Formation at the study localities.
+Synthesizing all lines of evidence---XRF geochemistry, optical imaging, and statistical validation---we construct the following comprehensive paleoenvironmental model for the Pebas Formation at the study localities.
 
 \subsubsection{Depositional Setting: The Pebas Mega-Wetland}
 
@@ -669,7 +658,7 @@ Both Tamshiyacu and Santa Corina record deposition within the Miocene Pebas mega
 \begin{enumerate}
     \item \textbf{Fine-grained sedimentation:} Low Zr/Rb values (median $<$ 1.0 at both sites) indicate clay-dominated deposition consistent with low-energy lacustrine conditions.
 
-    \item \textbf{Carbonate-rich intervals:} XRF Ca profiles document variable authigenic and biogenic carbonate accumulation, independently validated by CT density correlation ($r$ = 0.877). The strong Ca--Sr correlation ($r$ = 0.62) confirms aragonite-rich shell material, consistent with documented mollusc and ostracod assemblages \citep{Vonhof2003, Kaandorp2005}.
+    \item \textbf{Carbonate-rich intervals:} XRF Ca profiles document variable authigenic and biogenic carbonate accumulation. The strong Ca--Sr correlation ($r$ = 0.62) confirms aragonite-rich shell material, consistent with documented mollusc and ostracod assemblages \citep{Vonhof2003, Kaandorp2005}.
 
     \item \textbf{Reducing bottom waters:} Elevated Fe/Mn ratios (TAM median = 93.4; SC median = 50.7) indicate predominantly anoxic bottom-water conditions, supporting the interpretation of a stratified, restricted water body with limited circulation.
 
@@ -720,77 +709,7 @@ Discrete shell-rich horizons (Ca $>$ 100~kcps; Ca/Ti $>$ 10) are unevenly distri
     \item SC GROUP6-D: 18\% shell-rich (highest at SC)
 \end{itemize}
 
-These intervals represent periods of enhanced mollusc productivity and/or reduced sediment dilution. Sr enrichment confirms aragonite preservation, indicating these horizons provide optimal targets for paleontological investigation and isotopic analysis \citep{Vonhof2003, Kaandorp2005}. The CT-XRF correlation ($r$ = 0.877) independently validates that shell-rich intervals correspond to density increases detectable in CT imaging.
-
-\subsection{CT-XRF Integration: Independent Validation}
-
-Complementary CT scanning provides independent physical validation of XRF-derived carbonate estimates through bulk density measurement (Figure~\ref{fig:ct_integration}). Comprehensive analysis of both CT series against all 27 XRF sections reveals highly significant correlations at multiple localities.
-
-\subsubsection{Data Coverage and Alignment}
-
-CT scanning yielded 80 DICOM slices across two series at 2~mm resolution:
-
-\begin{itemize}
-    \item \textbf{SE1\_TOP:} 38 slices total, 26 valid core slices, 58~mm coverage
-    \item \textbf{SE2\_BTTM:} 42 slices total, 33 valid core slices, 66~mm coverage
-\end{itemize}
-
-After filtering for valid core material (excluding air/background regions where raw values approach $-$32,768), systematic depth alignment optimization tested all 27 XRF sections against both CT series, evaluating 48 unique combinations.
-
-\subsubsection{Quantitative Correlations}
-
-The comprehensive analysis identified highly significant CT-XRF correlations for both series:
-
-\begin{description}
-    \item[SE1\_TOP best match:] SC-5-6-7ABC-A (GROUP6, Santa Corina)
-    \begin{itemize}
-        \item Correlation: $r$ = 0.967 ($p$ = 0.007, $n$ = 5)
-        \item Optimal offset: 18~mm; Overlap: 36~mm
-    \end{itemize}
-
-    \item[SE2\_BTTM best match:] TAM-5AB-6-7-B-RUN2 (GROUP3, Tamshiyacu)
-    \begin{itemize}
-        \item Correlation: $r$ = 0.994 ($p$ = 0.0006, $n$ = 5)
-        \item Optimal offset: 48~mm; Overlap: 12~mm
-    \end{itemize}
-\end{description}
-
-Both correlations are highly significant ($p < 0.01$), with the SE2\_BTTM--TAM-5AB-6-7-B-RUN2 alignment achieving near-perfect correlation ($r$ = 0.994). Notably, the best matches span both study localities (TAM and SC), demonstrating that the CT-XRF relationship is consistent across the Pebas Formation at regional scale.
-
-\subsubsection{Physical Interpretation}
-
-The CT-Ca correlation arises from fundamental material properties. The CT values reported here are raw pixel intensities from DICOM files (not calibrated Hounsfield Units). Values near $-$32,768 represent air/background, while valid sediment ranges from approximately $-$32,000 to $-$16,000 (less negative = denser material).
-
-The consistently positive CT-Ca correlations across both series and both localities reflect:
-
-\begin{itemize}
-    \item Carbonate minerals (aragonite: 2.93~g/cm$^3$; calcite: 2.71~g/cm$^3$) are denser than siliciclastic mud matrix (2.4--2.6~g/cm$^3$)
-    \item Higher carbonate content $\rightarrow$ higher bulk density $\rightarrow$ greater CT attenuation (less negative raw values)
-    \item Shell concentrations create localized density anomalies detectable in both CT and XRF
-    \item The near-perfect correlation at TAM-5AB-6-7-B-RUN2 ($r$ = 0.994) demonstrates the shell-rich intervals in GROUP3 correspond to genuine density increases
-    \item Multi-element correlations (Figure~\ref{fig:ct_integration}F) confirm Ca shows the strongest CT-density relationship, followed by Ti, Fe, and Sr
-\end{itemize}
-
-\subsubsection{Implications for Multi-Proxy Reconstruction}
-
-The comprehensive CT-XRF integration demonstrates that:
-
-\begin{enumerate}
-    \item Surface geochemistry (XRF) faithfully represents bulk composition across both TAM and SC localities
-    \item Carbonate-rich intervals identified by XRF correspond to genuine density increases ($r$ = 0.967--0.994)
-    \item The relationship is consistent at regional scale, with significant correlations at both Tamshiyacu and Santa Corina
-    \item Shell-rich horizons (e.g., TAM-5AB-6-7-B-RUN2 with 48\% shell-rich facies) show the strongest CT validation
-    \item Future studies can target high-CT-density intervals for paleontological sampling with confidence
-\end{enumerate}
-
-\textbf{Data coverage:} While CT scanning covers limited core intervals (58--66~mm per series), the identification of highly significant correlations ($p < 0.01$) at two independent sections spanning both localities validates the XRF methodology. The strong optical-geochemical correspondence across all 27 sections (Figures~\ref{fig:group1}--\ref{fig:group7}) provides complementary visual validation for the full 7.97~m composite stratigraphy.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/ct_xrf_complete_integration.png}
-\caption{Comprehensive CT-XRF integration analysis using both CT series. (A--B) CT density profiles for SE1\_TOP (58~mm, 26 slices) and SE2\_BTTM (66~mm, 33 slices). (C) Ranking of top 15 CT-XRF correlations across all 48 tested combinations; blue = SE1\_TOP, red = SE2\_BTTM. (D--E) SE1\_TOP best match: SC-5-6-7ABC-A showing aligned profiles and scatter plot ($r$ = 0.967, $p$ = 0.007, $n$ = 5). (F) Multi-element correlations with CT density for SE1 match; Ca shows strongest correlation. (G--H) SE2\_BTTM best match: TAM-5AB-6-7-B-RUN2 showing near-perfect correlation ($r$ = 0.994, $p$ = 0.0006, $n$ = 5). Both best matches are highly significant ($p < 0.01$), spanning TAM and SC localities, validating the CT-XRF relationship at regional scale.}
-\label{fig:ct_integration}
-\end{figure}
+These intervals represent periods of enhanced mollusc productivity and/or reduced sediment dilution. Sr enrichment confirms aragonite preservation, indicating these horizons provide optimal targets for paleontological investigation and isotopic analysis \citep{Vonhof2003, Kaandorp2005}.
 
 % ==============================================================================
 % Include filter verification with spectral evidence
@@ -801,10 +720,10 @@ The comprehensive CT-XRF integration demonstrates that:
 \section{Conclusions}
 % ==============================================================================
 
-This study establishes a comprehensive, multi-proxy paleoenvironmental framework for the Pebas Formation through integration of XRF geochemistry, CT density imaging, and optical core documentation. Key findings include:
+This study establishes a comprehensive, multi-proxy paleoenvironmental framework for the Pebas Formation through integration of XRF geochemistry and optical core documentation. Key findings include:
 
 \begin{enumerate}
-    \item \textbf{Multi-proxy validation:} Comprehensive CT-XRF integration using both CT series (SE1\_TOP and SE2\_BTTM) across all 27 XRF sections identifies highly significant correlations at two localities: SC-5-6-7ABC-A ($r$ = 0.967, $p$ = 0.007) and TAM-5AB-6-7-B-RUN2 ($r$ = 0.994, $p$ = 0.0006). These correlations span both Tamshiyacu and Santa Corina, validating that XRF-derived Ca faithfully tracks bulk carbonate content at regional scale. Optical-geochemical correspondence across all 27 sections provides complementary visual validation for the full 7.97~m stratigraphy.
+    \item \textbf{Optical-geochemical validation:} Visual correspondence between XRF geochemical signals and lithological features in optical core images across all 27 sections confirms that surface geochemistry faithfully tracks sedimentological variations throughout the 7.97~m composite stratigraphy. Shell-rich intervals identified by elevated Ca correspond to visible shell concentrations, and facies transitions align with observable lithological boundaries.
 
     \item \textbf{Optimized proxy methodology:} Redundancy analysis demonstrates that Ca/Ti is statistically redundant with raw Ca ($r$ = 0.89), while \FeMn{} ($r$ = 0.27) and \ZrRb{} ($r$ = 0.60) provide genuinely independent information. We recommend a streamlined four-proxy suite (Ca, Ti, \FeMn{}, \ZrRb{}) that maximizes information content while avoiding redundancy.
 
@@ -814,18 +733,18 @@ This study establishes a comprehensive, multi-proxy paleoenvironmental framework
 
     \item \textbf{Temporal variability:} Pronounced stratigraphic variations in all proxies document fluctuating environmental conditions, with TAM GROUP2 representing a carbonate-production maximum and TAM GROUP3 recording a dramatic shell-rich to clastic transition.
 
-    \item \textbf{Integrated visualization:} Optical core images aligned with geochemical profiles for each core group enable direct correspondence between visual lithology and quantitative geochemistry, with CT-validated shell-rich intervals identified for targeted paleontological sampling.
+    \item \textbf{Integrated visualization:} Optical core images aligned with geochemical profiles for each core group enable direct correspondence between visual lithology and quantitative geochemistry, with shell-rich intervals identified as priority targets for paleontological sampling.
 
-    \item \textbf{Reference framework:} This multi-proxy documentation provides a robust foundation for ongoing paleontological, sedimentological, and isotopic studies, with the convergence of independent evidence streams establishing confidence in paleoenvironmental interpretations.
+    \item \textbf{Reference framework:} This multi-proxy documentation provides a robust foundation for ongoing paleontological, sedimentological, and isotopic studies, with the convergence of XRF and optical evidence streams establishing confidence in paleoenvironmental interpretations.
 \end{enumerate}
 
-The methodological framework established here---combining XRF elemental analysis, CT density imaging, optical documentation, and rigorous statistical validation---represents a template for future multi-proxy core-scanning studies of Neogene tropical lacustrine sequences.
+The methodological framework established here---combining XRF elemental analysis, optical documentation, and rigorous statistical validation---represents a template for future multi-proxy core-scanning studies of Neogene tropical lacustrine sequences.
 
 % ==============================================================================
 \section*{Data Availability}
 % ==============================================================================
 
-All XRF data, CT DICOM metadata, R scripts for data processing and visualization, and the Shiny application for interactive figure generation are available at: [repository URL]. CT DICOM image data is available upon request.
+All XRF data, R scripts for data processing and visualization, and the Shiny application for interactive figure generation are available at: [repository URL]. Supplementary CT DICOM data from a subset of core material is documented separately and available upon request; note that the specific core section identity for CT-scanned material could not be confirmed from available metadata.
 
 % ==============================================================================
 % References

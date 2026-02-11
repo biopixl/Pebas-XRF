@@ -1,0 +1,226 @@
+% ==============================================================================
+% Pebas Formation CT Core Scanning: Technical Data Report
+% Supplementary Documentation of DICOM Density Data
+% ==============================================================================
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{longtable}
+
+% Title
+\title{CT Core Scanning of Pebas Formation Sediments:\\
+Technical Data Report and Future Integration Considerations}
+
+\author{Isaac Ayesu\textsuperscript{1}}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This technical report documents computed tomography (CT) scanning data acquired from sediment core material associated with the Pebas Formation, Peru. The CT dataset comprises 80 DICOM images across two scan series (SE1\_TOP and SE2\_BTTM) acquired using a clinical CT scanner with bone reconstruction parameters. While the CT data provides valuable density information sensitive to carbonate content and shell concentrations, the specific core section identity could not be confirmed from available DICOM metadata (PatientID: ``1 23 26''; StudyID: 22166). This report documents the CT data characteristics, density profiles, and considerations for future integration with XRF core scanner measurements pending sample provenance confirmation.
+\end{abstract}
+
+% ==============================================================================
+\section{Introduction}
+% ==============================================================================
+
+Computed tomography (CT) scanning provides non-destructive, three-dimensional density imaging of sediment cores, complementing surface-based XRF elemental analysis. CT intensity values correlate with bulk density and are sensitive to:
+
+\begin{itemize}
+    \item Carbonate mineral content (aragonite: 2.93~g/cm$^3$; calcite: 2.71~g/cm$^3$)
+    \item Shell concentrations creating localized density anomalies
+    \item Porosity variations affecting bulk density
+    \item Lithological transitions between clay-rich and carbite-rich facies
+\end{itemize}
+
+This report documents CT data acquired from Pebas Formation core material, noting current limitations in sample identification that preclude direct integration with the XRF dataset documented in the main manuscript.
+
+% ==============================================================================
+\section{Methods}
+% ==============================================================================
+
+\subsection{CT Scanning Parameters}
+
+CT scans were acquired using a Toshiba Aquilion clinical CT scanner with the following parameters:
+
+\begin{table}[h]
+\centering
+\caption{CT scanning parameters}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+Scanner & Toshiba Aquilion \\
+Reconstruction kernel & FC30 (Bone 2.0) \\
+Slice thickness & \SI{2.0}{mm} \\
+Orientation & Coronal \\
+Series acquired & 2 (TOP and BTTM) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{DICOM Metadata}
+
+Key identifying information from DICOM headers:
+
+\begin{table}[h]
+\centering
+\caption{DICOM identification fields}
+\begin{tabular}{lll}
+\toprule
+Field & SE1\_TOP & SE2\_BTTM \\
+\midrule
+PatientID & 1 23 26 & 1 23 26 \\
+StudyID & 22166 & 22166 \\
+SeriesDescription & Bone 2.0 Coron TOP.Ref & Bone 2.0 Coron BTTM.Ref \\
+Slices & 38 & 42 \\
+Image matrix & $1624 \times 1624$ & $1304 \times 1304$ \\
+Pixel spacing & \SI{0.616}{mm} & \SI{0.468}{mm} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Note:} The PatientID ``1 23 26'' and StudyID ``22166'' do not directly correspond to any XRF core section identifier. The encoding scheme for these fields was not documented in available records.
+
+% ==============================================================================
+\section{Results}
+% ==============================================================================
+
+\subsection{Scan Coverage}
+
+\begin{table}[h]
+\centering
+\caption{CT series coverage summary}
+\begin{tabular}{lrrrrr}
+\toprule
+Series & Total Slices & Valid Core Slices & SliceLocation Range & Core Coverage \\
+\midrule
+SE1\_TOP & 38 & 26 & $-39.5$ to $+34.5$ mm & 58 mm \\
+SE2\_BTTM & 42 & 33 & $-48.4$ to $+33.6$ mm & 66 mm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Valid core slices were identified using a density threshold of $>-32,000$ (raw pixel values), excluding air/background regions near $-32,768$.
+
+\subsection{Density Profile Characteristics}
+
+Both CT series reveal similar structural patterns:
+
+\begin{enumerate}
+    \item \textbf{Two distinct core segments} separated by an air gap, suggesting either:
+    \begin{itemize}
+        \item Physical segmentation of the core sample
+        \item Foam or packing material between core pieces
+        \item Internal voids within the core
+    \end{itemize}
+
+    \item \textbf{Overlapping SliceLocation ranges} between SE1 and SE2, indicating these are not sequential depth sections but rather two scans of the same physical location with different reconstruction parameters or viewing positions.
+
+    \item \textbf{Density range in valid core}: approximately $-16,500$ to $-20,000$ raw units, with higher (less negative) values corresponding to denser, likely more carbonate-rich material.
+\end{enumerate}
+
+\subsection{SE1\_TOP Density Profile}
+
+\begin{verbatim}
+SliceLocation (mm)  | Density Pattern
+--------------------|------------------
+-39.5 to -25.5      | Air/background
+-23.5 to +2.5       | Core segment 1 (26 mm)
++4.5 to +10.5       | Air gap (6 mm)
++12.5 to +34.5      | Core segment 2 (22 mm)
+\end{verbatim}
+
+\subsection{SE2\_BTTM Density Profile}
+
+\begin{verbatim}
+SliceLocation (mm)  | Density Pattern
+--------------------|------------------
+-48.4 to -36.4      | Air/background
+-32.4 to -0.4       | Core segment 1 (32 mm)
++1.6                | Air gap (2 mm)
++3.6 to +33.6       | Core segment 2 (30 mm)
+\end{verbatim}
+
+% ==============================================================================
+\section{Sample Identification Considerations}
+% ==============================================================================
+
+\subsection{Available Clues}
+
+\begin{enumerate}
+    \item \textbf{PatientID ``1 23 26''}: May encode date information (January 23, 2026?) or sample numbering scheme. XRF scanning occurred January 20, 2026 per Itrax document.txt files.
+
+    \item \textbf{Physical dimensions}: Total valid core coverage of 58--66 mm is most consistent with shorter XRF sections:
+    \begin{itemize}
+        \item TAM-1-2-3B-C: 84 mm (entirely excluded as foam)
+        \item SC-5-6-7ABC-E: 90 mm
+        \item SC-5-6-7ABC-C: 99 mm
+    \end{itemize}
+
+    \item \textbf{Two-segment structure}: Matches XRF sections with internal foam exclusion zones.
+\end{enumerate}
+
+\subsection{Limitations}
+
+Without confirmed sample provenance:
+
+\begin{itemize}
+    \item Direct depth registration between CT SliceLocation and XRF position\_mm is not possible
+    \item Statistical correlations between CT density and XRF elemental data cannot be validated
+    \item The CT data cannot serve as independent validation of XRF carbonate estimates
+\end{itemize}
+
+% ==============================================================================
+\section{Recommendations for Future Integration}
+% ==============================================================================
+
+To enable CT-XRF integration in future studies:
+
+\begin{enumerate}
+    \item \textbf{Sample identification}: Contact the CT scanning facility to determine sample provenance from StudyID 22166 records, or decode the PatientID encoding scheme.
+
+    \item \textbf{Physical matching}: Compare CT slice images with optical core photographs to identify distinctive features (shell layers, lithological boundaries) that could confirm section identity.
+
+    \item \textbf{New CT acquisitions}: If CT-XRF validation is required, acquire new CT scans of identified core sections with clear labeling in DICOM metadata fields.
+
+    \item \textbf{Depth registration}: Once sample identity is confirmed, establish coordinate transformation between CT SliceLocation (scanner reference frame) and XRF position\_mm (core reference frame).
+\end{enumerate}
+
+% ==============================================================================
+\section{Data Availability}
+% ==============================================================================
+
+The CT DICOM dataset (80 images, two series) is archived at:
+
+\begin{verbatim}
+Pebas-CT/ST1/SE1/  (38 DICOM files)
+Pebas-CT/ST1/SE2/  (42 DICOM files)
+\end{verbatim}
+
+Processed density profiles are available in:
+
+\begin{verbatim}
+output/tables/ct_density_profiles.csv
+output/tables/ct_dicom_metadata.csv
+output/tables/ct_series_summary.csv
+\end{verbatim}
+
+% ==============================================================================
+\section{Conclusions}
+% ==============================================================================
+
+This technical report documents CT scanning data from Pebas Formation core material. The dataset provides valuable density information across approximately 60 mm of core coverage in two scan series. However, the absence of confirmed sample identification precludes integration with the XRF dataset at this time. The CT data remains available for future studies pending resolution of sample provenance.
+
+\end{document}
