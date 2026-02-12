@@ -118,16 +118,22 @@ brighten_image <- function(img, brightness = BRIGHTNESS_BOOST, contrast = CONTRA
   # Step 1: Apply histogram equalization to maximize contrast
   img <- image_equalize(img)
 
-  # Step 2: Apply very strong gamma correction (3.0 = extreme brightening of dark areas)
-  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/3.0)
+  # Step 2: Extreme gamma correction (5.0 = very aggressive shadow lifting)
+  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/5.0)
 
-  # Step 3: Additional brightness boost
-  img <- image_modulate(img, brightness = 180)
+  # Step 3: Strong brightness boost
+  img <- image_modulate(img, brightness = 250)
 
-  # Step 4: Enhance contrast
-  img <- image_contrast(img, sharpen = 20)
+  # Step 4: Enhance contrast to restore definition
+  img <- image_contrast(img, sharpen = 40)
 
-  # Step 5: Another gamma pass to lift shadows
+  # Step 5: Another gamma pass to lift remaining shadows
+  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 0.3)
+
+  # Step 6: Final brightness push
+  img <- image_modulate(img, brightness = 150)
+
+  # Step 7: One more gamma for stubborn dark areas
   img <- image_level(img, black_point = 0, white_point = 100, mid_point = 0.5)
 
   return(img)
@@ -154,7 +160,8 @@ mask_foam_sections <- function(img, section_name, xrf_start, xrf_end, pixels_per
     foam_width <- foam_end_px - foam_start_px
 
     if (foam_width > 0) {
-      foam_mask <- image_blank(foam_width, img_info$height, color = "#808080")
+      # Use consistent light gray for all excluded zones
+      foam_mask <- image_blank(foam_width, img_info$height, color = "#c8c8c8")
       img <- image_composite(img, foam_mask, offset = sprintf("+%d+0", foam_start_px))
     }
   }
@@ -229,8 +236,8 @@ create_composite_strip <- function(section_images, target_width = 150,
   # Calculate total height
   total_height <- round(total_depth_range * pixels_per_mm)
 
-  # Create canvas
-  composite <- image_blank(target_width, total_height, color = "#404040")
+  # Create canvas - consistent light gray for all gaps (same as foam zones)
+  composite <- image_blank(target_width, total_height, color = "#c8c8c8")
 
   # Get the minimum position
   min_pos <- min(sapply(section_images, function(s) s$xrf_start))
@@ -260,9 +267,9 @@ create_composite_strip <- function(section_images, target_width = 150,
       next_start <- section_images[[i + 1]]$xrf_start
       boundary_y <- round((s$xrf_end - min_pos) * pixels_per_mm)
 
-      # Only draw if there's a gap
+      # Only draw thin subtle line if there's a gap (slightly darker than background)
       if (next_start > s$xrf_end + 5) {
-        line <- image_blank(target_width, 2, color = "white")
+        line <- image_blank(target_width, 1, color = "#b0b0b0")
         composite <- image_composite(composite, line,
                                       offset = sprintf("+0+%d", boundary_y))
       }
@@ -434,7 +441,7 @@ for (grp in groups) {
                                levels = c("Shell-rich", "Carbonate", "Mixed", "Clastic", "Excluded"))
     )
 
-  facies_colors_ext <- c(facies_colors, "Excluded" = "#808080")
+  facies_colors_ext <- c(facies_colors, "Excluded" = "#c8c8c8")  # Consistent light gray
 
   plot_list$facies <- ggplot(facies_data, aes(y = depth_cm)) +
     geom_tile(aes(x = 0.5, fill = facies_display), width = 1, height = 0.4) +
@@ -487,7 +494,7 @@ for (grp in groups) {
     title = sprintf("%s: Integrated Stratigraphy with Section Labels", grp),
     subtitle = sprintf("%s | Sections: %s | n=%d (%d excluded) | %.0f%% reducing",
                        site_name, section_list, stats$n, stats$n_excluded, stats$pct_reducing),
-    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (oxic/reducing) | Gray = excluded",
+    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (oxic/reducing)",
     theme = theme(
       plot.title = element_text(face = "bold", size = 12),
       plot.subtitle = element_text(size = 10, color = "gray40"),
