@@ -27,9 +27,6 @@ CONTRAST_BOOST <- 30        # Increased from 10
 GAMMA_CORRECTION <- 2.0     # Increased from 1.3 (brightens midtones significantly)
 WINDOW_SIZE <- 5
 
-# Consistent color for ALL excluded/gap zones
-EXCLUSION_GRAY <- "#c8c8c8"
-
 # Load exclusion zones
 exclusion_zones <- read_csv(file.path(base_path, "data", "exclusion_zones.csv"),
                             show_col_types = FALSE) %>%
@@ -118,31 +115,20 @@ read_document_params <- function(doc_path) {
 }
 
 brighten_image <- function(img, brightness = BRIGHTNESS_BOOST, contrast = CONTRAST_BOOST, gamma = GAMMA_CORRECTION) {
-  # Apply histogram equalization to maximize contrast
+  # Step 1: Apply histogram equalization to maximize contrast
   img <- image_equalize(img)
 
-  # Aggressive gamma correction to lift dark sediment
-  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/5.0)
+  # Step 2: Apply very strong gamma correction (3.0 = extreme brightening of dark areas)
+  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 1/3.0)
 
-  # Strong brightness boost
-  img <- image_modulate(img, brightness = 250)
+  # Step 3: Additional brightness boost
+  img <- image_modulate(img, brightness = 180)
 
-  # Enhance contrast to restore definition
-  img <- image_contrast(img, sharpen = 40)
+  # Step 4: Enhance contrast
+  img <- image_contrast(img, sharpen = 20)
 
-  # Another gamma pass to lift remaining shadows
-  img <- image_level(img, black_point = 0, white_point = 100, mid_point = 0.3)
-
-  # Final brightness push
-  img <- image_modulate(img, brightness = 150)
-
-  # One more gamma for stubborn dark areas
+  # Step 5: Another gamma pass to lift shadows
   img <- image_level(img, black_point = 0, white_point = 100, mid_point = 0.5)
-
-  # Replace remaining very dark pixels with uniform gray
-  # Scanner background stays black even after brightening (fuzz=8 catches near-black)
-  img <- image_transparent(img, color = "black", fuzz = 8)
-  img <- image_background(img, color = EXCLUSION_GRAY)
 
   return(img)
 }
@@ -168,8 +154,7 @@ mask_foam_sections <- function(img, section_name, xrf_start, xrf_end, pixels_per
     foam_width <- foam_end_px - foam_start_px
 
     if (foam_width > 0) {
-      # Use consistent light gray for all excluded zones
-      foam_mask <- image_blank(foam_width, img_info$height, color = EXCLUSION_GRAY)
+      foam_mask <- image_blank(foam_width, img_info$height, color = "#808080")
       img <- image_composite(img, foam_mask, offset = sprintf("+%d+0", foam_start_px))
     }
   }
@@ -205,18 +190,8 @@ process_section <- function(section_name, optical_path, mask_foam = TRUE,
 
   if (crop_width <= 0) return(NULL)
 
-  # Crop horizontally (along core length)
   crop_geom <- sprintf("%dx%d+%d+0", crop_width, img_info$height, xrf_start_px)
   img_cropped <- image_crop(img, crop_geom)
-
-  # Crop vertically to remove scanner background edges (keep central 60% of height)
-  # The core is typically centered with black scanner background on top/bottom
-  cropped_info <- image_info(img_cropped)
-  margin_pct <- 0.20  # Remove 20% from top and bottom
-  top_margin <- round(cropped_info$height * margin_pct)
-  core_height <- round(cropped_info$height * (1 - 2 * margin_pct))
-  vertical_crop <- sprintf("%dx%d+0+%d", cropped_info$width, core_height, top_margin)
-  img_cropped <- image_crop(img_cropped, vertical_crop)
 
   cropped_pixels_per_mm <- crop_width / (xrf_end - xrf_start)
 
@@ -254,8 +229,8 @@ create_composite_strip <- function(section_images, target_width = 150,
   # Calculate total height
   total_height <- round(total_depth_range * pixels_per_mm)
 
-  # Create canvas - consistent light gray for all gaps (same as foam zones)
-  composite <- image_blank(target_width, total_height, color = EXCLUSION_GRAY)
+  # Create canvas
+  composite <- image_blank(target_width, total_height, color = "#404040")
 
   # Get the minimum position
   min_pos <- min(sapply(section_images, function(s) s$xrf_start))
@@ -285,9 +260,9 @@ create_composite_strip <- function(section_images, target_width = 150,
       next_start <- section_images[[i + 1]]$xrf_start
       boundary_y <- round((s$xrf_end - min_pos) * pixels_per_mm)
 
-      # Only draw thin subtle line if there's a gap (slightly darker than background)
+      # Only draw if there's a gap
       if (next_start > s$xrf_end + 5) {
-        line <- image_blank(target_width, 2, color = "#a0a0a0")
+        line <- image_blank(target_width, 2, color = "white")
         composite <- image_composite(composite, line,
                                       offset = sprintf("+0+%d", boundary_y))
       }
@@ -393,7 +368,8 @@ for (grp in groups) {
     filter(!excluded) %>%
     mutate(
       Ca_Ti_filt = zoo::rollmean(Ca_Ti, WINDOW_SIZE, fill = NA, align = "center"),
-      Fe_Mn_filt = zoo::rollmean(Fe_Mn, WINDOW_SIZE, fill = NA, align = "center")
+      Fe_Mn_filt = zoo::rollmean(Fe_Mn, WINDOW_SIZE, fill = NA, align = "center"),
+      Zr_Rb_filt = zoo::rollmean(Zr_Rb, WINDOW_SIZE, fill = NA, align = "center")
     )
 
   # Calculate statistics
@@ -459,7 +435,7 @@ for (grp in groups) {
                                levels = c("Shell-rich", "Carbonate", "Mixed", "Clastic", "Excluded"))
     )
 
-  facies_colors_ext <- c(facies_colors, "Excluded" = EXCLUSION_GRAY)  # Consistent light gray
+  facies_colors_ext <- c(facies_colors, "Excluded" = "#808080")
 
   plot_list$facies <- ggplot(facies_data, aes(y = depth_cm)) +
     geom_tile(aes(x = 0.5, fill = facies_display), width = 1, height = 0.4) +
@@ -481,38 +457,53 @@ for (grp in groups) {
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
 
-  # Panel 5: Fe/Mn
+  # Panel 5: Fe/Mn - separate ribbons for oxic/reducing to avoid overlap issues
   plot_list$femn <- ggplot(group_data_filt, aes(y = depth_cm)) +
-    geom_ribbon(aes(xmin = 0, xmax = Fe_Mn_filt,
-                    fill = ifelse(Fe_Mn_filt > 50, "Reducing", "Oxic")),
-                alpha = 0.4, na.rm = TRUE) +
-    geom_path(aes(x = Fe_Mn_filt), color = "purple", linewidth = 0.6, na.rm = TRUE) +
-    geom_vline(xintercept = 50, linetype = "dashed", color = "red", linewidth = 0.5) +
-    scale_fill_manual(values = c("Reducing" = "purple", "Oxic" = "orange"), guide = "none") +
+    # Oxic portion (0 to min of Fe_Mn or 50)
+    geom_ribbon(aes(xmin = 0, xmax = pmin(Fe_Mn_filt, 50, na.rm = TRUE)),
+                fill = "#D6604D", alpha = 0.6, na.rm = TRUE) +
+    # Reducing portion (50 to Fe_Mn, only where Fe_Mn > 50)
+    geom_ribbon(aes(xmin = 50, xmax = pmax(Fe_Mn_filt, 50, na.rm = TRUE)),
+                fill = "#2166AC", alpha = 0.6, na.rm = TRUE) +
+    geom_path(aes(x = Fe_Mn_filt), color = "black", linewidth = 0.7, na.rm = TRUE) +
+    geom_vline(xintercept = 50, linetype = "dashed", color = "gray40", linewidth = 0.6) +
     scale_y_reverse(limits = y_limits) +
     labs(x = "Fe/Mn", y = NULL, title = "Redox") +
+    theme_minimal(base_size = 10) +
+    theme(axis.text.y = element_blank())
+
+  # Panel 6: Zr/Rb - Hydrodynamic energy (recalibrated for lacustrine context)
+  # Lower values = quieter/deeper water; Higher values = higher energy
+  # Site-appropriate thresholds based on data distribution
+  plot_list$zrrb <- ggplot(group_data_filt, aes(y = depth_cm)) +
+    geom_ribbon(aes(xmin = 0, xmax = Zr_Rb_filt),
+                fill = "#4B0082", alpha = 0.5, na.rm = TRUE) +
+    geom_path(aes(x = Zr_Rb_filt), color = "black", linewidth = 0.7, na.rm = TRUE) +
+    geom_vline(xintercept = 1.0, linetype = "dashed", color = "gray40", linewidth = 0.5) +
+    scale_y_reverse(limits = y_limits) +
+    labs(x = "Zr/Rb", y = NULL, title = "Energy") +
     theme_minimal(base_size = 10) +
     theme(axis.text.y = element_blank())
 
   # Combine panels
   if (!is.null(composite)) {
     fig <- plot_list$core + plot_list$sections + plot_list$facies +
-      plot_list$cati + plot_list$femn +
-      plot_layout(widths = c(0.5, 0.15, 0.2, 1, 1))
+      plot_list$cati + plot_list$femn + plot_list$zrrb +
+      plot_layout(widths = c(0.4, 0.12, 0.15, 0.8, 0.8, 0.8))
   } else {
     fig <- plot_list$sections + plot_list$facies +
-      plot_list$cati + plot_list$femn +
-      plot_layout(widths = c(0.2, 0.3, 1, 1))
+      plot_list$cati + plot_list$femn + plot_list$zrrb +
+      plot_layout(widths = c(0.15, 0.2, 0.8, 0.8, 0.8))
   }
 
   # Get section list for subtitle
   section_list <- paste(section_bounds$short_label, collapse = ", ")
 
   fig <- fig + plot_annotation(
-    title = sprintf("%s: Integrated Stratigraphy with Section Labels", grp),
+    title = sprintf("%s: Integrated Stratigraphy", grp),
     subtitle = sprintf("%s | Sections: %s | n=%d (%d excluded) | %.0f%% reducing",
                        site_name, section_list, stats$n, stats$n_excluded, stats$pct_reducing),
-    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (oxic/reducing)",
+    caption = "Facies: Ca/Ti thresholds (2, 5, 10) | Fe/Mn = 50 (redox) | Zr/Rb (relative energy)",
     theme = theme(
       plot.title = element_text(face = "bold", size = 12),
       plot.subtitle = element_text(size = 10, color = "gray40"),
@@ -523,7 +514,7 @@ for (grp in groups) {
   # Save publication figure
   fig_file <- sprintf("integrated_%s_pub.png", grp)
   ggsave(file.path(fig_path, fig_file), fig,
-         width = 12, height = 10, dpi = 300, bg = "white")
+         width = 14, height = 10, dpi = 300, bg = "white")
   message(sprintf("  Saved: %s", fig_file))
 }
 
