@@ -1,0 +1,204 @@
+% ==============================================================================
+% Environmental Signal Analysis
+% Comprehensive geochemical interpretation of Pebas Formation XRF data
+% ==============================================================================
+
+\section{Environmental Signal Analysis}
+\label{sec:environmental_analysis}
+
+This section presents a comprehensive analysis of environmental signals preserved in the XRF geochemical record, identifying the most reliable proxies and significant stratigraphic transitions for paleoenvironmental reconstruction.
+
+\subsection{Site-Level Environmental Differences}
+
+Analysis of 1,979 valid XRF measurements across 27 core sections reveals highly significant geochemical differences between the Tamshiyacu (TAM; $n = 930$) and Santa Corina (SC; $n = 1,049$) localities (Figure~\ref{fig:site_comparison}).
+
+\begin{table}[htbp]
+\centering
+\caption{Site-level comparison of key geochemical parameters. All $p$-values from Wilcoxon rank-sum tests.}
+\label{tab:site_comparison}
+\begin{tabular}{lcccp{4cm}}
+\toprule
+Parameter & TAM (median) & SC (median) & $p$-value & Interpretation \\
+\midrule
+Fe/Mn & 95.1 & 50.8 & $<10^{-150}$ & TAM more reducing \\
+Mn/Ti & 0.17 & 0.36 & $<10^{-147}$ & SC more oxidizing \\
+Ca/Ti & 4.92 & 3.07 & $<10^{-15}$ & TAM more carbonate \\
+Fe (counts) & 167,602 & 286,477 & $<10^{-67}$ & Higher Fe at SC \\
+Ti (counts) & 9,680 & 14,229 & $<10^{-113}$ & Higher detrital at SC \\
+Mn (counts) & 1,565 & 5,499 & $<10^{-199}$ & $\sim$3.5$\times$ higher Mn at SC \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/environmental_analysis/fig1_site_comparison.pdf}
+\caption{Site-level geochemical comparison between TAM and SC localities. (A) Fe/Mn ratio as a redox proxy, showing consistently more reducing conditions at TAM. (B) Mn/Ti ratio indicating higher oxygenation at SC. (C) Ca/Ti ratio reflecting greater carbonate influence at TAM. (D) Ti counts as a detrital input proxy, demonstrating higher siliciclastic flux at SC. All differences are highly significant ($p < 10^{-15}$, Wilcoxon rank-sum tests).}
+\label{fig:site_comparison}
+\end{figure}
+
+The data indicate that TAM represents a more \textbf{reducing, carbonate-influenced} depositional environment, while SC shows evidence of \textbf{higher oxidation and detrital input}. The 3.5-fold difference in Mn concentrations between sites is particularly diagnostic, as Mn accumulation is strongly controlled by bottom-water oxygenation.
+
+\subsection{Proxy Reliability Ranking}
+
+Not all geochemical proxies provide equally reliable paleoenvironmental information. We evaluated proxy reliability using three criteria: (1) coefficient of variation (CV; lower indicates more stable measurements), (2) effect size between sites (Cohen's $d$-equivalent), and (3) statistical significance of site differences (Figure~\ref{fig:proxy_reliability}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/environmental_analysis/fig2_proxy_reliability.pdf}
+\caption{Proxy discriminatory power between TAM and SC sites. Effect size represents the absolute difference in medians normalized by pooled standard deviation. Proxies above the dashed line (effect size $>0.5$) show medium to large effects. Individual elements (green) generally show higher discriminatory power than ratios (purple), with Ti and Mn being the most diagnostic.}
+\label{fig:proxy_reliability}
+\end{figure}
+
+\subsubsection{Tier 1: Highest Reliability Proxies}
+
+\begin{description}
+\item[Ti (Titanium):] CV = 0.36, effect size = 1.20. Excellent detrital proxy with very low variability and strong site discrimination. Ti is immobile during diagenesis and represents terrigenous siliciclastic input.
+
+\item[Mn (Manganese):] CV = 0.90, effect size = 1.26. Best redox indicator despite higher variability. Mn is highly sensitive to bottom-water oxygenation, with precipitation enhanced under oxic conditions.
+
+\item[Rb (Rubidium):] CV = 0.29, effect size = 0.88. Clay mineral proxy with excellent stability. Rb substitutes for K in illite and correlates with fine-grained sediment input.
+
+\item[K (Potassium):] CV = 0.37, effect size = 0.76. Weathering indicator tracking clay mineral content and chemical weathering intensity in the source area.
+\end{description}
+
+\subsubsection{Tier 2: Good Reliability Proxies}
+
+\begin{description}
+\item[Fe/Mn ratio:] CV = 1.21, effect size = 0.40. Classic redox proxy despite higher variability. Values $>70$ indicate reducing conditions; TAM consistently exceeds this threshold.
+
+\item[Mn/Ti ratio:] CV = 0.89, effect size = 0.65. Ti-normalized Mn provides an oxygenation proxy corrected for detrital dilution. Higher values indicate better bottom-water ventilation.
+
+\item[Si/Ti ratio:] CV = 0.45, effect size = 0.82. Potential biogenic silica indicator when normalized to detrital Ti.
+\end{description}
+
+\subsubsection{Tier 3: Use with Caution}
+
+\begin{description}
+\item[Ca/Ti, Zr/Rb:] Moderate reliability with higher variability.
+\item[Sr/Ca, Ca alone:] Poor site discrimination ($p > 0.4$); not recommended for site comparison.
+\end{description}
+
+\subsection{Best Core Sections for Interpretation}
+
+Section quality varies considerably across the dataset. We ranked sections by a composite score incorporating: (1) number of measurements, (2) stratigraphic coverage (depth range), and (3) dynamic range of key proxies (Table~\ref{tab:best_sections}, Figure~\ref{fig:section_quality}).
+
+\begin{table}[htbp]
+\centering
+\caption{Top-ranked core sections for paleoenvironmental interpretation, ordered by composite quality score.}
+\label{tab:best_sections}
+\begin{tabular}{llcccl}
+\toprule
+Section & Site & $n$ & Depth (mm) & Fe/Mn range & Notable features \\
+\midrule
+TAM-1-2-3B-A & TAM & 153 & 537 & 89--1327 & Extreme redox variability \\
+TAM-3A-4-5CDE-B & TAM & 162 & 564 & 20--204 & Clear carbonate events \\
+TAM-1-2-3B-B & TAM & 87 & 312 & 158--542 & High Ca/Ti variability \\
+TAM-5AB-6-7-B-RUN2 & TAM & 111 & 444 & 7--174 & Oxygenation cycles \\
+TAM-5AB-6-7-C & TAM & 237 & 472 & 39--159 & Most measurements; stable baseline \\
+SC-5-6-7ABC-B & SC & 173 & 408 & 19--115 & Best SC section; clear transitions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/environmental_analysis/fig5_section_quality.pdf}
+\caption{Data quality assessment by section. Bar height indicates number of valid XRF measurements; labels show stratigraphic coverage in millimeters. TAM sections (blue) generally provide more extensive coverage than SC sections (red). Sections with $<20$ measurements are excluded from this analysis.}
+\label{fig:section_quality}
+\end{figure}
+
+\subsection{Stratigraphic Transitions}
+
+Major environmental transitions were identified using a rolling-window analysis (5-point window) to detect shifts $>50\%$ in key proxy values. Three exemplary sections illustrate different transition styles (Figure~\ref{fig:stratigraphic_profiles}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/environmental_analysis/fig3_stratigraphic_profiles.pdf}
+\caption{Stratigraphic profiles of key proxies in the three highest-quality sections. Each column shows Fe/Mn (top), Mn/Ti (middle), and Ca/Ti (bottom) for one section. Dashed horizontal line on Fe/Mn panels indicates the reducing threshold ($\sim$70). Note the different scales reflecting distinct environmental conditions at each locality.}
+\label{fig:stratigraphic_profiles}
+\end{figure}
+
+\subsubsection{TAM-1-2-3B-A (123--660 mm)}
+
+This section records the most extreme redox variability in the dataset:
+\begin{itemize}
+\item \textbf{156--207 mm:} Ca/Ti increases 88--167\%, indicating a \textbf{carbonate enrichment event}
+\item \textbf{327--339 mm:} Mn/Ti increases 60--85\% while Fe/Mn drops 52\%, marking a \textbf{transition to more oxidizing conditions}
+\item Fe/Mn ranges from 89 to 1327, spanning nearly two orders of magnitude
+\end{itemize}
+
+\subsubsection{TAM-3A-4-5CDE-B (448--1012 mm)}
+
+This section shows well-defined carbonate pulses:
+\begin{itemize}
+\item \textbf{472--478 mm:} Ca/Ti increases 62--125\%, representing a \textbf{major carbonate pulse}
+\item \textbf{487--493 mm:} Fe/Mn increases 53--73\%, indicating \textbf{return to reducing conditions}
+\end{itemize}
+
+\subsubsection{SC-5-6-7ABC-B (284--692 mm)}
+
+The best SC section shows coupled carbonate-redox transitions:
+\begin{itemize}
+\item \textbf{294--298 mm:} Simultaneous Ca/Ti increase (83--144\%) and Mn/Ti increase (80--103\%), indicating a \textbf{combined carbonate enrichment and oxygenation event}
+\end{itemize}
+
+\subsection{Redox Environment Interpretation}
+
+The relationship between Fe/Mn and Mn/Ti provides a two-dimensional framework for interpreting redox conditions (Figure~\ref{fig:redox_crossplot}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/environmental_analysis/fig4_redox_crossplot.pdf}
+\caption{Redox environment crossplot showing the inverse relationship between Fe/Mn (reducing conditions) and Mn/Ti (oxidizing conditions). TAM samples (blue) cluster in the reducing field with high Fe/Mn and low Mn/Ti, while SC samples (red) show more variable, generally more oxidizing conditions. Dashed lines indicate typical environmental thresholds.}
+\label{fig:redox_crossplot}
+\end{figure}
+
+\subsubsection{Tamshiyacu (TAM) Environment}
+
+TAM sediments consistently plot in the \textbf{reducing field} (high Fe/Mn, low Mn/Ti), indicating:
+\begin{itemize}
+\item Oxygen-depleted bottom waters
+\item Possible water column stratification
+\item Limited ventilation or mixing
+\item More distal or restricted lake position
+\end{itemize}
+
+The median Fe/Mn of 95.1 exceeds the reducing threshold (70) in 96\% of measurements, indicating persistent anoxic or dysoxic conditions.
+
+\subsubsection{Santa Corina (SC) Environment}
+
+SC sediments show more variable redox conditions with a shift toward the \textbf{oxidizing field}:
+\begin{itemize}
+\item Higher bottom-water oxygen levels
+\item Enhanced Mn precipitation (3.5$\times$ higher than TAM)
+\item Better-ventilated conditions
+\item Proximity to oxygenated inflow or shallower water depth
+\end{itemize}
+
+The median Fe/Mn of 50.8 and Mn/Ti of 0.36 suggest periodic ventilation events punctuating generally reducing conditions.
+
+\subsection{Environmental Synthesis}
+
+The geochemical data support a model where TAM and SC represent distinct depositional environments within the Pebas mega-wetland system:
+
+\begin{description}
+\item[TAM:] More \textbf{restricted lacustrine setting} with persistent water column stratification, reduced bottom-water oxygen, elevated carbonate production or preservation, and lower siliciclastic dilution. This environment may represent a more distal position within the lake system or a protected embayment with limited circulation.
+
+\item[SC:] More \textbf{dynamic fluvially-influenced setting} with better bottom-water ventilation, higher detrital input (50\% more Ti), enhanced Mn cycling, and more variable environmental conditions. This environment suggests proximity to fluvial sources or a more open-water position subject to periodic mixing.
+\end{description}
+
+The preserved geochemical variability within sections (particularly TAM-1-2-3B-A) indicates that environmental conditions fluctuated substantially over the timescales represented by individual core sections (estimated $10^2$--$10^4$ years based on sedimentation rates). These fluctuations likely reflect climate-driven changes in lake level, productivity, and/or runoff intensity.
+
+\subsection{Recommendations for Future Work}
+
+Based on this analysis, we recommend:
+
+\begin{enumerate}
+\item Use \textbf{Fe/Mn} as the primary redox proxy (highest significance)
+\item Normalize elements to \textbf{Ti} for detrital correction (most reliable element)
+\item Focus detailed paleoenvironmental reconstruction on \textbf{TAM-1-2-3B-A} (extreme variability) and \textbf{TAM-3A-4-5CDE-B} (clear events)
+\item Use \textbf{SC-5-6-7ABC-B} as the representative SC comparison section
+\item Avoid sections with $<30$ measurements or $<100$ mm stratigraphic coverage
+\item Consider paired Fe/Mn--Mn/Ti analysis for comprehensive redox interpretation
+\end{enumerate}

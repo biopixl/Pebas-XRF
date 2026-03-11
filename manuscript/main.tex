@@ -57,7 +57,7 @@ Detailed Geochemical Documentation of Tamshiyacu and Santa Corina Sediment Cores
 \maketitle
 
 \begin{abstract}
-We present a comprehensive multi-proxy paleoenvironmental analysis of sediment cores from the Miocene Pebas Formation at two localities in the Peruvian Amazon: Tamshiyacu (TAM) and Santa Corina (SC). Integrating Itrax XRF core scanning with optical core documentation, we develop a robust geochemical framework validated through optical-lithological correspondence across all analyzed sections. Seven core groups comprising 27 sections yield 1,979 calibrated XRF measurements at 3~mm resolution. We employ a statistically-validated four-proxy suite: Ca for authigenic/biogenic carbonate, Ti for terrigenous flux, \FeMn{} for redox conditions, and \ZrRb{} for hydrodynamic energy. Redundancy analysis demonstrates that Ca/Ti is statistically redundant with raw Ca ($r$ = 0.89), while \FeMn{} ($r$ = 0.27) and \ZrRb{} ($r$ = 0.60) provide genuinely independent information; notably, the Sr/Ba paleosalinity proxy is inapplicable in this carbonate-bearing setting. Low baseline \ZrRb{} values (median $<$ 1.0) confirm fine-grained, low-energy lacustrine deposition consistent with the Pebas mega-wetland model, while discrete \ZrRb{} anomalies identify 34 high-energy events (floods/storms) concentrated in specific stratigraphic intervals. Systematic site differences---TAM records more reducing conditions (median \FeMn{} = 92.5 vs.\ 50.7) and higher carbonate content (15\% vs.\ 4\% shell-rich)---indicate spatial heterogeneity within the mega-wetland, with TAM representing a more distal or restricted depositional setting. Complementary portable XRF analysis of 13 fossil specimens from museum collections (AMNH, UNMSM Lima, Harvard MCZ) validates the sedimentary geochemical framework: fossil Sr/Ca ratios confirm freshwater depositional conditions, uranium uptake corroborates reducing burial environments, and site-specific diagenetic signatures parallel the TAM--SC distinction observed in core data. This integrated multi-proxy framework---combining high-resolution core scanning with targeted museum specimen analysis---provides a reference for ongoing paleontological studies, with shell-rich intervals and redox transitions identified as priority targets for fossil sampling and isotopic analysis.
+We present high-resolution XRF geochemistry from sediment cores of the Miocene Pebas Formation at two localities in the Peruvian Amazon: Tamshiyacu (TAM) and Santa Corina (SC). Twenty-seven core sections yield nearly 2,000 measurements at 3~mm resolution, documenting geochemical variability across $\sim$8~m of composite stratigraphy. Using a four-proxy approach (Ca for carbonate, Ti for terrigenous input, \FeMn{} for redox conditions, \ZrRb{} for grain size), we find that TAM sediments are consistently more reducing than SC (median \FeMn{} = 82 vs.\ 49), with 96\% of TAM measurements exceeding the reducing threshold compared to 47\% at SC. This difference holds across all sections and threshold values tested, indicating a genuine paleoenvironmental distinction between the localities. Low \ZrRb{} values at both sites confirm fine-grained, low-energy deposition consistent with the Pebas mega-wetland model. Spectral analysis reveals no statistically significant periodicities, precluding cyclostratigraphic interpretation without independent age control. Other proxy differences (higher Ti at SC, higher \ZrRb{} at TAM) are suggestive but not statistically robust with current sample sizes. We interpret TAM as representing a more distal or restricted part of the lake system with persistently stratified, oxygen-poor bottom waters, while SC experienced more variable redox conditions. Portable XRF analysis of museum fossil specimens corroborates the sedimentary geochemistry. This dataset provides the first continuous, high-resolution geochemical record from the Pebas Formation and establishes a framework for integrating XRF core scanning with paleontological and isotopic studies of this unique Miocene lake system.
 \end{abstract}
 
 \tableofcontents
@@ -574,6 +574,11 @@ Figure~\ref{fig:strat_sc} presents the complete composite stratigraphic profile 
 \end{figure}
 
 % ==============================================================================
+% Include revised statistical methods and site comparison (corrected for autocorrelation)
+% ==============================================================================
+\input{sections/statistical_methods}
+
+% ==============================================================================
 \section{Multi-Proxy Synthesis and Discussion}
 % ==============================================================================
 
@@ -749,30 +754,27 @@ These intervals represent periods of enhanced mollusc productivity and/or reduce
 \input{sections/ces_grant_draft}
 
 % ==============================================================================
+% Environmental Signal Analysis - Comprehensive proxy evaluation and ranking
+% ==============================================================================
+\input{sections/environmental_analysis}
+
+% ==============================================================================
 \section{Conclusions}
 % ==============================================================================
 
-This study establishes a comprehensive, multi-proxy paleoenvironmental framework for the Pebas Formation through integration of XRF geochemistry and optical core documentation. Key findings include:
+This study presents the first high-resolution XRF geochemical record from the Pebas Formation, spanning 27 core sections and nearly 2,000 measurements across two localities in the Peruvian Amazon.
 
-\begin{enumerate}
-    \item \textbf{Optical-geochemical validation:} Visual correspondence between XRF geochemical signals and lithological features in optical core images across all 27 sections confirms that surface geochemistry faithfully tracks sedimentological variations throughout the 7.97~m composite stratigraphy. Shell-rich intervals identified by elevated Ca correspond to visible shell concentrations, and facies transitions align with observable lithological boundaries.
+\textbf{Redox conditions differ between sites.} TAM sediments are consistently more reducing than SC, with higher Fe/Mn ratios (median 82 vs.\ 49) and a greater proportion of measurements exceeding the reducing threshold (96\% vs.\ 47\%). This difference is evident in every section examined and holds regardless of which threshold value is chosen. We interpret this as reflecting a more distal or restricted depositional setting at TAM, where bottom waters were persistently oxygen-poor.
 
-    \item \textbf{Optimized proxy methodology:} Redundancy analysis demonstrates that Ca/Ti is statistically redundant with raw Ca ($r$ = 0.89), while \FeMn{} ($r$ = 0.27) and \ZrRb{} ($r$ = 0.60) provide genuinely independent information. We recommend a streamlined four-proxy suite (Ca, Ti, \FeMn{}, \ZrRb{}) that maximizes information content while avoiding redundancy. Notably, the Sr/Ba paleosalinity proxy is not applicable in this carbonate-bearing setting due to Sr incorporation into aragonite phases.
+\textbf{Both sites record low-energy lacustrine deposition.} Fine grain sizes indicated by low Zr/Rb values (median $<$ 1.0) are consistent with the Pebas mega-wetland model of shallow, extensive lake systems rather than energetic fluvial environments.
 
-    \item \textbf{Comprehensive inventory:} 27 core sections from 7 groups yield 1,979 calibrated XRF measurements across 7.97~m of composite stratigraphy, with 81.5\% data retention after quality control filtering validated by spectral evidence.
+\textbf{No evidence for orbital cyclicity.} Apparent periodicities in Fe/Mn profiles cannot be distinguished from autocorrelated noise without independent age control. Cyclostratigraphic interpretation will require radiometric dates or biostratigraphic constraints.
 
-    \item \textbf{Pebas mega-wetland signature:} Low Zr/Rb values (median $<$ 1.0) at both sites indicate fine-grained, low-energy lacustrine deposition consistent with the Pebas mega-wetland model. Elevated Fe/Mn ratios confirm predominantly reducing bottom-water conditions, supporting the interpretation of a stratified, restricted water body---consistent with published Sr isotope evidence for predominantly freshwater conditions.
+\textbf{Other proxy patterns are suggestive but not definitive.} Higher Ti at SC and higher Zr/Rb at TAM hint at differences in terrigenous input and grain size, but these patterns do not reach statistical significance with current sample sizes and should be tested with additional data.
 
-    \item \textbf{Spatial heterogeneity:} Systematic geochemical differences between TAM (median \FeMn{} = 92.5; 15\% shell-rich facies) and SC (median \FeMn{} = 50.7; 4\% shell-rich) indicate TAM represents a more distal or restricted depositional setting with stronger bottom-water anoxia and enhanced carbonate accumulation.
+\textbf{Practical implications.} The geochemical framework established here provides context for paleontological sampling: shell-rich intervals (Ca $>$ 100 kcps) and redox transitions offer the best preservation potential for isotopic studies. The correspondence between XRF signals and visible lithological features confirms that core scanning captures genuine sedimentological variability.
 
-    \item \textbf{Hydrodynamic events:} Zr/Rb anomalies identify 34 discrete high-energy events (20 at TAM, 14 at SC) representing floods, storms, or deltaic pulses that episodically delivered coarser sediment to the low-energy lacustrine environment. Events cluster in specific stratigraphic intervals, suggesting periods of enhanced hydrological variability.
-
-    \item \textbf{Temporal variability:} Pronounced stratigraphic variations in all proxies document fluctuating environmental conditions, with TAM GROUP2 representing a carbonate-production maximum and TAM GROUP3 recording a dramatic shell-rich to clastic transition.
-
-    \item \textbf{Reference framework:} This multi-proxy documentation provides a robust foundation for ongoing paleontological, sedimentological, and isotopic studies, with the convergence of XRF and optical evidence streams establishing confidence in paleoenvironmental interpretations. Shell-rich intervals and redox transitions are identified as priority targets for fossil sampling and isotopic analysis.
-
-    \item \textbf{Museum fossil validation:} Portable XRF analysis of 48 Pebas Formation specimens from two museum collections (AMNH New York, n=17; UNMSM Lima, n=31) independently validates the sedimentary geochemical framework. Fossil Sr/Ca ratios confirm freshwater depositional conditions, elevated Fe concentrations ($\sim$32,000 ppm) corroborate reducing burial environments inferred from sediment Fe/Mn ratios, and systematic inter-institutional differences in diagenetic signatures (AMNH: better phosphate preservation; UNMSM: greater silicification) demonstrate the utility of pXRF for assessing specimen quality. This integration of Itrax core scanning and museum pXRF analysis identifies optimal preservation targets for isotopic paleoenvironmental reconstruction.
-\end{enumerate}
+This dataset establishes a template for XRF-based paleoenvironmental reconstruction in Neogene tropical lacustrine sequences and provides a foundation for integrating geochemistry with ongoing paleontological and isotopic work on the Pebas mega-wetland.
 
 The methodological framework established here---combining high-resolution Itrax core scanning, optical documentation, rigorous statistical validation, and targeted pXRF analysis of museum fossil collections---represents a template for future multi-proxy studies integrating sedimentary and paleontological geochemistry in Neogene tropical lacustrine sequences.
 
