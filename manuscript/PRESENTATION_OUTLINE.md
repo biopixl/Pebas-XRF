@@ -518,6 +518,202 @@
 
 ---
 
+## COPY-PASTE TABLES FOR SLIDES
+
+### Table 1: Pebas System Overview
+```
+PEBAS MEGA-WETLAND
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Area            >1 million km²
+Duration        ~23–8 Ma (15 million years)
+Age of cores    ~12 Ma (Middle Miocene)
+Mollusc zones   MZ7–MZ8 (peak diversity)
+Endemic species 158 molluscs (72% endemic)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 2: ITRAX Scanner Settings
+```
+XRF CORE SCANNING PARAMETERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+X-ray tube      Mo (molybdenum)
+Voltage         30 kV
+Current         45 mA
+Step size       2 mm
+Integration     10 sec/point
+Detector        Si-drift (SDD)
+Output          Counts per second (cps)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 3: Element Behavior
+```
+ELEMENT GEOCHEMISTRY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Element  Source      Redox?   Role
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mn       Authigenic  YES      Primary O₂ tracer
+Fe       Mixed       Partial  Supporting indicator
+Ca       Biogenic    NO       Shell/productivity
+Ti       Detrital    NO       Normalizer (inert)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 4: Proxy Interpretation
+```
+XRF PROXY FRAMEWORK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Proxy    High Value           Low Value          Independent?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mn/Ti    Oxic (O₂ present)    Dysoxic (no O₂)    ✓ PRIMARY
+Ca/Ti    Shell-rich           Shell-poor         ✓ YES
+Fe/Mn    Reducing (anoxic)    Less reducing      ✗ shares Mn
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 5: Site Comparison
+```
+TAM vs SC: SITE CONTRAST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Parameter        TAM       SC        Ratio    Meaning
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mn/Ti median     0.18      0.37      2.1×     SC more oxic
+Ca/Ti median     5.04      2.94      1.7×     TAM more shells
+Ti (cps)         9,510     13,587    1.4×     SC more detrital
+Mn (cps)         1,531     4,804     3.1×     SC more Mn precip
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+n measurements   876       1,062
+Sections         11        16
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 6: Site Environments
+```
+DEPOSITIONAL SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Site  Setting              Characteristics         XRF Signature
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TAM   Lacustrine (distal)  Stratified, dysoxic     Low Mn/Ti, high Ca/Ti
+                           Pachydon-dominated
+SC    Fluvio-lacustrine    Ventilated, variable    High Mn/Ti, high Ti
+      (proximal)           Mixed mollusc fauna
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 7: Key Intervals
+```
+HIGHLIGHT INTERVALS FOR PRESENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Section              Depth    Signal           Story
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SC-1ABC-2-3C-A-RUN1  367 mm   +833% Mn/Ti      Most dramatic O₂ event
+SC-3AB-4ABCD-RUN2-F  1258 mm  +5.8σ Mn/Ti      Best concordant signal
+TAM-1-2-3B-A         243-444  Mn/Ti = 0.078    Extreme dysoxia
+SC-5-6-7ABC-B        704 mm   Ca/Ti = 48       Massive shell bed
+TAM-5AB-6-7-B-RUN2   264 mm   Concordant       Best TAM oxic event
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 8: Environmental Modes
+```
+THREE ENVIRONMENTAL STATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mode  Mn/Ti  Ca/Ti  Environment          Best Example
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1     HIGH   HIGH   Oxic + productive    SC-3AB-4ABCD-RUN2-F @ 1258
+2     LOW    varies Dysoxic baseline     TAM-1-2-3B-A @ 243-444
+3     LOW    HIGH   Shells + reducing    TAM-1-2-3B-B @ 1204
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 9: Isotope Validation
+```
+BIVALVE ISOTOPE COMPARISON (Kaandorp 2005)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Bivalve    Habitat      δ¹⁸O Pattern         XRF Match
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Pachydon   Lacustrine   Low amplitude        Stable low Mn/Ti (TAM)
+           (dysoxic)    Irregular cycles     Stratified bottom water
+Diplodon   Fluvial      High amplitude       Variable Mn/Ti (SC)
+           (oxic)       Seasonal cycles      Ventilated seasonally
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 10: Mn Redox Chemistry
+```
+MANGANESE REDOX BEHAVIOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Condition    Mn State    Solubility    Sediment Effect
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OXIC         Mn⁴⁺        Insoluble     Precipitates as MnO₂
+(O₂ > 0.2)   (oxidized)  (trapped)     → HIGH Mn/Ti
+
+DYSOXIC      Mn²⁺        Soluble       Diffuses into water
+(O₂ < 0.2)   (reduced)   (mobile)      → LOW Mn/Ti
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Threshold: ~200 mV (Eh), ~0.2 ml/L O₂
+```
+
+### Table 11: Conclusions Summary
+```
+KEY FINDINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#   Finding                                    Evidence
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1   XRF detects dysoxia                        Pachydon + low Mn/Ti match
+2   Sites = different O₂ regimes               TAM 0.18 vs SC 0.37 Mn/Ti
+3   Concordant proxies = robust signal         Ca/Ti + Mn/Ti independent
+4   System was dynamic                         833% Mn/Ti transitions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 12: Quick Numbers
+```
+NUMBERS TO REMEMBER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+~12 Ma          Age of cores
+~2,000          XRF measurements
+2 mm            Spatial resolution
+~3-5 yr         Temporal resolution
+0.18 vs 0.37    TAM vs SC Mn/Ti
+2.1×            SC/TAM oxygen difference
+833%            Largest Mn/Ti transition
++5.8σ           Strongest anomaly
+30 km           Distance between sites
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 13: Drivers of Variability
+```
+PROPOSED MECHANISMS FOR O₂ EVENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mechanism          Process                  Evidence
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Andean runoff      Cold O₂-rich water       Sr isotopes in shells
+                   plunges into lake
+Lake-level drop    Shallowing enables       Sequence stratigraphy
+                   wind mixing
+Orbital forcing    Precession cycles        Cyclic sedimentation
+                   modulate rainfall        (Hoorn et al.)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 14: Lithology Color Guide
+```
+READING CORE COLORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Color           Chemistry       Environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Dark gray/black High organic    Reducing (dysoxic)
+                Low Mn/Ti
+Light gray/tan  Low organic     Oxidized (oxic)
+                High Mn/Ti
+White bands     High Ca         Shell-rich horizons
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
 ## References for Slides
 
 - Aitchison, J. (1986). The Statistical Analysis of Compositional Data. Chapman and Hall.
