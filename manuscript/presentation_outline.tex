@@ -1,0 +1,418 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+
+\geometry{margin=1in}
+
+\definecolor{TAMcolor}{HTML}{D55E00}
+\definecolor{SCcolor}{HTML}{0072B2}
+\definecolor{highlight}{HTML}{FFEB3B}
+
+\title{Redox and Carbonate Dynamics in the Miocene Pebas Mega-Wetland:\\
+XRF Evidence from Tamshiyacu and Santa Corina\\[0.5em]
+\large Presentation Outline with Temporal Framework}
+
+\author{Pebas-XRF Research Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Executive Summary: Temporal Framework}
+%==============================================================================
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!50!black, title=Critical Update: Age Constraints]
+\textbf{TAM and SC cores are mostly non-contemporaneous.}
+
+\begin{tabular}{lcc}
+\toprule
+Parameter & TAM & SC \\
+\midrule
+Age range & 12.935--13.446 Ma & 13.275--14.298 Ma \\
+Duration & 0.511 Myr & 1.023 Myr \\
+Thickness & 397.4 cm & 423.5 cm \\
+Sedimentation rate & 778 cm/Ma & 414 cm/Ma \\
+Temporal resolution & 2.6 yr/step & 4.9 yr/step \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\textbf{Overlap: 13.275--13.446 Ma = 171 kyr (only 17\% of SC, 33\% of TAM)}
+
+\begin{itemize}[noitemsep]
+    \item TAM overlap: bottom 133 cm of core
+    \item SC overlap: top 71 cm of core
+    \item SC is \textbf{older}; TAM is \textbf{younger}
+\end{itemize}
+\end{tcolorbox}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig2_age_depth_model.png}
+    \caption{Age-depth model showing TAM and SC core chronology. The shaded region indicates the 171 kyr temporal overlap (13.275--13.446 Ma). SC has a slower sedimentation rate (414 cm/Ma) compared to TAM (778 cm/Ma), resulting in lower temporal resolution but longer time coverage.}
+    \label{fig:age_depth}
+\end{figure}
+
+%==============================================================================
+\section{Introduction}
+%==============================================================================
+
+\subsection{The Pebas Mega-Wetland}
+
+The Pebas Formation records one of the most remarkable freshwater ecosystems in Earth history---a mega-wetland exceeding 1 million km$^2$ that persisted for nearly 15 million years in western Amazonia.
+
+\begin{itemize}
+    \item \textbf{Endemic mollusc radiations}: 158 species, 72\% endemic
+    \item \textbf{Exceptional vertebrate preservation}: articulated crocodilians, giant turtles, freshwater dolphins
+    \item \textbf{Time period}: Our cores span $\sim$12.9--14.3 Ma (Middle Miocene)
+    \item \textbf{Mollusc zones}: MZ7--MZ8 (peak biodiversity)
+\end{itemize}
+
+\subsection{Research Questions}
+
+\begin{enumerate}
+    \item Can XRF proxies detect the dysoxic conditions documented by mollusc ecology?
+    \item Do geochemical signals match independent isotopic evidence from bivalve shells?
+    \item What drove environmental variability in the Pebas system?
+    \item How do site differences reflect spatial heterogeneity vs.\ temporal evolution?
+\end{enumerate}
+
+%==============================================================================
+\section{Methods: XRF Proxy Framework}
+%==============================================================================
+
+\subsection{Instrumentation}
+
+\begin{table}[H]
+\centering
+\caption{ITRAX core scanner parameters}
+\begin{tabular}{lll}
+\toprule
+Component & Specification & Significance \\
+\midrule
+X-ray source & Mo tube, 30 kV, 45 mA & Excites K-lines for Al--Sr \\
+Detector & Si-drift detector (SDD) & Energy-dispersive \\
+Step size & 2 mm & TAM: 2.6 yr/step; SC: 4.9 yr/step \\
+Integration & 10 sec/point & Adequate counts for trace elements \\
+Output & Counts per second (cps) & Semi-quantitative \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Proxy Rationale}
+
+\begin{table}[H]
+\centering
+\caption{XRF proxy framework for paleoenvironmental reconstruction}
+\begin{tabular}{lllcc}
+\toprule
+Proxy & Numerator & Denominator & Independent? & Interpretation \\
+\midrule
+\textbf{Mn/Ti} & Authigenic Mn oxides & Detrital Ti & $\checkmark$ Primary & High = oxic \\
+\textbf{Ca/Ti} & Biogenic carbonate & Detrital Ti & $\checkmark$ Yes & High = shells \\
+\textbf{Fe/Mn} & Mixed Fe sources & Authigenic Mn & $\times$ Shares Mn & High = reducing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Mn redox chemistry}: Mn$^{4+}$ (insoluble) precipitates under oxic conditions as MnO$_2$. Under reducing conditions, Mn$^{4+}$ $\rightarrow$ Mn$^{2+}$ (soluble), which diffuses away. Threshold: $\sim$200 mV (Eh), $\sim$0.2 ml/L O$_2$.
+
+%==============================================================================
+\section{Results: Site-Level Contrast}
+%==============================================================================
+
+\subsection{Overview Statistics}
+
+\begin{table}[H]
+\centering
+\caption{Site comparison: TAM (younger, 12.9--13.4 Ma) vs SC (older, 13.3--14.3 Ma)}
+\begin{tabular}{lcccc}
+\toprule
+Parameter & TAM & SC & Ratio & Interpretation \\
+\midrule
+Mn/Ti median & 0.18 & 0.37 & 2.1$\times$ & SC more oxic \\
+Ca/Ti median & 5.04 & 2.94 & 1.7$\times$ & TAM more carbonate \\
+Ti median (cps) & 9,510 & 13,587 & 1.4$\times$ & SC more detrital \\
+Mn median (cps) & 1,531 & 4,804 & 3.1$\times$ & SC more Mn precipitation \\
+\midrule
+$n$ measurements & 876 & 1,062 & & \\
+Sections & 11 & 16 & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{../output/figures/temporal_overlap/fig1_MnTi_density.png}
+    \caption{Mn/Ti distribution by site. TAM (median 0.18) shows persistently lower Mn/Ti than SC (median 0.37), indicating more reducing conditions at TAM. This difference may reflect both spatial heterogeneity (lacustrine vs.\ fluvio-lacustrine) and temporal evolution of the Pebas system.}
+    \label{fig:density}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../output/figures/temporal_overlap/fig6_boxplot_comparison.png}
+    \caption{Boxplot comparison of Mn/Ti by site, showing the fundamental oxygen regime difference.}
+    \label{fig:boxplot}
+\end{figure}
+
+\subsection{Temporal Caveat}
+
+\begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=Important Interpretive Note]
+The site contrast (TAM dysoxic, SC oxic) may partly reflect:
+\begin{itemize}[noitemsep]
+    \item \textbf{Spatial heterogeneity}: TAM = distal lacustrine; SC = proximal fluvio-lacustrine
+    \item \textbf{Temporal evolution}: SC records an older, perhaps more dynamic phase; TAM records a younger, more stable dysoxic phase
+\end{itemize}
+For time-equivalent comparison, focus on:
+\begin{itemize}[noitemsep]
+    \item TAM: bottom 133 cm (oldest TAM material)
+    \item SC: top 71 cm (youngest SC material)
+\end{itemize}
+\end{tcolorbox}
+
+%==============================================================================
+\section{Environmental Modes}
+%==============================================================================
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig7_environmental_modes.png}
+    \caption{Environmental modes identified from Mn/Ti vs Ca/Ti crossplot. Three distinct states emerge: (1) Oxic-carbonate events (high Mn/Ti, high Ca/Ti), (2) Dysoxic baseline (low Mn/Ti), and (3) Shell transport/authigenic events (low Mn/Ti, high Ca/Ti).}
+    \label{fig:modes}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Three environmental modes in the Pebas system}
+\begin{tabular}{llll}
+\toprule
+Mode & Mn/Ti & Ca/Ti & Interpretation \\
+\midrule
+\textbf{1. Oxic-Carbonate} & High & High & Enhanced ventilation + productivity \\
+\textbf{2. Dysoxic Baseline} & Low & Variable & Persistent reducing, Pachydon habitat \\
+\textbf{3. Shell Transport} & Low & High & Carbonate accumulation under reducing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%==============================================================================
+\section{Case Studies: Paleoenvironmental Mechanisms}
+%==============================================================================
+
+\subsection{Case Study 1: Dramatic Oxygenation Event}
+
+\textbf{Location}: SC-1ABC-2-3C-A-RUN1, depth 367 mm
+
+\textbf{Signal}: +833\% increase in Mn/Ti over a few millimeters
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig3_case_oxygenation.png}
+    \caption{Case Study 1: The most dramatic oxygenation event in the dataset. The +833\% Mn/Ti transition at 367 mm represents an abrupt ventilation event---the environment flipped from reducing to oxidizing conditions within years to decades.}
+    \label{fig:case1}
+\end{figure}
+
+\textbf{Mechanism}: Three possibilities:
+\begin{enumerate}
+    \item \textbf{Andean runoff pulse}: Cold, oxygen-rich river water plunges into stratified lake
+    \item \textbf{Lake-level drop}: Shallowing enables wind mixing to reach bottom
+    \item \textbf{Storm mixing}: Episodic breakdown of thermal stratification
+\end{enumerate}
+
+\textbf{Preservation implication}: This oxygenation event would have temporarily disrupted the preservation-favorable dysoxic conditions, potentially causing bioturbation and scavenging of any carcasses present.
+
+\subsection{Case Study 2: Persistent Dysoxic Baseline}
+
+\textbf{Location}: TAM-1-2-3B-A, depth 243--444 mm
+
+\textbf{Signal}: Sustained extremely low Mn/Ti (mean = 0.078), Fe/Mn > 400
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig4_case_dysoxia.png}
+    \caption{Case Study 2: A 200 mm interval of extreme dysoxia at TAM-1-2-3B-A. Mn/Ti values as low as 0.078 indicate bottom water oxygen $<$0.2 ml/L---\textit{Pachydon obliquus} territory.}
+    \label{fig:case2}
+\end{figure}
+
+\textbf{Mechanism}:
+\begin{itemize}
+    \item Thermal stratification prevents mixing with oxygenated surface water
+    \item Organic matter accumulation consumes oxygen via bacterial respiration
+    \item Water residence time high enough for O$_2$ depletion
+\end{itemize}
+
+\textbf{Preservation implication}: This is the ``taphonomic sweet spot.'' Conditions favor:
+\begin{itemize}
+    \item No scavengers (crocs, catfish can't survive)
+    \item No bioturbation (infaunal organisms excluded except Pachydon)
+    \item Organic matter preservation (no oxidative decay)
+    \item Rapid burial in fine-grained organic-rich mud
+\end{itemize}
+
+\subsection{Case Study 3: Concordant Oxic-Carbonate Event}
+
+\textbf{Location}: SC-3AB-4ABCD-RUN2-F, depth 1258 mm
+
+\textbf{Signal}: Mn/Ti +5.8$\sigma$, Ca/Ti +2.0$\sigma$ (both moving together)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig5_case_concordant.png}
+    \caption{Case Study 3: Concordant oxic-carbonate event. When Mn/Ti and Ca/Ti move together, it's strong evidence for a real environmental event---not a compositional artifact. This interval represents oxygenation that simultaneously favored Mn precipitation and mollusc colonization.}
+    \label{fig:case3}
+\end{figure}
+
+\textbf{Mechanism}:
+\begin{itemize}
+    \item Oxygenation event precipitates Mn as MnO$_2$ (increases Mn/Ti)
+    \item Improved conditions allow mollusc colonization and shell production (increases Ca/Ti)
+    \item Independent proxies responding to the same environmental driver
+\end{itemize}
+
+\textbf{Why this matters}: Mn and Ca have different source terms (authigenic vs.\ biogenic). Concordant anomalies resist the compositional data closure critique because they require a common environmental driver.
+
+%==============================================================================
+\section{Geochemical Controls on Exceptional Preservation}
+%==============================================================================
+
+\subsection{The Preservation Triangle}
+
+\begin{table}[H]
+\centering
+\caption{Why Pebas preserves fossils exceptionally well}
+\begin{tabular}{llll}
+\toprule
+Factor & XRF Signal & Taphonomic Effect \\
+\midrule
+\textbf{Dysoxia} & Mn/Ti $<$ 0.2 & No scavengers, no bioturbation \\
+\textbf{Reducing} & Fe/Mn $>$ 70 & Organic matter preserved \\
+\textbf{Alkalinity} & Ca/Ti $>$ 5 & Shells don't dissolve \\
+\textbf{Fine sediment} & Low Ti variance & Rapid burial seals fossils \\
+\textbf{Stratification} & Stable low Mn/Ti & Persistent anoxic bottom water \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{XRF as Preservation Predictor}
+
+\begin{table}[H]
+\centering
+\caption{XRF proxies as preservation indicators}
+\begin{tabular}{lll}
+\toprule
+Proxy Value & Preservation & Expected Fossils \\
+\midrule
+Mn/Ti $<$ 0.1 & Excellent & Articulated vertebrates, soft tissues \\
+Mn/Ti 0.1--0.2 & Very Good & Articulated skeletons, complete shells \\
+Mn/Ti 0.2--0.4 & Moderate & Disarticulated but associated bones \\
+Mn/Ti $>$ 0.5 & Poor & Scattered, abraded fragments \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%==============================================================================
+\section{Synthesis and Conclusions}
+%==============================================================================
+
+\subsection{Key Findings}
+
+\begin{enumerate}
+    \item \textbf{XRF detects dysoxia}: Mn/Ti successfully identifies reducing conditions independently documented by \textit{Pachydon obliquus} ecology (Wesselingh 2006).
+
+    \item \textbf{Site contrast = spatial + temporal}: TAM (0.18 Mn/Ti) vs SC (0.37 Mn/Ti) reflects both environmental heterogeneity and temporal evolution. Only 171 kyr of overlap.
+
+    \item \textbf{Concordant proxies = robust signals}: When Mn/Ti and Ca/Ti move together, the signal resists compositional closure critique.
+
+    \item \textbf{Dynamic system}: 833\% Mn/Ti transitions record discrete ventilation events in an otherwise stratified system.
+
+    \item \textbf{Preservation connection}: The same geochemistry that tracks paleoenvironment explains why Pebas preserves fossils exceptionally---dysoxia is a taphonomic factory.
+\end{enumerate}
+
+\subsection{Depositional Model}
+
+\begin{table}[H]
+\centering
+\caption{Depositional settings in the Pebas mega-wetland}
+\begin{tabular}{llll}
+\toprule
+Setting & Site & Characteristics & XRF Signature \\
+\midrule
+Lacustrine (distal) & TAM & Stratified, dysoxic & Low Mn/Ti (0.18), high Ca/Ti \\
+Fluvio-lacustrine & SC & Ventilated, variable & High Mn/Ti (0.37), high Ti \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Future Directions}
+
+\begin{itemize}
+    \item \textbf{Time-series analysis}: Test for orbital periodicities in Mn/Ti
+    \item \textbf{Overlap comparison}: Focus on temporally equivalent intervals (TAM bottom vs.\ SC top)
+    \item \textbf{Vertebrate taphonomy}: Use XRF to predict preservation quality before excavation
+    \item \textbf{Regional correlation}: Link local XRF signals to basin-wide Pebas evolution
+\end{itemize}
+
+%==============================================================================
+\section{Key Numbers Reference}
+%==============================================================================
+
+\begin{table}[H]
+\centering
+\caption{Quick reference: Numbers to remember}
+\begin{tabular}{ll}
+\toprule
+\multicolumn{2}{c}{\textbf{Chronology}} \\
+\midrule
+TAM age range & 12.935--13.446 Ma (0.51 Myr) \\
+SC age range & 13.275--14.298 Ma (1.02 Myr) \\
+Overlap & 171 kyr (13.275--13.446 Ma) \\
+TAM sed rate & 778 cm/Ma (2.6 yr/step) \\
+SC sed rate & 414 cm/Ma (4.9 yr/step) \\
+\midrule
+\multicolumn{2}{c}{\textbf{Data}} \\
+\midrule
+Total XRF measurements & $\sim$2,000 \\
+Step size & 2 mm \\
+Distance between sites & 30 km \\
+\midrule
+\multicolumn{2}{c}{\textbf{Results}} \\
+\midrule
+TAM vs SC Mn/Ti & 0.18 vs 0.37 \\
+Oxygen difference & 2.1$\times$ \\
+Largest transition & +833\% Mn/Ti \\
+Strongest anomaly & +5.8$\sigma$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%==============================================================================
+\section*{References}
+%==============================================================================
+
+\begin{itemize}[noitemsep]
+    \item Aitchison, J. (1986). The Statistical Analysis of Compositional Data. Chapman and Hall.
+    \item Hoorn, C. et al. (2010). The development of the Amazonian mega-wetland. In: Amazonia: Landscape and Species Evolution.
+    \item Kaandorp, R.J.G. et al. (2005). Ecological implications from geochemical records of Miocene Western Amazonian bivalves. J. South American Earth Sciences.
+    \item Salas-Gismondi, R. et al. (2015). A Miocene hyperdiverse crocodylian community reveals peculiar trophic dynamics in proto-Amazonian mega-wetlands. Proc.\ R.\ Soc.\ B.
+    \item Wesselingh, F.P. et al. (2002). Lake Pebas: a palaeoecological reconstruction. Cainozoic Research.
+    \item Wesselingh, F.P. (2006). Evolutionary ecology of the Pachydontinae. Scripta Geologica.
+\end{itemize}
+
+\end{document}
