@@ -19,10 +19,13 @@
 \definecolor{TAMcolor}{HTML}{D55E00}
 \definecolor{SCcolor}{HTML}{0072B2}
 \definecolor{highlight}{HTML}{FFEB3B}
+\definecolor{CaTi}{HTML}{2166ac}
+\definecolor{FeTi}{HTML}{b2182b}
+\definecolor{MnTi}{HTML}{1a9850}
 
-\title{Redox and Carbonate Dynamics in the Miocene Pebas Mega-Wetland:\\
-XRF Evidence from Tamshiyacu and Santa Corina\\[0.5em]
-\large Core-Based Paleoenvironmental Reconstruction}
+\title{Cross-Proxy Geochemistry of the Pebas Mega-Wetland:\\
+Ti-Normalized Elemental Ratios from Tamshiyacu and Santa Corina\\[0.5em]
+\large Comparing Ca/Ti, Fe/Ti, and Mn/Ti at the Top of Cores}
 
 \author{Pebas-XRF Research Team}
 \date{\today}
@@ -35,10 +38,44 @@ XRF Evidence from Tamshiyacu and Santa Corina\\[0.5em]
 \newpage
 
 %==============================================================================
-\section{Introduction: The Pebas System}
+\section{Introduction: Ti-Normalized Proxy Ratios}
 %==============================================================================
 
-The Pebas Formation records one of the most remarkable freshwater ecosystems in Earth history---a mega-wetland exceeding 1 million km$^2$ that persisted for $\sim$15 million years in western Amazonia. Our XRF analysis of two cores provides unprecedented insight into the paleoenvironmental conditions that supported exceptional fossil preservation.
+Titanium (Ti) serves as an ideal normalizing element for XRF-based paleoenvironmental reconstruction because it is:
+\begin{itemize}
+    \item Terrigenous in origin (derived from detrital silicates)
+    \item Chemically immobile under diagenetic conditions
+    \item Insensitive to redox changes
+\end{itemize}
+
+Normalizing Ca, Fe, and Mn to Ti isolates the \textbf{authigenic} (in-situ formed) component of these elements from the detrital background, revealing paleoenvironmental signals.
+
+\begin{table}[H]
+\centering
+\caption{Ti-normalized proxy interpretation}
+\begin{tabular}{llll}
+\toprule
+\textbf{Ratio} & \textbf{Primary Signal} & \textbf{High Values} & \textbf{Low Values} \\
+\midrule
+\textcolor{CaTi}{\textbf{Ca/Ti}} & Carbonate input & Shell accumulation, alkaline & Terrigenous-dominated \\
+\textcolor{FeTi}{\textbf{Fe/Ti}} & Iron enrichment & Reducing conditions (Fe mobile) & Oxic (Fe locked in oxides) \\
+\textcolor{MnTi}{\textbf{Mn/Ti}} & Manganese enrichment & Oxic (Mn precipitates as MnO$_2$) & Reducing (Mn mobile) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tcolorbox}[colback=blue!5, colframe=blue!50!black, title=Key Principle]
+\textbf{Fe and Mn have opposite redox behavior:}
+\begin{itemize}[noitemsep]
+    \item Under \textbf{reducing} conditions: Fe mobilizes (high Fe/Ti), Mn escapes (low Mn/Ti)
+    \item Under \textbf{oxidizing} conditions: Fe locked in oxides (low Fe/Ti), Mn precipitates (high Mn/Ti)
+\end{itemize}
+Therefore, the \textbf{Fe/Ti : Mn/Ti ratio} is a powerful redox discriminator.
+\end{tcolorbox}
+
+%==============================================================================
+\section{Study Sites and Core Tops}
+%==============================================================================
 
 \begin{table}[H]
 \centering
@@ -48,9 +85,8 @@ The Pebas Formation records one of the most remarkable freshwater ecosystems in 
 Parameter & TAM (Tamshiyacu) & SC (Santa Corina) \\
 \midrule
 Age range & 12.935--13.446 Ma & 13.275--14.298 Ma \\
-Duration & 0.511 Myr & 1.023 Myr \\
+\textbf{Top of core age} & $\sim$12.9 Ma & $\sim$13.3 Ma \\
 Sedimentation rate & 778 cm/Ma & 414 cm/Ma \\
-Temporal resolution & 2.6 yr/step & 4.9 yr/step \\
 Setting & Distal lacustrine & Fluvio-lacustrine \\
 \midrule
 \textbf{Overlap} & \multicolumn{2}{c}{13.275--13.446 Ma (171 kyr)} \\
@@ -58,323 +94,220 @@ Setting & Distal lacustrine & Fluvio-lacustrine \\
 \end{tabular}
 \end{table}
 
-%==============================================================================
-\section{Top of Cores: Youngest Sediments}
-%==============================================================================
-
-We begin with the youngest (stratigraphically highest) sections from each core, representing the most recent Pebas deposits captured at each site.
-
-\subsection{TAM Core Top: TAM-5AB-6-7-C ($\sim$12.9 Ma)}
-
-The youngest TAM section records the final phase of Pebas lacustrine conditions at this locality, approximately 12.9 Ma.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/top_TAM-5AB-6-7-C.png}
-    \caption{TAM-5AB-6-7-C: Youngest TAM section ($\sim$12.9 Ma). Core image with Mn/Ti, Ca/Ti, and Fe/Mn profiles. This section shows characteristic TAM dysoxic conditions (low Mn/Ti) with occasional carbonate-rich intervals (Ca/Ti peaks).}
-    \label{fig:tam-top}
-\end{figure}
-
-\textbf{Key observations}:
+We focus on the \textbf{youngest sediments} from each core:
 \begin{itemize}
-    \item Persistently low Mn/Ti indicates sustained bottom-water dysoxia
-    \item Ca/Ti peaks correlate with visible lighter (shell-rich) horizons
-    \item Fe/Mn remains elevated, confirming reducing conditions
+    \item \textbf{TAM}: GROUP3 sections (TAM-5AB-6-7-C, -B, -A) representing $\sim$12.9 Ma
+    \item \textbf{SC}: SC8-A representing $\sim$13.3 Ma (the youngest SC within the overlap period)
 \end{itemize}
 
-\subsection{TAM Core Top Continuation: TAM-5AB-6-7-B-RUN2}
+%==============================================================================
+\section{TAM Core Top: Cross-Proxy Profile}
+%==============================================================================
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/top_TAM-5AB-6-7-B-RUN2.png}
-    \caption{TAM-5AB-6-7-B-RUN2: Continuation of youngest TAM sequence. Similar proxy patterns confirm consistent environmental conditions through this interval.}
-    \label{fig:tam-top-b}
+    \includegraphics[width=\textwidth]{../output/figures/cross_proxy/tam_top_cross_proxy.png}
+    \caption{\textbf{TAM-5AB-6-7-C}: Youngest TAM section ($\sim$12.9 Ma) with Ti-normalized elemental ratios. \textcolor{CaTi}{\textbf{Ca/Ti}} (carbonate), \textcolor{FeTi}{\textbf{Fe/Ti}} (iron), \textcolor{MnTi}{\textbf{Mn/Ti}} (manganese) profiles alongside the core image.}
+    \label{fig:tam-cross}
 \end{figure}
 
-\subsection{SC Core Top: SC8-A ($\sim$13.3 Ma)}
-
-The youngest SC section represents the most recent SC deposits, roughly 400 kyr older than the TAM top.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/fig4_SC8-A.png}
-    \caption{SC8-A: Youngest SC section ($\sim$13.3 Ma). Note the notably higher Mn/Ti values compared to TAM, indicating more oxic bottom-water conditions at SC. This section falls within the temporal overlap with TAM.}
-    \label{fig:sc-top}
-\end{figure}
-
-\textbf{Key observations}:
+\textbf{Key observations from TAM core top:}
 \begin{itemize}
-    \item Higher Mn/Ti than TAM indicates better-oxygenated conditions
-    \item More variable proxy signals suggest dynamic, ventilated environment
-    \item Ca/Ti generally lower than TAM, reflecting different carbonate input
+    \item \textcolor{CaTi}{\textbf{Ca/Ti is elevated}} (median 2.42): Strong carbonate signal, visible shell-rich horizons
+    \item \textcolor{FeTi}{\textbf{Fe/Ti is moderate-high}} (median 15.7): Iron enrichment indicates reducing conditions
+    \item \textcolor{MnTi}{\textbf{Mn/Ti is low}} (median 0.21): Manganese depletion confirms bottom-water dysoxia
 \end{itemize}
 
-\subsection{Top of Cores Comparison}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/top_cores_comparison.png}
-    \caption{Direct comparison of youngest sections from both cores. Top: TAM GROUP3 (TAM-5AB-6-7 sections, $\sim$12.9 Ma). Bottom: SC8-A ($\sim$13.3 Ma). Despite being $\sim$400 kyr apart, the fundamental site contrast (TAM dysoxic, SC oxic) is evident.}
-    \label{fig:top-comparison}
-\end{figure}
-
-\begin{tcolorbox}[colback=yellow!10, colframe=orange!50!black, title=Site Contrast Summary]
-\textbf{TAM (younger, distal lacustrine):} Low Mn/Ti (median 0.18), high Ca/Ti, persistent dysoxia\\
-\textbf{SC (older, fluvio-lacustrine):} High Mn/Ti (median 0.37), variable proxies, better ventilated
+\begin{tcolorbox}[colback=orange!5, colframe=orange!50!black, title=TAM Interpretation]
+The combination of \textbf{high Ca/Ti}, \textbf{high Fe/Ti}, and \textbf{low Mn/Ti} indicates a \textbf{stratified, dysoxic lacustrine environment} with:
+\begin{itemize}[noitemsep]
+    \item Carbonate-supersaturated surface waters supporting mollusc communities
+    \item Oxygen-depleted bottom waters where Fe remains mobile and Mn escapes to the water column
+    \item \textbf{Excellent preservation potential} for articulated fossils
+\end{itemize}
 \end{tcolorbox}
 
 %==============================================================================
-\section{Temporal Overlap Model}
+\section{SC Core Top: Cross-Proxy Profile}
 %==============================================================================
 
-The cores share a 171 kyr overlap period (13.275--13.446 Ma). Comparing these time-equivalent intervals tests whether site differences reflect spatial heterogeneity or temporal evolution.
-
-\subsection{Age-Depth Framework}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig2_age_depth_model.png}
-    \caption{Age-depth model for TAM and SC cores. Yellow shading indicates the 171 kyr overlap period. TAM's higher sedimentation rate (778 cm/Ma) provides finer temporal resolution but shorter time coverage than SC (414 cm/Ma).}
-    \label{fig:age-model}
+    \includegraphics[width=\textwidth]{../output/figures/cross_proxy/sc_top_cross_proxy.png}
+    \caption{\textbf{SC8-A}: Youngest SC section ($\sim$13.3 Ma) with Ti-normalized elemental ratios. This section falls within the temporal overlap with TAM, enabling direct comparison.}
+    \label{fig:sc-cross}
 \end{figure}
 
-\subsection{TAM Overlap Sections (Bottom of TAM Core)}
-
-The \textbf{oldest} TAM sections represent the overlap period. These are from the bottom of the TAM core.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/fig1_TAM-1-2-3B-A.png}
-    \caption{TAM-1-2-3B-A: Oldest TAM section ($\sim$13.4 Ma), within the overlap period. Even at this oldest TAM level, Mn/Ti remains low, indicating the dysoxic signature is not simply a temporal trend but a persistent site characteristic.}
-    \label{fig:tam-overlap-a}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/fig2_TAM-1-2-3B-B.png}
-    \caption{TAM-1-2-3B-B: Continuation of oldest TAM sequence within the overlap period.}
-    \label{fig:tam-overlap-b}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/fig3_TAM-1-2-3B-C.png}
-    \caption{TAM-1-2-3B-C: Upper portion of the TAM overlap interval. Small Mn/Ti excursions indicate brief oxygenation events punctuating the dysoxic baseline.}
-    \label{fig:tam-overlap-c}
-\end{figure}
-
-\subsection{SC Overlap Section (Top of SC Core)}
-
-SC8-A represents the SC overlap interval (shown above in Section 2.3). For the overlap comparison, we compare:
+\textbf{Key observations from SC core top:}
 \begin{itemize}
-    \item TAM: GROUP1 sections (TAM-1-2-3B-A, B, C) = bottom 133 cm
-    \item SC: SC8-A section = top 71 cm
+    \item \textcolor{CaTi}{\textbf{Ca/Ti is lower}} (median 0.79): Less carbonate input, more terrigenous-dominated
+    \item \textcolor{FeTi}{\textbf{Fe/Ti is high}} (median 20.2): Significant iron enrichment
+    \item \textcolor{MnTi}{\textbf{Mn/Ti is higher than TAM}} (median 0.31): More manganese retained, indicating better oxygenation
 \end{itemize}
 
-\subsection{Overlap Period Comparison}
+\begin{tcolorbox}[colback=blue!5, colframe=blue!50!black, title=SC Interpretation]
+The combination of \textbf{lower Ca/Ti}, \textbf{high Fe/Ti}, and \textbf{higher Mn/Ti} indicates a \textbf{dynamic, ventilated fluvio-lacustrine environment} with:
+\begin{itemize}[noitemsep]
+    \item Lower carbonate production or more terrigenous dilution
+    \item Periodically oxygenated bottom waters allowing Mn precipitation
+    \item Iron enrichment from reducing sediment porewaters
+\end{itemize}
+\end{tcolorbox}
+
+%==============================================================================
+\section{Cross-Proxy Comparison: TAM vs SC}
+%==============================================================================
+
+\subsection{Distribution Comparison}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/fig5_overlap_comparison.png}
-    \caption{Time-equivalent comparison (13.275--13.446 Ma). Top: TAM GROUP1 sections. Bottom: SC8-A. The site contrast persists during the overlap, confirming spatial heterogeneity as the primary driver of proxy differences.}
-    \label{fig:overlap-comparison}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{../output/figures/temporal_overlap/fig1_MnTi_density.png}
-    \caption{Mn/Ti distribution comparison. Even during the overlap period, TAM (median 0.18) shows consistently lower Mn/Ti than SC (median 0.37), a 2.1$\times$ difference indicating fundamentally different oxygen regimes.}
+    \includegraphics[width=\textwidth]{../output/figures/cross_proxy/density_comparison.png}
+    \caption{Density distributions of Ti-normalized ratios for the top of both cores. \textcolor{TAMcolor}{\textbf{TAM}} (orange) vs \textcolor{SCcolor}{\textbf{SC}} (blue). Note the clear separation in Ca/Ti and Mn/Ti, with overlapping Fe/Ti distributions.}
     \label{fig:density}
 \end{figure}
 
-\begin{tcolorbox}[colback=green!5, colframe=green!50!black, title=Key Finding: Spatial Heterogeneity]
-The TAM-SC contrast persists during the temporal overlap, demonstrating that the site difference reflects \textbf{spatial environmental heterogeneity} within the Pebas mega-wetland, not simply temporal evolution.
+\subsection{Summary Statistics}
+
+\begin{table}[H]
+\centering
+\caption{Cross-proxy statistics: Top of cores comparison}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Ratio} & \textbf{TAM median} & \textbf{SC median} & \textbf{TAM/SC ratio} & \textbf{Interpretation} \\
+\midrule
+\textcolor{CaTi}{\textbf{Ca/Ti}} & 2.42 & 0.79 & \textbf{3.1$\times$} & TAM much more carbonate-rich \\
+\textcolor{FeTi}{\textbf{Fe/Ti}} & 15.7 & 20.2 & 0.78$\times$ & Similar Fe enrichment \\
+\textcolor{MnTi}{\textbf{Mn/Ti}} & 0.21 & 0.31 & \textbf{0.69$\times$} & TAM more Mn-depleted (more reducing) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!50!black, title=Key Finding: Site Contrast]
 \begin{itemize}[noitemsep]
-    \item TAM = distal, stratified, dysoxic lacustrine setting
-    \item SC = proximal, ventilated, fluvio-lacustrine setting
+    \item \textbf{Ca/Ti}: TAM shows \textbf{3$\times$ higher} carbonate signal than SC
+    \item \textbf{Fe/Ti}: Both sites show high iron enrichment (no significant difference)
+    \item \textbf{Mn/Ti}: TAM shows \textbf{30\% lower} Mn retention (more reducing)
 \end{itemize}
+\textbf{Conclusion}: TAM was more \textbf{carbonate-rich} and more \textbf{reducing} than SC.
+\end{tcolorbox}
+
+\subsection{Cross-Proxy Relationships}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../output/figures/cross_proxy/crossplots.png}
+    \caption{Cross-proxy relationships at the top of cores. \textbf{Left}: Mn/Ti vs Fe/Ti (redox crossplot). \textbf{Center}: Ca/Ti vs Mn/Ti (carbonate-redox). \textbf{Right}: Fe/Ti vs Ca/Ti (iron-carbonate). TAM (orange) clusters at lower Mn/Ti and higher Ca/Ti than SC (blue).}
+    \label{fig:crossplots}
+\end{figure}
+
+\textbf{Crossplot interpretations:}
+
+\begin{enumerate}
+    \item \textbf{Mn/Ti vs Fe/Ti (Left)}: Both sites show negative correlation (expected: reducing conditions deplete Mn while enriching Fe). TAM occupies the low-Mn/high-Fe space (more reducing).
+
+    \item \textbf{Ca/Ti vs Mn/Ti (Center)}: TAM shows high Ca/Ti at low Mn/Ti (carbonate-rich dysoxic). SC shows lower Ca/Ti across a range of Mn/Ti (carbonate-poor, variable redox).
+
+    \item \textbf{Fe/Ti vs Ca/Ti (Right)}: No strong correlation at either site, suggesting Fe and Ca are independently controlled (Fe by redox, Ca by biogenic input).
+\end{enumerate}
+
+%==============================================================================
+\section{Paleoenvironmental Model}
+%==============================================================================
+
+\subsection{Two Coexisting Environmental Modes}
+
+\begin{table}[H]
+\centering
+\caption{Environmental modes from cross-proxy analysis}
+\begin{tabular}{lll}
+\toprule
+& \textbf{TAM (Distal Lacustrine)} & \textbf{SC (Fluvio-Lacustrine)} \\
+\midrule
+\textbf{Ca/Ti} & High (2.4) & Low (0.8) \\
+\textbf{Fe/Ti} & High (16) & High (20) \\
+\textbf{Mn/Ti} & Low (0.2) & Higher (0.3) \\
+\midrule
+\textbf{Redox} & Persistently dysoxic & Variably suboxic \\
+\textbf{Carbonate} & Abundant (shells) & Limited \\
+\textbf{Water column} & Stratified & Ventilated \\
+\textbf{Preservation} & Excellent & Moderate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Conceptual Model}
+
+\begin{tcolorbox}[colback=green!5, colframe=green!50!black, title=Pebas Mega-Wetland: Spatial Heterogeneity]
+Within the $>$1 million km$^2$ Pebas mega-wetland, \textbf{two distinct environmental modes coexisted}:
+
+\textbf{\textcolor{TAMcolor}{TAM-type (Distal Lacustrine)}}:
+\begin{itemize}[noitemsep]
+    \item Deep, stratified lake center
+    \item Persistent bottom-water dysoxia (low O$_2$)
+    \item High carbonate productivity (mollusc-rich)
+    \item \textbf{Taphonomic sweet spot}: excellent fossil preservation
+\end{itemize}
+
+\textbf{\textcolor{SCcolor}{SC-type (Fluvio-Lacustrine)}}:
+\begin{itemize}[noitemsep]
+    \item Shallower, river-influenced margins
+    \item Periodically ventilated (seasonal mixing, floods)
+    \item More terrigenous input, less carbonate
+    \item \textbf{Dynamic environment}: variable preservation
+\end{itemize}
+
+These sites were separated by only $\sim$30 km, demonstrating \textbf{environmental heterogeneity} within the mega-wetland.
 \end{tcolorbox}
 
 %==============================================================================
-\section{Case Studies: Paleoenvironmental Context}
+\section{Implications for Fossil Preservation}
 %==============================================================================
 
-The following case studies highlight specific core intervals that exemplify key paleoenvironmental conditions and their XRF signatures.
+\subsection{XRF-Based Taphonomic Prediction}
 
-\subsection{Case Study 1: Sustained Dysoxia and Exceptional Preservation Potential}
-
-\textbf{Section}: TAM-3A-4-5CDE-A (GROUP2, middle TAM, $\sim$13.1 Ma)
-
-\textbf{Paleoenvironmental context}: This interval represents the classic ``taphonomic sweet spot'' of the Pebas system---sustained low-oxygen conditions that inhibit scavenging and bioturbation while promoting organic matter preservation.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/case1_anoxic_TAM-3A-4-5CDE-A.png}
-    \caption{TAM-3A-4-5CDE-A: Sustained dysoxic interval. Dark, organic-rich sediment correlates with low Mn/Ti. Periodic lighter bands represent brief oxygenation events. This interval would favor articulated fossil preservation.}
-    \label{fig:case-dysoxia}
-\end{figure}
-
-\textbf{Preservation implications}:
-\begin{itemize}
-    \item Mn/Ti $<$ 0.15 indicates bottom-water O$_2$ $<$ 0.2 ml/L
-    \item Fe/Mn $>$ 100 confirms strongly reducing conditions
-    \item \textit{Pachydon obliquus} habitat---the dysoxia-tolerant bivalve indicator
-    \item Optimal for: articulated vertebrates, complete mollusc assemblages, soft tissue traces
-\end{itemize}
-
-\subsection{Case Study 2: Carbonate-Rich Shell Beds}
-
-\textbf{Section}: SC-3AB-4ABCD-A (GROUP5, middle SC, $\sim$13.6 Ma)
-
-\textbf{Paleoenvironmental context}: This interval shows pronounced Ca/Ti peaks indicating concentrated mollusc shell accumulation. These shell beds provide insight into productivity events and alkaline water conditions.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/case2_carbonate_SC-3AB-4ABCD-A.png}
-    \caption{SC-3AB-4ABCD-A: Shell-rich interval. Ca/Ti peaks correspond to visible lighter, shell-rich horizons in the core image. Note that some Ca/Ti peaks occur with high Mn/Ti (oxic conditions favoring in-situ mollusc communities) while others occur with low Mn/Ti (transported shells into dysoxic zones).}
-    \label{fig:case-carbonate}
-\end{figure}
-
-\textbf{Paleoenvironmental interpretation}:
-\begin{itemize}
-    \item High Ca/Ti + high Mn/Ti = in-situ mollusc community under oxic conditions
-    \item High Ca/Ti + low Mn/Ti = shell transport into dysoxic setting (storm events, mass mortality)
-    \item Ca/Ti variability indicates episodic productivity or transport events
-    \item Shell preservation suggests alkaline waters (high pH preventing dissolution)
-\end{itemize}
-
-\subsection{Case Study 3: Environmental Transition}
-
-\textbf{Section}: TAM-5AB-6-7-A (GROUP3, youngest TAM interval, $\sim$12.95 Ma)
-
-\textbf{Paleoenvironmental context}: This section captures subtle shifts in proxy relationships that may record the late-stage evolution of Pebas lacustrine conditions before eventual drainage.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/case3_transition_TAM-5AB-6-7-A.png}
-    \caption{TAM-5AB-6-7-A: Environmental transition interval. Note how proxy relationships change through the section, potentially recording shifts in stratification, input sources, or lake-level changes.}
-    \label{fig:case-transition}
-\end{figure}
-
-\textbf{Dynamic interpretation}:
-\begin{itemize}
-    \item Variable Mn/Ti suggests fluctuating oxygen conditions
-    \item K/Ti variations may indicate changing weathering intensity or sediment provenance
-    \item This youngest TAM interval may capture environmental instability preceding later Pebas drainage
-\end{itemize}
-
-\subsection{Case Study 4: High-Frequency Redox Oscillations}
-
-\textbf{Section}: SC-5-6-7ABC-A (GROUP6, younger SC, $\sim$13.4 Ma)
-
-\textbf{Paleoenvironmental context}: This section shows remarkably high-frequency oscillations in redox proxies, potentially reflecting seasonal or sub-decadal environmental variability.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/case4_redox_SC-5-6-7ABC-A.png}
-    \caption{SC-5-6-7ABC-A: High-frequency redox variability. The anti-correlation between Fe/Mn and Mn/Ti confirms these are genuine redox signals. Oscillation frequency may reflect seasonal mixing cycles or flood-induced ventilation events.}
-    \label{fig:case-redox}
-\end{figure}
-
-\textbf{Environmental dynamics}:
-\begin{itemize}
-    \item High Fe/Mn = reducing conditions (Fe mobile, Mn depleted)
-    \item Low Fe/Mn = oxic conditions (Mn precipitates as MnO$_2$)
-    \item Oscillation wavelength: $\sim$10--20 mm $\approx$ 50--100 years (at SC sed rate)
-    \item Possible drivers: seasonal stratification/mixing, flood pulses, lake-level changes
-\end{itemize}
-
-\subsection{Case Study 5: Oldest SC---Deep-Time Baseline}
-
-\textbf{Section}: SC-1ABC-2-3C-A-RUN1 (GROUP4, oldest SC, $\sim$14.3 Ma)
-
-\textbf{Paleoenvironmental context}: This oldest SC section provides the deep-time baseline, recording Pebas conditions nearly 1.4 million years before the youngest TAM sediments.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../output/figures/temporal_overlap/bottom_SC-1ABC-2-3C-A-RUN1.png}
-    \caption{SC-1ABC-2-3C-A-RUN1: Oldest SC section ($\sim$14.3 Ma). This deep-time record shows the SC site already exhibited the ventilated, variable character seen throughout its younger sections, suggesting long-term stability of site-specific environmental conditions.}
-    \label{fig:sc-oldest}
-\end{figure}
-
-%==============================================================================
-\section{Synthesis: Paleoenvironmental Model}
-%==============================================================================
-
-\subsection{Environmental Modes}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{../output/figures/temporal_overlap/fig7_environmental_modes.png}
-    \caption{Environmental modes from Mn/Ti vs Ca/Ti crossplot. Three distinct states emerge, each with different preservation potential and ecological character.}
-    \label{fig:modes}
-\end{figure}
+The cross-proxy signatures can predict fossil preservation quality:
 
 \begin{table}[H]
 \centering
-\caption{Environmental modes and their paleontological significance}
-\begin{tabular}{lllll}
-\toprule
-Mode & Mn/Ti & Ca/Ti & Environment & Preservation \\
-\midrule
-\textbf{Dysoxic Baseline} & Low & Low-Med & Stratified, anoxic & Excellent (articulated) \\
-\textbf{Oxic-Carbonate} & High & High & Ventilated, productive & Moderate (shells) \\
-\textbf{Shell Accumulation} & Low & High & Transport into dysoxic & Good (concentrated) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Depositional Model}
-
-\begin{table}[H]
-\centering
-\caption{Depositional settings in the Pebas mega-wetland}
-\begin{tabular}{lllll}
-\toprule
-Setting & Site & Characteristics & XRF Signature & Fossils \\
-\midrule
-Distal lacustrine & TAM & Stratified, dysoxic & Low Mn/Ti, high Ca/Ti & Articulated vertebrates \\
-Fluvio-lacustrine & SC & Ventilated, dynamic & High Mn/Ti, variable & Mollusc-rich beds \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{XRF as Preservation Predictor}
-
-\begin{table}[H]
-\centering
-\caption{XRF-based preservation prediction}
+\caption{XRF proxy values and expected preservation}
 \begin{tabular}{llll}
 \toprule
-Mn/Ti Value & Oxygen Regime & Preservation Quality & Expected Fossils \\
+\textbf{Proxy Signature} & \textbf{Environment} & \textbf{Preservation} & \textbf{Expected Fossils} \\
 \midrule
-$<$ 0.10 & Strongly anoxic & Exceptional & Articulated skeletons, soft tissues \\
-0.10--0.20 & Dysoxic & Very Good & Complete shells, associated bones \\
-0.20--0.40 & Suboxic & Moderate & Disarticulated but identifiable \\
-$>$ 0.40 & Oxic & Poor & Scattered, abraded fragments \\
+High Ca/Ti + Low Mn/Ti & Carbonate-rich dysoxic & \textbf{Excellent} & Articulated vertebrates, complete shells \\
+High Ca/Ti + High Mn/Ti & Carbonate-rich oxic & Good & Shell beds, disarticulated bones \\
+Low Ca/Ti + Low Mn/Ti & Terrigenous dysoxic & Variable & Organic matter, isolated bones \\
+Low Ca/Ti + High Mn/Ti & Terrigenous oxic & \textbf{Poor} & Abraded fragments, bioturbated \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{TAM as Taphonomic Sweet Spot}
+
+The TAM core top signature (\textbf{high Ca/Ti + low Mn/Ti}) represents the optimal conditions for exceptional preservation:
+\begin{itemize}
+    \item Low oxygen inhibits scavenging and bioturbation
+    \item Alkaline, carbonate-rich waters prevent shell dissolution
+    \item Rapid burial in organic-rich sediments
+\end{itemize}
+
+This explains the remarkable fossil diversity observed in TAM-type deposits, including articulated crocodilians, complete mollusc assemblages, and preserved soft tissue traces.
 
 %==============================================================================
 \section{Conclusions}
 %==============================================================================
 
 \begin{enumerate}
-    \item \textbf{Top of cores comparison} reveals that TAM (youngest sections, $\sim$12.9 Ma) maintains its dysoxic character while SC (youngest sections, $\sim$13.3 Ma) shows higher oxygenation---fundamental site differences persist through time.
+    \item \textbf{Cross-proxy analysis} using Ca/Ti, Fe/Ti, and Mn/Ti effectively discriminates paleoenvironmental conditions in the Pebas Formation.
 
-    \item \textbf{Temporal overlap analysis} (13.275--13.446 Ma) confirms that the TAM-SC contrast reflects \textbf{spatial heterogeneity} within the Pebas mega-wetland, not simply temporal evolution.
+    \item \textbf{TAM core top} shows high Ca/Ti (3.1$\times$ SC), similar Fe/Ti, and low Mn/Ti (0.69$\times$ SC), indicating a \textbf{carbonate-rich, persistently dysoxic} environment.
 
-    \item \textbf{Case studies} demonstrate that XRF proxies successfully identify:
-    \begin{itemize}
-        \item Sustained dysoxia favorable for exceptional preservation (TAM-3A-4-5CDE-A)
-        \item Shell-rich horizons indicating productivity events (SC-3AB-4ABCD-A)
-        \item Environmental transitions and high-frequency variability
-    \end{itemize}
+    \item \textbf{SC core top} shows lower carbonate input and better oxygenation, indicating a \textbf{dynamic, ventilated fluvio-lacustrine} setting.
 
-    \item The \textbf{Pebas mega-wetland} supported two coexisting environmental modes: a stratified, dysoxic lacustrine setting (TAM) and a ventilated, dynamic fluvio-lacustrine setting (SC), separated by only 30 km.
+    \item The \textbf{site contrast persists} even when comparing time-equivalent intervals, confirming \textbf{spatial heterogeneity} rather than temporal evolution.
 
-    \item \textbf{XRF-based taphonomy} can predict preservation quality: Mn/Ti $<$ 0.2 indicates the ``taphonomic sweet spot'' for articulated fossil preservation.
+    \item The TAM proxy signature (\textbf{high Ca/Ti + low Mn/Ti}) defines the \textbf{taphonomic sweet spot} for exceptional fossil preservation in the Pebas mega-wetland.
 \end{enumerate}
 
 %==============================================================================
@@ -383,33 +316,25 @@ $>$ 0.40 & Oxic & Poor & Scattered, abraded fragments \\
 
 \begin{table}[H]
 \centering
-\caption{Key numbers}
-\begin{tabular}{ll}
+\caption{Summary statistics: Top of cores}
+\begin{tabular}{lcc}
 \toprule
-\multicolumn{2}{c}{\textbf{Chronology}} \\
+\textbf{Proxy} & \textbf{TAM median} & \textbf{SC median} \\
 \midrule
-TAM age range & 12.935--13.446 Ma \\
-SC age range & 13.275--14.298 Ma \\
-Overlap & 171 kyr (13.275--13.446 Ma) \\
+Ca/Ti & 2.42 & 0.79 \\
+Fe/Ti & 15.7 & 20.2 \\
+Mn/Ti & 0.21 & 0.31 \\
 \midrule
-\multicolumn{2}{c}{\textbf{Key Results}} \\
-\midrule
-TAM Mn/Ti median & 0.18 (dysoxic) \\
-SC Mn/Ti median & 0.37 (suboxic) \\
-Site O$_2$ difference & 2.1$\times$ \\
+\textbf{Key ratio} & \multicolumn{2}{c}{TAM Ca/Ti = 3.1$\times$ SC} \\
+\textbf{Key ratio} & \multicolumn{2}{c}{TAM Mn/Ti = 0.69$\times$ SC} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-%==============================================================================
-\section*{References}
-%==============================================================================
+\begin{tcolorbox}[colback=gray!5, colframe=gray!50!black, title=Take-Home Message]
+\textbf{Ti-normalization reveals that TAM was more carbonate-rich and more reducing than SC.}
 
-\begin{itemize}[noitemsep]
-    \item Hoorn, C. et al. (2010). The development of the Amazonian mega-wetland. In: Amazonia: Landscape and Species Evolution.
-    \item Kaandorp, R.J.G. et al. (2005). Ecological implications from geochemical records of Miocene Western Amazonian bivalves.
-    \item Salas-Gismondi, R. et al. (2015). A Miocene hyperdiverse crocodylian community reveals peculiar trophic dynamics in proto-Amazonian mega-wetlands.
-    \item Wesselingh, F.P. (2006). Evolutionary ecology of the Pachydontinae.
-\end{itemize}
+The combination of \textbf{high Ca/Ti} (carbonate abundance) and \textbf{low Mn/Ti} (persistent dysoxia) at TAM created optimal conditions for exceptional fossil preservation in the Pebas mega-wetland.
+\end{tcolorbox}
 
 \end{document}
