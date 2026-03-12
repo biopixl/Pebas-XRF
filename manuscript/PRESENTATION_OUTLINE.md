@@ -30,23 +30,33 @@
 
 > "The Tamshiyacu site - TAM - corresponds to the well-studied IQ26 locality where Wesselingh and colleagues documented exceptional mollusc diversity."
 
-### Slide 2: The Pebas System
+### Slide 2: The Pebas System & Exceptional Preservation
 - >1 million km² freshwater mega-wetland
 - Endemic mollusc radiations: 158 species, 72% endemic
-- Key references: Wesselingh et al. 2002; Hoorn et al. 2010
-- Visual: Pebas paleogeographic reconstruction
+- **Exceptional vertebrate preservation**: crocodilians, giant turtles, freshwater dolphins, rodents
+- Key references: Wesselingh et al. 2002; Hoorn et al. 2010; Salas-Gismondi et al. 2015
+- Visual: Pebas paleogeographic reconstruction + fossil assemblage
 
 **TALKING POINTS:**
 > "The Pebas system wasn't a simple lake - it was a complex mosaic of shallow lakes, swamps, embayments, and river channels, all connected in a mega-wetland that covered most of western Amazonia."
 
 > "This system produced one of the most spectacular freshwater mollusc radiations known - 158 species, 72% found nowhere else. For comparison, the African Great Lakes, famous for their cichlid radiations, have far fewer endemic molluscs."
 
-> "The key question is: what environmental conditions allowed this remarkable biodiversity? The mollusc ecology tells us about habitat preferences, but geochemistry can reveal the underlying water chemistry."
+> "But Pebas is also famous for exceptional vertebrate preservation. We find articulated crocodilian skeletons, giant turtle shells, freshwater dolphin skulls, and diverse fish assemblages. Why? The same geochemical conditions that our XRF detects."
+
+> "The key question is: what environmental conditions allowed this remarkable biodiversity AND exceptional preservation? Geochemistry can reveal both."
 
 **BACKGROUND - Why Pebas matters:**
 - Andean uplift created a foreland basin that trapped water
 - Marine connections via Venezuela brought occasional brackish influence
 - System terminated ~8 Ma when drainage reversed to form the modern Amazon
+
+**BACKGROUND - Exceptional Pebas Fauna:**
+- **Crocodilians**: 7 sympatric species including gavialoids, giant caimans (Purussaurus), and the duck-faced Mourasuchus
+- **Turtles**: Giant podocnemidids (Stupendemys-relatives), abundant shell material
+- **Mammals**: Early rodents, sloths, and freshwater dolphins (Iniidae ancestors)
+- **Fish**: Characins, catfish, lungfish - often with gut contents preserved
+- Articulated skeletons suggest rapid burial and limited scavenging
 
 ### Slide 3: Research Questions
 1. Can XRF proxies detect the dysoxic conditions documented by mollusc ecology?
@@ -279,6 +289,107 @@
 
 ---
 
+## PART 5B: GEOCHEMICAL CONTROLS ON EXCEPTIONAL PRESERVATION (1-2 slides)
+
+**NARRATIVE TRANSITION:**
+> "The same geochemical conditions we're tracking with XRF directly explain why Pebas preserves fossils so exceptionally well. Dysoxia isn't just an ecological factor - it's a taphonomic factory."
+
+### Slide 11B: Why Pebas Preserves So Well - The Geochemical Recipe
+
+**The Preservation Triangle:**
+```
+         DYSOXIA (Low Mn/Ti)
+              /\
+             /  \
+            /    \
+           /      \
+          /        \
+    FINE MUD ―――――― HIGH ALKALINITY
+    (Low Ti flux)    (High Ca/Ti)
+```
+
+| Factor | XRF Signature | Preservation Effect |
+|--------|---------------|---------------------|
+| **Dysoxia** | Low Mn/Ti (<0.2) | No scavengers, no bioturbation |
+| **Reducing conditions** | High Fe/Mn (>70) | Organic matter preserved, no oxidative decay |
+| **High alkalinity** | High Ca/Ti | Carbonate supersaturation, shell preservation |
+| **Fine-grained sediment** | Low Ti variability | Rapid burial, seals fossils from oxygen |
+| **Stratified water** | Stable low Mn/Ti | Persistent bottom-water anoxia |
+
+**TALKING POINTS:**
+> "Why does Pebas preserve articulated crocodilian skeletons when most fossil sites give us scattered bones? The answer is in our XRF data."
+
+> "Low Mn/Ti means dysoxia - and dysoxia means no scavengers. Crocodiles and catfish that would normally dismember a carcass within hours can't survive in these waters. The body stays intact."
+
+> "High Fe/Mn means truly reducing conditions. Organic matter doesn't oxidize - it gets buried and preserved. This is why we find fish with gut contents, coprolites with identifiable prey remains."
+
+> "High Ca/Ti reflects the alkaline, carbonate-saturated waters. Shells don't dissolve - they get preserved. Aragonitic mollusc shells that would dissolve in acidic waters survive here for 12 million years."
+
+> "The fine-grained clay (low, stable Ti) means rapid burial. A carcass sinking into anoxic mud gets sealed from oxygen within days. That's the preservation window."
+
+**BACKGROUND - Taphonomic Mechanisms:**
+
+**1. Inhibition of Biological Degradation:**
+- Dysoxic waters (<0.2 ml/L O₂) exclude most metazoan scavengers
+- Bacterial decay slows dramatically below 2 ml/L O₂
+- Sulfate-reducing bacteria dominate, producing H₂S that further excludes fauna
+- Result: Articulated skeletons, soft tissue impressions, gut contents
+
+**2. Inhibition of Chemical Degradation:**
+- Reducing conditions (negative Eh) prevent oxidative breakdown of organics
+- Bone collagen survives longer under anoxia
+- Lipids and proteins may be preserved as biomarkers
+- Fe-sulfide mineralization can replicate soft tissues
+
+**3. Carbonate Preservation:**
+- Alkaline waters (high pH, high Ca²⁺) prevent carbonate dissolution
+- Aragonite (mollusc shells) particularly vulnerable to dissolution in acidic waters
+- Pebas waters were carbonate-supersaturated → shells preserved
+- Authigenic carbonate precipitation may cement fossils early
+
+**4. Rapid Burial:**
+- Fine-grained sediment (clay/silt) settles continuously
+- Low-energy environment = no winnowing or reworking
+- Carcasses buried within days to weeks
+- Burial seals fossils from bioturbation zone
+
+### Slide 11C: XRF Proxies as Preservation Indicators
+
+| Proxy Value | Preservation Potential | Fossil Expectation |
+|-------------|------------------------|-------------------|
+| Mn/Ti < 0.1 | EXCELLENT | Articulated vertebrates, soft tissues |
+| Mn/Ti 0.1-0.2 | VERY GOOD | Articulated skeletons, complete shells |
+| Mn/Ti 0.2-0.4 | MODERATE | Disarticulated but associated bones |
+| Mn/Ti > 0.5 | POOR | Scattered, abraded fragments |
+| Fe/Mn > 100 | EXCELLENT | Organic preservation, biomarkers |
+| Ca/Ti > 10 | EXCELLENT | Shell beds, carbonate preservation |
+
+**TALKING POINTS:**
+> "We can use XRF to predict preservation quality before we even look at the fossils. Low Mn/Ti intervals are where you find the spectacular specimens."
+
+> "TAM-1-2-3B-A with Mn/Ti of 0.078 - that's the preservation sweet spot. This is where you'd expect to find articulated material, maybe even soft tissue traces."
+
+> "The dysoxic intervals we've mapped aren't just interesting for paleoenvironmental reconstruction - they're a roadmap to exceptional preservation."
+
+**BACKGROUND - Pebas Preservation Examples:**
+
+| Taxon | Preservation | Locality | Implied Conditions |
+|-------|--------------|----------|-------------------|
+| *Purussaurus* (giant caiman) | Articulated skulls, associated postcrania | Multiple | Rapid burial, no scavenging |
+| *Mourasuchus* (duck-faced croc) | Complete skulls with delicate rostrum | IQ26 area | Anoxic bottom, no bioturbation |
+| Podocnemidid turtles | Complete shells, some with limbs | Widespread | Carbonate-favorable, low energy |
+| Characiform fish | Articulated, gut contents | TAM area | Extreme dysoxia |
+| *Potamotrygon* ancestors | Teeth, vertebrae, some skin | SC area | Variable preservation |
+| Molluscs (Pachydon) | Pristine aragonite, original mineralogy | Throughout | High alkalinity, rapid burial |
+
+**Key Taphonomic References:**
+- Salas-Gismondi et al. (2015) - Crocodilian diversity and preservation
+- Wesselingh & Ramos (2010) - Mollusc taphonomy in Pebas
+- Lundberg et al. (2010) - Fish preservation and paleoenvironments
+- Antoine et al. (2016) - Mammalian preservation in proto-Amazonia
+
+---
+
 ## PART 6: KEY INTERVALS - THE STORY IN DETAIL (4-5 slides)
 
 **NARRATIVE TRANSITION:**
@@ -450,9 +561,10 @@
 2. Site-level contrast (TAM vs SC) matches lacustrine vs. fluvio-lacustrine interpretations from paleontology
 3. Concordant Mn/Ti + Ca/Ti events provide strongest paleoenvironmental signals
 4. Extreme transitions (833% Mn/Ti change) record discrete ventilation events in an otherwise stratified system
+5. **XRF proxies explain exceptional Pebas preservation**: dysoxia (low Mn/Ti) + alkalinity (high Ca/Ti) = taphonomic sweet spot
 
 **TALKING POINTS:**
-> "Four main conclusions, each building on the last."
+> "Five main conclusions, each building on the last."
 
 > "First: XRF works for Pebas. Mn/Ti detects the same dysoxic conditions that Wesselingh identified from mollusc ecology 20 years ago. Independent validation is essential, and we have it."
 
@@ -462,10 +574,12 @@
 
 > "Fourth: The system was dynamic. 833% transitions in Mn/Ti aren't noise - they're real ventilation events. The Pebas mega-wetland wasn't a uniform, static environment. It experienced dramatic environmental swings that shaped mollusc evolution."
 
-> "Take-home message: XRF core scanning can extract paleoenvironmental information from Amazonian sediments that complements and validates paleontological interpretations."
+> "Fifth - and this connects everything - the same geochemistry that tracks paleoenvironment explains why Pebas preserves so well. Low Mn/Ti means no scavengers, no bioturbation. High Ca/Ti means shells don't dissolve. The XRF is mapping a taphonomic factory."
+
+> "Take-home message: XRF core scanning reveals why Pebas was both a biodiversity hotspot AND an exceptional preservation window - the geochemistry favored both."
 
 **FINAL TALKING POINT (for Q&A preparation):**
-> "What we still don't know: the absolute timing of events, the precise mechanisms driving variability, and how these local patterns connect to basin-wide Pebas evolution. These are the next questions."
+> "What we still don't know: the absolute timing of events, the precise mechanisms driving variability, and whether we can use XRF to predict where to find the best-preserved vertebrate material. These are the next questions."
 
 ---
 
@@ -712,12 +826,129 @@ White bands     High Ca         Shell-rich horizons
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+### Table 15: Preservation Potential by XRF
+```
+XRF PROXIES AS PRESERVATION INDICATORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Proxy Value     Preservation    Expected Fossils
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mn/Ti < 0.1     EXCELLENT       Articulated vertebrates, soft tissues
+Mn/Ti 0.1-0.2   VERY GOOD       Articulated skeletons, complete shells
+Mn/Ti 0.2-0.4   MODERATE        Disarticulated but associated bones
+Mn/Ti > 0.5     POOR            Scattered, abraded fragments
+Fe/Mn > 100     EXCELLENT       Organic preservation, biomarkers
+Ca/Ti > 10      EXCELLENT       Shell beds, carbonate preservation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 16: Preservation Mechanisms
+```
+WHY PEBAS PRESERVES SO WELL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Factor              XRF Signal       Taphonomic Effect
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DYSOXIA             Low Mn/Ti        No scavengers, no bioturbation
+                    (<0.2)           Carcasses stay articulated
+
+REDUCING            High Fe/Mn       Organic matter preserved
+CONDITIONS          (>70)            No oxidative decay of soft tissues
+
+HIGH ALKALINITY     High Ca/Ti       Carbonate supersaturation
+                    (>5)             Shells don't dissolve
+
+FINE SEDIMENT       Low Ti variance  Rapid burial in clay/silt
+                                     Seals fossils from O₂
+
+STRATIFICATION      Stable low       Persistent anoxic bottom water
+                    Mn/Ti            Continuous preservation window
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 17: Pebas Vertebrate Fauna
+```
+EXCEPTIONAL PEBAS FOSSILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Taxon               Preservation           Implied Conditions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Purussaurus         Articulated skulls     Rapid burial, no scavenging
+(giant caiman)      + postcrania           Dysoxic bottom water
+
+Mourasuchus         Complete skulls        Anoxic, no bioturbation
+(duck-faced croc)   delicate rostrum       Fine sediment burial
+
+Podocnemidid        Complete shells        Carbonate-favorable
+turtles             + limbs                Low-energy environment
+
+Characiform fish    Articulated,           Extreme dysoxia
+                    gut contents           Minimal bacterial decay
+
+Molluscs            Pristine aragonite     High alkalinity
+(Pachydon)          original mineralogy    Rapid burial
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 18: The Preservation Triangle
+```
+GEOCHEMICAL RECIPE FOR EXCEPTIONAL PRESERVATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+              DYSOXIA
+             (Low Mn/Ti)
+                 △
+                /  \
+               /    \
+              /      \
+             /   ✓    \      ← All three = exceptional
+            /  BEST    \        preservation potential
+           /____________\
+    FINE MUD          HIGH ALKALINITY
+    (Low Ti flux)      (High Ca/Ti)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Best intervals:  TAM-1-2-3B-A (Mn/Ti = 0.078)
+                 TAM-1-2-3B-B (Mn/Ti = 0.091)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 19: Taphonomic Quick Reference
+```
+TAPHONOMY CHEAT SHEET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Process              Oxic Setting    Dysoxic Setting
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Scavenging           RAPID           ABSENT
+Bioturbation         INTENSE         MINIMAL
+Organic decay        FAST (days)     SLOW (months-years)
+Bone articulation    LOST            PRESERVED
+Shell dissolution    POSSIBLE        PREVENTED (alk.)
+Soft tissue          DESTROYED       POSSIBLE
+Biomarkers           OXIDIZED        PRESERVED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+XRF indicator:       Mn/Ti > 0.5     Mn/Ti < 0.2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
 ---
 
 ## References for Slides
 
+**Geochemistry & Methods:**
 - Aitchison, J. (1986). The Statistical Analysis of Compositional Data. Chapman and Hall.
+- Tribovillard, N. et al. (2006). Trace metals as paleoredox and paleoproductivity proxies. Chemical Geology.
+
+**Pebas System & Paleoenvironment:**
 - Hoorn, C. et al. (2010). The development of the Amazonian mega-wetland. In: Amazonia: Landscape and Species Evolution.
 - Kaandorp, R.J.G. et al. (2005). Ecological implications from geochemical records of Miocene Western Amazonian bivalves. J. South American Earth Sciences.
 - Wesselingh, F.P. et al. (2002). Lake Pebas: a palaeoecological reconstruction. Cainozoic Research.
 - Wesselingh, F.P. (2006a). Evolutionary ecology of the Pachydontinae. Scripta Geologica.
+
+**Vertebrate Paleontology & Taphonomy:**
+- Salas-Gismondi, R. et al. (2015). A Miocene hyperdiverse crocodylian community reveals peculiar trophic dynamics in proto-Amazonian mega-wetlands. Proceedings of the Royal Society B.
+- Lundberg, J.G. et al. (2010). The Pebas mega-wetland system. In: Amazonia: Landscape and Species Evolution.
+- Antoine, P.-O. et al. (2016). Biotic community and landscape changes around the Eocene–Oligocene transition at Shapaja, Peruvian Amazonia. Global and Planetary Change.
+- Wesselingh, F.P. & Ramos, M.I.F. (2010). Amazonian aquatic invertebrate faunas (Mollusca, Ostracoda) and their development over the past 30 million years. In: Amazonia: Landscape and Species Evolution.
+
+**Taphonomy & Preservation:**
+- Allison, P.A. (1988). The role of anoxia in the decay and mineralization of proteinaceous macro-fossils. Paleobiology.
+- Briggs, D.E.G. (2003). The role of decay and mineralization in the preservation of soft-bodied fossils. Annual Review of Earth and Planetary Sciences.
+- Canfield, D.E. & Thamdrup, B. (2009). Towards a consistent classification scheme for geochemical environments. Geochim. Cosmochim. Acta.
