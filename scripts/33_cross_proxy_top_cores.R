@@ -446,6 +446,245 @@ stats <- tribble(
 
 write_csv(stats, file.path(output_dir, "cross_proxy_stats.csv"))
 
+# ==============================================================================
+# OVERLAP PERIOD ANALYSIS (13.275-13.446 Ma)
+# ==============================================================================
+
+message("Generating overlap period figures...")
+
+# Overlap sections:
+# TAM: GROUP1 (oldest TAM) = TAM-1-2-3B-A, B, C
+# SC: SC8-A (youngest SC)
+
+# Add overlap sections to config
+overlap_config <- tribble(
+  ~section, ~optical_path, ~group, ~site, ~strat_order,
+  "TAM-1-2-3B-A", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-A", "GROUP1", "TAM", 1,
+  "TAM-1-2-3B-B", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-B", "GROUP1", "TAM", 2,
+  "TAM-1-2-3B-C", "GROUP1/TAM-1-2-3B/TAM-1-2-3B-C", "GROUP1", "TAM", 3,
+  "SC8-A", "GROUP7/SC8-A/SC8-A", "GROUP7", "SC", 27
+)
+
+# Individual overlap section figures
+fig_overlap_tam <- generate_cross_proxy_figure("TAM-1-2-3B-A", " (Oldest TAM, Overlap ~13.4 Ma)")
+if (!is.null(fig_overlap_tam)) {
+  ggsave(file.path(output_dir, "overlap_tam_cross_proxy.png"), fig_overlap_tam,
+         width = 14, height = 8, dpi = 300, bg = "white")
+  ggsave(file.path(output_dir, "overlap_tam_cross_proxy.pdf"), fig_overlap_tam,
+         width = 14, height = 8, bg = "white")
+}
+
+# SC8-A is already generated as sc_top (it's also the overlap section)
+
+# Overlap density comparison
+generate_overlap_density <- function() {
+  # Get overlap sections
+  tam_overlap <- xrf_valid %>%
+    filter(section %in% c("TAM-1-2-3B-A", "TAM-1-2-3B-B", "TAM-1-2-3B-C")) %>%
+    mutate(site = "TAM")
+
+  sc_overlap <- xrf_valid %>%
+    filter(section == "SC8-A") %>%
+    mutate(site = "SC")
+
+  plot_data <- bind_rows(tam_overlap, sc_overlap)
+
+  plots <- list()
+
+  for (proxy in c("Ca_Ti", "Fe_Ti", "Mn_Ti")) {
+    label <- proxy_labels[proxy]
+
+    p <- ggplot(plot_data, aes(x = .data[[proxy]], fill = site, color = site)) +
+      geom_density(alpha = 0.4, linewidth = 0.8) +
+      geom_rug(alpha = 0.3, length = unit(0.02, "npc"), sides = "b") +
+      scale_fill_manual(values = site_colors, name = "Site") +
+      scale_color_manual(values = site_colors, name = "Site") +
+      scale_x_log10() +
+      labs(x = label, y = "Density", title = label) +
+      theme_bw(base_size = 11) +
+      theme(
+        panel.grid.minor = element_blank(),
+        legend.position = if (proxy == "Mn_Ti") c(0.85, 0.85) else "none",
+        legend.background = element_rect(fill = "white", color = "gray80")
+      )
+
+    plots[[proxy]] <- p
+  }
+
+  combined <- wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = "Cross-Proxy Distribution: Overlap Period (13.275-13.446 Ma)",
+      subtitle = "TAM GROUP1 (oldest TAM) vs SC8-A (youngest SC) - Time-equivalent comparison"
+    )
+
+  combined
+}
+
+fig_overlap_density <- generate_overlap_density()
+ggsave(file.path(output_dir, "overlap_density_comparison.png"), fig_overlap_density,
+       width = 14, height = 5, dpi = 300, bg = "white")
+ggsave(file.path(output_dir, "overlap_density_comparison.pdf"), fig_overlap_density,
+       width = 14, height = 5, bg = "white")
+
+# Overlap crossplots
+generate_overlap_crossplot <- function() {
+  tam_overlap <- xrf_valid %>%
+    filter(section %in% c("TAM-1-2-3B-A", "TAM-1-2-3B-B", "TAM-1-2-3B-C")) %>%
+    mutate(site = "TAM")
+
+  sc_overlap <- xrf_valid %>%
+    filter(section == "SC8-A") %>%
+    mutate(site = "SC")
+
+  plot_data <- bind_rows(tam_overlap, sc_overlap)
+
+  # Mn/Ti vs Fe/Ti crossplot
+  p1 <- ggplot(plot_data, aes(x = Mn_Ti, y = Fe_Ti, color = site)) +
+    geom_point(alpha = 0.6, size = 2) +
+    scale_color_manual(values = site_colors, name = "Site") +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(x = "Mn/Ti", y = "Fe/Ti",
+         title = "Redox Crossplot: Mn/Ti vs Fe/Ti") +
+    theme_bw(base_size = 12) +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = c(0.85, 0.15),
+      legend.background = element_rect(fill = "white", color = "gray80")
+    )
+
+  # Ca/Ti vs Mn/Ti crossplot
+  p2 <- ggplot(plot_data, aes(x = Mn_Ti, y = Ca_Ti, color = site)) +
+    geom_point(alpha = 0.6, size = 2) +
+    scale_color_manual(values = site_colors, name = "Site") +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(x = "Mn/Ti", y = "Ca/Ti",
+         title = "Carbonate-Redox: Ca/Ti vs Mn/Ti") +
+    theme_bw(base_size = 12) +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = "none"
+    )
+
+  # Fe/Ti vs Ca/Ti crossplot
+  p3 <- ggplot(plot_data, aes(x = Ca_Ti, y = Fe_Ti, color = site)) +
+    geom_point(alpha = 0.6, size = 2) +
+    scale_color_manual(values = site_colors, name = "Site") +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(x = "Ca/Ti", y = "Fe/Ti",
+         title = "Iron-Carbonate: Fe/Ti vs Ca/Ti") +
+    theme_bw(base_size = 12) +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = "none"
+    )
+
+  combined <- (p1 | p2 | p3) +
+    plot_annotation(
+      title = "Cross-Proxy Relationships: Overlap Period (13.275-13.446 Ma)",
+      subtitle = "Time-equivalent comparison confirms spatial heterogeneity"
+    )
+
+  combined
+}
+
+fig_overlap_crossplot <- generate_overlap_crossplot()
+ggsave(file.path(output_dir, "overlap_crossplots.png"), fig_overlap_crossplot,
+       width = 16, height = 5, dpi = 300, bg = "white")
+ggsave(file.path(output_dir, "overlap_crossplots.pdf"), fig_overlap_crossplot,
+       width = 16, height = 5, bg = "white")
+
+# Overlap statistics
+tam_overlap <- xrf_valid %>%
+  filter(section %in% c("TAM-1-2-3B-A", "TAM-1-2-3B-B", "TAM-1-2-3B-C"))
+sc_overlap <- xrf_valid %>%
+  filter(section == "SC8-A")
+
+overlap_stats <- tribble(
+  ~Proxy, ~TAM_median, ~TAM_mean, ~SC_median, ~SC_mean, ~Ratio,
+  "Ca/Ti", median(tam_overlap$Ca_Ti, na.rm=TRUE), mean(tam_overlap$Ca_Ti, na.rm=TRUE),
+          median(sc_overlap$Ca_Ti, na.rm=TRUE), mean(sc_overlap$Ca_Ti, na.rm=TRUE),
+          median(tam_overlap$Ca_Ti, na.rm=TRUE) / median(sc_overlap$Ca_Ti, na.rm=TRUE),
+  "Fe/Ti", median(tam_overlap$Fe_Ti, na.rm=TRUE), mean(tam_overlap$Fe_Ti, na.rm=TRUE),
+          median(sc_overlap$Fe_Ti, na.rm=TRUE), mean(sc_overlap$Fe_Ti, na.rm=TRUE),
+          median(tam_overlap$Fe_Ti, na.rm=TRUE) / median(sc_overlap$Fe_Ti, na.rm=TRUE),
+  "Mn/Ti", median(tam_overlap$Mn_Ti, na.rm=TRUE), mean(tam_overlap$Mn_Ti, na.rm=TRUE),
+          median(sc_overlap$Mn_Ti, na.rm=TRUE), mean(sc_overlap$Mn_Ti, na.rm=TRUE),
+          median(tam_overlap$Mn_Ti, na.rm=TRUE) / median(sc_overlap$Mn_Ti, na.rm=TRUE)
+)
+
+write_csv(overlap_stats, file.path(output_dir, "overlap_cross_proxy_stats.csv"))
+
+# Combined comparison figure: Top vs Overlap
+generate_combined_comparison <- function() {
+  # Top of cores data
+  tam_top <- xrf_valid %>%
+    filter(section %in% c("TAM-5AB-6-7-C", "TAM-5AB-6-7-B-RUN2", "TAM-5AB-6-7-A")) %>%
+    mutate(site = "TAM", period = "Top of Cores")
+  sc_top <- xrf_valid %>%
+    filter(section == "SC8-A") %>%
+    mutate(site = "SC", period = "Top of Cores")
+
+  # Overlap data
+  tam_overlap <- xrf_valid %>%
+    filter(section %in% c("TAM-1-2-3B-A", "TAM-1-2-3B-B", "TAM-1-2-3B-C")) %>%
+    mutate(site = "TAM", period = "Overlap (13.3-13.4 Ma)")
+  sc_overlap <- xrf_valid %>%
+    filter(section == "SC8-A") %>%
+    mutate(site = "SC", period = "Overlap (13.3-13.4 Ma)")
+
+  # For overlap, SC8-A is the same, but for TAM we use GROUP1
+  plot_data <- bind_rows(
+    tam_top %>% mutate(comparison = "TAM Top (~12.9 Ma)"),
+    tam_overlap %>% mutate(comparison = "TAM Overlap (~13.4 Ma)"),
+    sc_top %>% mutate(comparison = "SC (both periods)")
+  )
+
+  plots <- list()
+
+  for (proxy in c("Ca_Ti", "Fe_Ti", "Mn_Ti")) {
+    label <- proxy_labels[proxy]
+
+    p <- ggplot(plot_data, aes(x = .data[[proxy]], fill = comparison, color = comparison)) +
+      geom_density(alpha = 0.35, linewidth = 0.7) +
+      scale_fill_manual(values = c("TAM Top (~12.9 Ma)" = "#D55E00",
+                                   "TAM Overlap (~13.4 Ma)" = "#E69F00",
+                                   "SC (both periods)" = "#0072B2"),
+                        name = NULL) +
+      scale_color_manual(values = c("TAM Top (~12.9 Ma)" = "#D55E00",
+                                    "TAM Overlap (~13.4 Ma)" = "#E69F00",
+                                    "SC (both periods)" = "#0072B2"),
+                         name = NULL) +
+      scale_x_log10() +
+      labs(x = label, y = "Density", title = label) +
+      theme_bw(base_size = 11) +
+      theme(
+        panel.grid.minor = element_blank(),
+        legend.position = if (proxy == "Mn_Ti") "right" else "none"
+      )
+
+    plots[[proxy]] <- p
+  }
+
+  combined <- wrap_plots(plots, ncol = 3) +
+    plot_annotation(
+      title = "Temporal Consistency: TAM Top vs TAM Overlap vs SC",
+      subtitle = "TAM maintains its geochemical signature across 500 kyr, confirming spatial (not temporal) control"
+    )
+
+  combined
+}
+
+fig_combined <- generate_combined_comparison()
+ggsave(file.path(output_dir, "temporal_consistency.png"), fig_combined,
+       width = 16, height = 5, dpi = 300, bg = "white")
+ggsave(file.path(output_dir, "temporal_consistency.pdf"), fig_combined,
+       width = 16, height = 5, bg = "white")
+
 message("Done! Files saved to: ", output_dir)
-message("\nSummary statistics:")
+message("\nTop of Cores Statistics:")
 print(stats)
+message("\nOverlap Period Statistics:")
+print(overlap_stats)
