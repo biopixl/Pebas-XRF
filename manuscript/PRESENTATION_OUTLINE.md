@@ -8,11 +8,92 @@
 |------|-------|--------|---------|
 | 1 | Introduction | 1-3 | Context and research questions |
 | 2 | Instrumentation & Approach | 4-6 | How XRF works, element/proxy selection |
-| 3 | Data Quality | 7 | Core coverage and QC |
-| 4 | Results: Site Contrast | 8-9 | TAM vs SC fundamental differences |
-| 5 | Validation | 10-11 | Paleontological confirmation |
-| 6 | Key Intervals | 12-15 | Specific events and environmental modes |
-| 7 | Synthesis | 16-18 | Depositional model and conclusions |
+| 3 | **Temporal Framework** | 7 | **NEW: Age model and time overlap** |
+| 4 | Data Quality | 8 | Core coverage and QC |
+| 5 | Results: Site Contrast | 9-10 | TAM vs SC fundamental differences |
+| 6 | Validation | 11-12 | Paleontological confirmation |
+| 7 | Key Intervals | 13-16 | Specific events and environmental modes |
+| 8 | Synthesis | 17-19 | Depositional model and conclusions |
+
+---
+
+## CRITICAL UPDATE: TEMPORAL FRAMEWORK
+
+### Age Model Summary (from collaborator)
+```
+CORE CHRONOLOGY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Site   Age Range (Ma)      Thickness    Sed. Rate    Duration
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TAM    12.935–13.446       397.4 cm     778 cm/Ma    0.511 Myr
+SC     13.275–14.298       423.5 cm     414 cm/Ma    1.023 Myr
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OVERLAP: 13.275–13.446 Ma = 171 kyr
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Time Overlap Analysis
+```
+TEMPORAL RELATIONSHIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+         14.3 Ma                    13.3 Ma       12.9 Ma
+           │                           │            │
+    SC ════╪═══════════════════════════╪════        │
+           │         SC (1.02 Myr)     │            │
+           │                           │════════════╪════ TAM
+           │                           │ TAM (0.51) │
+           │                           │            │
+           │                           ├────────────┤
+           │                           │  OVERLAP   │
+           │                           │  171 kyr   │
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SC is OLDER overall; TAM is YOUNGER
+Most of each core does NOT overlap in time!
+```
+
+### Depth Equivalents of Overlap
+```
+WHERE IS THE OVERLAP IN EACH CORE?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Site   Overlap Duration    Sed. Rate    Depth Equivalent
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TAM    0.171 Myr           × 778 cm/Ma  = 133 cm FROM BOTTOM
+SC     0.171 Myr           × 414 cm/Ma  = 71 cm FROM TOP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Visual:
+TAM core (397 cm):  [--------------------▓▓▓▓▓▓▓] ← bottom 133 cm
+SC core (424 cm):   [▓▓▓▓]------------------------] ← top 71 cm
+                     ↑
+                   OVERLAP (contemporaneous)
+```
+
+### Implications for Interpretation
+
+| Previous Assumption | Revised Understanding |
+|--------------------|-----------------------|
+| TAM vs SC = same time, different environment | TAM vs SC = mostly different times |
+| Site differences = spatial heterogeneity | Site differences = spatial + **temporal** |
+| All sections comparable | Only overlap sections truly comparable |
+| Environmental modes = synchronous | Environmental modes may be diachronous |
+
+**CRITICAL INSIGHT:**
+> "The fundamental site contrast we observed (TAM dysoxic, SC oxic) may partly reflect **temporal evolution** of the Pebas system, not just spatial heterogeneity. SC records an older, perhaps more variable phase; TAM records a younger, more stable dysoxic phase."
+
+### Sections in Temporal Overlap
+
+**For time-equivalent comparison, focus on:**
+
+| Site | Overlap Position | Candidate Sections | Notes |
+|------|------------------|-------------------|-------|
+| TAM | Bottom 133 cm | Basal portions of TAM-1-2-3B-A, TAM-3A-4-5CDE series | Need stratigraphic stacking |
+| SC | Top 71 cm | Upper portions of SC-1ABC-2-3C series | Youngest SC material |
+
+**Sedimentation Rate Implications:**
+- TAM: 778 cm/Ma = 0.78 mm/yr → 2mm XRF step = 2.6 years
+- SC: 414 cm/Ma = 0.41 mm/yr → 2mm XRF step = 4.9 years
+- TAM has **nearly 2× higher temporal resolution** than SC
 
 ---
 
@@ -81,7 +162,7 @@
 |-----------|---------------|--------------|
 | X-ray source | Mo tube, 30 kV, 45 mA | Excites K-lines for elements Al through Sr |
 | Detector | Si-drift detector (SDD) | Energy-dispersive, resolves individual elements |
-| Step size | 2 mm | Each measurement = ~3-5 years at Pebas sed rates |
+| Step size | 2 mm | TAM: ~2.6 yr/step; SC: ~4.9 yr/step (see age model) |
 | Integration | 10 seconds/point | Adequate counts for trace elements |
 | Output | Counts per second (cps) | Semi-quantitative, relative abundances |
 
@@ -154,9 +235,49 @@
 
 ---
 
-## PART 3: DATA QUALITY & CORE COVERAGE (1 slide)
+## PART 3: TEMPORAL FRAMEWORK (1 slide) - NEW
 
-### Slide 7: Core Sections & Stratigraphic Coverage
+### Slide 7: Age Model & Time Constraints
+
+**Visual: Timeline showing TAM and SC age ranges with overlap highlighted**
+
+| Parameter | TAM | SC |
+|-----------|-----|-----|
+| Age range | 12.935–13.446 Ma | 13.275–14.298 Ma |
+| Duration | 0.511 Myr | 1.023 Myr |
+| Thickness | 397.4 cm | 423.5 cm |
+| Sed. rate | 778 cm/Ma | 414 cm/Ma |
+| **Temporal resolution** | **2.6 yr/step** | **4.9 yr/step** |
+
+**Time Overlap: 13.275–13.446 Ma = 171 kyr (only 33% of TAM, 17% of SC)**
+
+| Site | Overlap depth equivalent | Position |
+|------|-------------------------|----------|
+| TAM | 133 cm | Bottom of core |
+| SC | 71 cm | Top of core |
+
+**TALKING POINTS:**
+> "A major update from our collaborators: we now have age constraints. And they change the story. TAM and SC are NOT contemporaneous - SC is mostly older than TAM."
+
+> "SC spans 14.3 to 13.3 Ma - over a million years. TAM spans 13.4 to 12.9 Ma - about half a million years. They overlap for only 171 thousand years."
+
+> "This means the site differences we've been attributing to spatial heterogeneity may partly reflect temporal evolution of the Pebas system. SC records an older phase; TAM records a younger phase."
+
+> "For truly time-equivalent comparison, we need to focus on the bottom 133 cm of TAM and the top 71 cm of SC. That's where the two cores overlap in time."
+
+> "Another key insight: TAM has nearly double the sedimentation rate. Each 2mm XRF measurement at TAM represents 2.6 years; at SC it's 4.9 years. TAM has higher temporal resolution."
+
+**BACKGROUND - Implications:**
+- Site comparison must account for time-transgressive nature of record
+- Environmental evolution through time may contribute to TAM vs SC differences
+- The overlap interval (13.275–13.446 Ma) allows true same-time comparison
+- Higher sed rate at TAM → more event-scale variability preserved
+
+---
+
+## PART 4: DATA QUALITY & CORE COVERAGE (1 slide)
+
+### Slide 8: Core Sections & Stratigraphic Coverage
 - **TAM**: 876 measurements across 11 sections (IQ26 site, MZ7-MZ8)
 - **SC**: 1,062 measurements across 16 sections
 - Quality control: excluded foam-filled zones, QC-failed measurements
@@ -179,12 +300,12 @@
 
 ---
 
-## PART 4: RESULTS - SITE-LEVEL CONTRAST (2-3 slides)
+## PART 5: RESULTS - SITE-LEVEL CONTRAST (2-3 slides)
 
 **NARRATIVE TRANSITION:**
-> "Now that we understand the instrumentation and proxy framework, let's examine what the data reveal. The first and most striking result is the fundamental geochemical difference between our two sites - a difference that tells us about oxygen availability in this ancient ecosystem."
+> "Now that we understand both the methods AND the temporal framework, let's examine the data. Remember: TAM and SC overlap for only 171 kyr. The differences we see may reflect both spatial heterogeneity AND temporal evolution."
 
-### Slide 8: TAM vs SC - The Fundamental Difference
+### Slide 9: TAM vs SC - The Fundamental Difference
 **Key statistics to display:**
 
 | Parameter | TAM | SC | Ratio | Interpretation |
@@ -208,9 +329,14 @@
 **BACKGROUND - What drives these differences:**
 - TAM (IQ26) = distal lacustrine setting, thermally stratified, bottom waters persistently dysoxic
 - SC = proximal fluvio-lacustrine, closer to river inputs, seasonally ventilated
-- Same mega-wetland, completely different local environments separated by just 30 km
+- Same mega-wetland, 30 km apart, but **mostly non-contemporaneous** (only 171 kyr overlap)
 
-### Slide 9: Site Contrast - Core Image Comparison
+**TEMPORAL CAVEAT:**
+- SC (13.3–14.3 Ma) records an OLDER phase of Pebas - perhaps more dynamic
+- TAM (12.9–13.4 Ma) records a YOUNGER phase - perhaps more stable/dysoxic
+- The site contrast may partly reflect system evolution through time
+
+### Slide 10: Site Contrast - Core Image Comparison
 **Use Shiny app to generate:**
 - TAM-1-2-3B-A (most dynamic TAM section)
 - SC-5-6-7ABC-B (best SC section)
@@ -231,7 +357,7 @@
 
 ---
 
-## PART 5: VALIDATION WITH PALEONTOLOGICAL EVIDENCE (2-3 slides)
+## PART 6: VALIDATION WITH PALEONTOLOGICAL EVIDENCE (2-3 slides)
 
 **NARRATIVE TRANSITION:**
 > "The site contrast is clear in the geochemistry. But is it real? Does it match what we know from 20 years of paleontological research on these same sediments? This is where independent validation becomes crucial."
@@ -289,7 +415,7 @@
 
 ---
 
-## PART 5B: GEOCHEMICAL CONTROLS ON EXCEPTIONAL PRESERVATION (1-2 slides)
+## PART 6B: GEOCHEMICAL CONTROLS ON EXCEPTIONAL PRESERVATION (1-2 slides)
 
 **NARRATIVE TRANSITION:**
 > "The same geochemical conditions we're tracking with XRF directly explain why Pebas preserves fossils so exceptionally well. Dysoxia isn't just an ecological factor - it's a taphonomic factory."
@@ -390,7 +516,7 @@
 
 ---
 
-## PART 6: KEY INTERVALS - THE STORY IN DETAIL (4-5 slides)
+## PART 7: KEY INTERVALS - THE STORY IN DETAIL (4-5 slides)
 
 **NARRATIVE TRANSITION:**
 > "Now let's dive into specific intervals that tell the most compelling stories. These are the moments when the Pebas system did something dramatic - and the XRF captured it."
@@ -503,7 +629,7 @@
 
 ---
 
-## PART 7: SYNTHESIS & IMPLICATIONS (2-3 slides)
+## PART 8: SYNTHESIS & IMPLICATIONS (2-3 slides)
 
 **NARRATIVE TRANSITION:**
 > "Let's step back and ask: what does all of this mean? How do these geochemical patterns fit into our understanding of the Pebas mega-wetland as a whole?"
@@ -776,25 +902,73 @@ KEY FINDINGS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1   XRF detects dysoxia                        Pachydon + low Mn/Ti match
 2   Sites = different O₂ regimes               TAM 0.18 vs SC 0.37 Mn/Ti
-3   Concordant proxies = robust signal         Ca/Ti + Mn/Ti independent
-4   System was dynamic                         833% Mn/Ti transitions
+3   Sites mostly NON-contemporaneous           Only 171 kyr overlap
+4   Concordant proxies = robust signal         Ca/Ti + Mn/Ti independent
+5   System was dynamic                         833% Mn/Ti transitions
+6   XRF explains preservation                  Dysoxia = taphonomic factory
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ### Table 12: Quick Numbers
 ```
 NUMBERS TO REMEMBER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-~12 Ma          Age of cores
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CHRONOLOGY
+TAM age         12.935–13.446 Ma (0.51 Myr)
+SC age          13.275–14.298 Ma (1.02 Myr)
+Overlap         171 kyr (13.275–13.446 Ma)
+TAM sed rate    778 cm/Ma (2.6 yr/step)
+SC sed rate     414 cm/Ma (4.9 yr/step)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DATA
 ~2,000          XRF measurements
-2 mm            Spatial resolution
-~3-5 yr         Temporal resolution
+2 mm            Step size
+30 km           Distance between sites
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESULTS
 0.18 vs 0.37    TAM vs SC Mn/Ti
 2.1×            SC/TAM oxygen difference
 833%            Largest Mn/Ti transition
 +5.8σ           Strongest anomaly
-30 km           Distance between sites
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 12B: Temporal Framework
+```
+AGE MODEL SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        TAM                    SC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Age     12.935–13.446 Ma       13.275–14.298 Ma
+Duration 0.511 Myr              1.023 Myr
+Thickness 397.4 cm              423.5 cm
+Sed rate  778 cm/Ma             414 cm/Ma
+Resolution 2.6 yr/step          4.9 yr/step
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OVERLAP: 13.275–13.446 Ma = 171 kyr
+TAM overlap: bottom 133 cm
+SC overlap:  top 71 cm
+
+SC is OLDER; TAM is YOUNGER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Table 12C: Time Comparison Guide
+```
+FOR TIME-EQUIVALENT ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+To compare same-age sediments:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TAM: Use BOTTOM 133 cm         (oldest TAM material)
+SC:  Use TOP 71 cm             (youngest SC material)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Time-equivalent comparison = 171 kyr window
+Both sites: ~13.3–13.4 Ma
+
+CAUTION: Most of each core is NOT contemporaneous!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ### Table 13: Drivers of Variability
