@@ -432,6 +432,121 @@ ui <- fluidPage(
                  br(),
                  DT::dataTableOutput("section_table")
         ),
+        tabPanel("Temporal Evolution",
+                 br(),
+                 fluidRow(
+                   column(3,
+                     h4("View Mode"),
+                     radioButtons("temporal_view_mode", NULL,
+                                  choices = c("Time Series" = "timeseries",
+                                              "Core Comparison" = "cores"),
+                                  selected = "timeseries"),
+
+                     hr(),
+
+                     h4("Site Selection"),
+                     checkboxGroupInput("temporal_sites", NULL,
+                                        choices = c("TAM (Tamshiyacu)" = "TAM",
+                                                    "SC (Santa Corina)" = "SC"),
+                                        selected = c("TAM", "SC")),
+
+                     hr(),
+
+                     h4("Proxy Selection"),
+                     pickerInput("temporal_proxies", NULL,
+                                 choices = c("Mn/Ti (Redox)" = "Mn_Ti",
+                                             "Ca/Ti (Carbonate)" = "Ca_Ti",
+                                             "Fe/Mn (Reducing)" = "Fe_Mn",
+                                             "K/Ti (Weathering)" = "K_Ti",
+                                             "Zr/Rb (Grain size)" = "Zr_Rb",
+                                             "Sr/Ca (Salinity)" = "Sr_Ca"),
+                                 selected = c("Mn_Ti"),
+                                 multiple = TRUE,
+                                 options = pickerOptions(
+                                   actionsBox = TRUE,
+                                   maxOptions = 4,
+                                   maxOptionsText = "Max 4 proxies"
+                                 )),
+
+                     hr(),
+
+                     conditionalPanel(
+                       condition = "input.temporal_view_mode == 'timeseries'",
+                       h4("Time Range (Ma)"),
+                       fluidRow(
+                         column(6, numericInput("temporal_age_min", "Youngest",
+                                                value = 12.8, min = 12.5, max = 14.5, step = 0.1)),
+                         column(6, numericInput("temporal_age_max", "Oldest",
+                                                value = 14.5, min = 12.5, max = 14.5, step = 0.1))
+                       ),
+                       actionButton("temporal_reset_range", "Reset to Full Range", class = "btn-sm"),
+                       actionButton("temporal_zoom_overlap", "Zoom to Overlap", class = "btn-sm btn-warning"),
+                       hr()
+                     ),
+
+                     conditionalPanel(
+                       condition = "input.temporal_view_mode == 'cores'",
+                       h4("Section Selection"),
+                       helpText("Select sections for side-by-side comparison"),
+                       uiOutput("temporal_tam_section_selector"),
+                       uiOutput("temporal_sc_section_selector"),
+                       hr(),
+                       h4("Image Enhancement"),
+                       sliderInput("temporal_brightness", "Brightness", min = 0, max = 150, value = 80, step = 5),
+                       sliderInput("temporal_contrast", "Contrast", min = 0, max = 50, value = 25, step = 5),
+                       hr()
+                     ),
+
+                     h4("Display Options"),
+                     checkboxInput("temporal_show_overlap", "Highlight Overlap Period", value = TRUE),
+                     checkboxInput("temporal_show_points", "Show Data Points", value = TRUE),
+                     checkboxInput("temporal_log_scale", "Log Scale Y-axis", value = TRUE),
+                     sliderInput("temporal_smooth", "Smoothing Window", min = 1, max = 15, value = 5, step = 2),
+
+                     hr(),
+
+                     tags$details(
+                       tags$summary(tags$b("Age Model Info")),
+                       tags$div(
+                         style = "font-size: 11px; padding: 5px;",
+                         tags$b("TAM:"), " 12.935-13.446 Ma", tags$br(),
+                         "SR: 778 cm/Ma (2.6 yr/step)", tags$br(), tags$br(),
+                         tags$b("SC:"), " 13.275-14.298 Ma", tags$br(),
+                         "SR: 414 cm/Ma (4.9 yr/step)", tags$br(), tags$br(),
+                         tags$b("Overlap:"), " 13.275-13.446 Ma", tags$br(),
+                         "Duration: 171 kyr"
+                       )
+                     ),
+
+                     hr(),
+
+                     h4("Export"),
+                     numericInput("temporal_width", "Width (inches)", value = 12, min = 6, max = 20),
+                     numericInput("temporal_height", "Height (inches)", value = 8, min = 4, max = 16),
+                     downloadButton("download_temporal", "Download Figure", class = "btn-primary")
+                   ),
+                   column(9,
+                     conditionalPanel(
+                       condition = "input.temporal_view_mode == 'timeseries'",
+                       h4("Temporal Evolution"),
+                       plotOutput("temporal_plot", height = "550px"),
+                       br(),
+                       h4("Overlap Comparison (13.275-13.446 Ma)"),
+                       plotOutput("overlap_plot", height = "350px"),
+                       br(),
+                       verbatimTextOutput("temporal_stats")
+                     ),
+                     conditionalPanel(
+                       condition = "input.temporal_view_mode == 'cores'",
+                       h4("Core Comparison"),
+                       helpText("Side-by-side view of TAM and SC cores with vertical XRF profiles"),
+                       plotOutput("temporal_core_plot", height = "900px"),
+                       br(),
+                       verbatimTextOutput("temporal_core_stats")
+                     )
+                   )
+                 )
+        ),
         tabPanel("Exclusion Editor",
                  br(),
                  fluidRow(
@@ -1443,6 +1558,569 @@ server <- function(input, output, session) {
              dpi = 300, bg = "white")
     }
   )
+
+  # ==============================================================================
+  # TEMPORAL EVOLUTION: Server Logic
+  # ==============================================================================
+
+  # Age model parameters
+  tam_age_top <- 12.935
+  tam_age_bottom <- 13.446
+  sc_age_top <- 13.275
+  sc_age_bottom <- 14.298
+  overlap_start <- 13.275
+  overlap_end <- 13.446
+
+  # Proxy labels and colors
+  temporal_proxy_labels <- c(
+    "Mn_Ti" = "Mn/Ti", "Ca_Ti" = "Ca/Ti", "Fe_Mn" = "Fe/Mn",
+    "K_Ti" = "K/Ti", "Zr_Rb" = "Zr/Rb", "Sr_Ca" = "Sr/Ca"
+  )
+
+  temporal_proxy_colors <- c(
+    "Mn_Ti" = "#637939", "Ca_Ti" = "#2166ac", "Fe_Mn" = "#7b3294",
+    "K_Ti" = "#e08214", "Zr_Rb" = "#1a9850", "Sr_Ca" = "#d95f02"
+  )
+
+  site_colors <- c("TAM" = "#D55E00", "SC" = "#0072B2")
+
+  # Reset time range button
+
+  observeEvent(input$temporal_reset_range, {
+    updateNumericInput(session, "temporal_age_min", value = 12.8)
+    updateNumericInput(session, "temporal_age_max", value = 14.5)
+  })
+
+  # Zoom to overlap button
+  observeEvent(input$temporal_zoom_overlap, {
+    updateNumericInput(session, "temporal_age_min", value = 13.2)
+    updateNumericInput(session, "temporal_age_max", value = 13.5)
+  })
+
+  # Calculate age for each measurement
+  temporal_data <- reactive({
+    req(input$temporal_proxies)
+
+    data <- xrf_valid %>%
+      mutate(site = if_else(str_detect(section, "^TAM"), "TAM", "SC"))
+
+    # Calculate cumulative depth per site
+    tam_data <- data %>%
+      filter(site == "TAM") %>%
+      arrange(strat_order, position_mm) %>%
+      mutate(cumulative_depth_cm = cumulative_depth / 10)
+
+    sc_data <- data %>%
+      filter(site == "SC") %>%
+      arrange(strat_order, position_mm) %>%
+      mutate(cumulative_depth_cm = cumulative_depth / 10)
+
+    # Calculate age from depth
+    tam_data <- tam_data %>%
+      mutate(
+        depth_fraction = cumulative_depth_cm / max(cumulative_depth_cm, na.rm = TRUE),
+        age_ma = tam_age_top + depth_fraction * (tam_age_bottom - tam_age_top),
+        in_overlap = age_ma >= overlap_start & age_ma <= overlap_end
+      )
+
+    sc_data <- sc_data %>%
+      mutate(
+        depth_fraction = cumulative_depth_cm / max(cumulative_depth_cm, na.rm = TRUE),
+        age_ma = sc_age_top + depth_fraction * (sc_age_bottom - sc_age_top),
+        in_overlap = age_ma >= overlap_start & age_ma <= overlap_end
+      )
+
+    # Apply smoothing to all selected proxies
+    smooth_window <- input$temporal_smooth
+    for (proxy_col in input$temporal_proxies) {
+      smooth_col <- paste0(proxy_col, "_smooth")
+      if (proxy_col %in% names(tam_data)) {
+        tam_data[[smooth_col]] <- zoo::rollmean(tam_data[[proxy_col]], smooth_window, fill = NA, align = "center")
+        sc_data[[smooth_col]] <- zoo::rollmean(sc_data[[proxy_col]], smooth_window, fill = NA, align = "center")
+      }
+    }
+
+    list(tam = tam_data, sc = sc_data)
+  })
+
+  # Generate temporal evolution plot
+  generate_temporal_plot <- reactive({
+    req(input$temporal_proxies)
+    req(input$temporal_sites)
+    req(length(input$temporal_sites) > 0)
+
+    data <- temporal_data()
+
+    # Filter by selected sites
+    plot_data <- tibble()
+    if ("TAM" %in% input$temporal_sites) plot_data <- bind_rows(plot_data, data$tam)
+    if ("SC" %in% input$temporal_sites) plot_data <- bind_rows(plot_data, data$sc)
+
+    if (nrow(plot_data) == 0) return(NULL)
+
+    # Get time range
+    age_min <- input$temporal_age_min
+    age_max <- input$temporal_age_max
+
+    # Filter to time range
+    plot_data <- plot_data %>%
+      filter(age_ma >= age_min, age_ma <= age_max)
+
+    if (nrow(plot_data) == 0) return(NULL)
+
+    # Create faceted plot for multiple proxies
+    n_proxies <- length(input$temporal_proxies)
+
+    if (n_proxies == 1) {
+      # Single proxy - simple plot
+      proxy_col <- input$temporal_proxies[1]
+      smooth_col <- paste0(proxy_col, "_smooth")
+
+      p <- ggplot(plot_data, aes(x = age_ma, color = site))
+
+      if (input$temporal_show_overlap) {
+        p <- p + annotate("rect", xmin = overlap_start, xmax = overlap_end,
+                          ymin = -Inf, ymax = Inf, fill = "yellow", alpha = 0.2)
+      }
+
+      if (smooth_col %in% names(plot_data)) {
+        p <- p + geom_line(aes(y = .data[[smooth_col]]), linewidth = 1.2, na.rm = TRUE)
+      }
+
+      if (input$temporal_show_points) {
+        p <- p + geom_point(aes(y = .data[[proxy_col]]), alpha = 0.3, size = 0.8)
+      }
+
+      p <- p +
+        scale_color_manual(values = site_colors, name = "Site") +
+        scale_x_reverse(limits = c(age_max, age_min)) +
+        labs(x = "Age (Ma)", y = temporal_proxy_labels[proxy_col],
+             title = "Temporal Evolution") +
+        theme_bw(base_size = 12) +
+        theme(panel.grid.minor = element_blank(),
+              legend.position = c(0.02, 0.98), legend.justification = c(0, 1),
+              legend.background = element_rect(fill = "white", color = "gray80"))
+
+      if (input$temporal_log_scale) p <- p + scale_y_log10()
+
+    } else {
+      # Multiple proxies - faceted plot
+      plot_long <- plot_data %>%
+        select(age_ma, site, in_overlap, all_of(input$temporal_proxies),
+               all_of(paste0(input$temporal_proxies, "_smooth"))) %>%
+        pivot_longer(cols = all_of(input$temporal_proxies),
+                     names_to = "proxy", values_to = "value") %>%
+        mutate(proxy_label = temporal_proxy_labels[proxy])
+
+      # Add smoothed values
+      smooth_long <- plot_data %>%
+        select(age_ma, site, all_of(paste0(input$temporal_proxies, "_smooth"))) %>%
+        pivot_longer(cols = all_of(paste0(input$temporal_proxies, "_smooth")),
+                     names_to = "proxy_smooth", values_to = "value_smooth") %>%
+        mutate(proxy = str_remove(proxy_smooth, "_smooth"))
+
+      plot_long <- plot_long %>%
+        left_join(smooth_long %>% select(age_ma, site, proxy, value_smooth),
+                  by = c("age_ma", "site", "proxy"))
+
+      p <- ggplot(plot_long, aes(x = age_ma, color = site))
+
+      if (input$temporal_show_overlap) {
+        p <- p + annotate("rect", xmin = overlap_start, xmax = overlap_end,
+                          ymin = -Inf, ymax = Inf, fill = "yellow", alpha = 0.2)
+      }
+
+      p <- p + geom_line(aes(y = value_smooth), linewidth = 1, na.rm = TRUE)
+
+      if (input$temporal_show_points) {
+        p <- p + geom_point(aes(y = value), alpha = 0.2, size = 0.5)
+      }
+
+      p <- p +
+        facet_wrap(~proxy_label, scales = "free_y", ncol = 1) +
+        scale_color_manual(values = site_colors, name = "Site") +
+        scale_x_reverse(limits = c(age_max, age_min)) +
+        labs(x = "Age (Ma)", y = NULL, title = "Temporal Evolution") +
+        theme_bw(base_size = 11) +
+        theme(panel.grid.minor = element_blank(),
+              legend.position = "top",
+              strip.background = element_rect(fill = "gray95"),
+              strip.text = element_text(face = "bold"))
+
+      if (input$temporal_log_scale) p <- p + scale_y_log10()
+    }
+
+    p
+  })
+
+  # Generate overlap comparison plot
+  generate_overlap_plot <- reactive({
+    req(input$temporal_proxies)
+    req(input$temporal_sites)
+
+    data <- temporal_data()
+
+    # Use first proxy for overlap comparison
+    proxy_col <- input$temporal_proxies[1]
+
+    # Filter to overlap period only
+    tam_overlap <- data$tam %>% filter(in_overlap)
+    sc_overlap <- data$sc %>% filter(in_overlap)
+
+    # Check which sites to show
+    show_tam <- "TAM" %in% input$temporal_sites && nrow(tam_overlap) > 0
+    show_sc <- "SC" %in% input$temporal_sites && nrow(sc_overlap) > 0
+
+    if (!show_tam && !show_sc) return(NULL)
+
+    plot_data <- tibble()
+    if (show_tam) plot_data <- bind_rows(plot_data, tam_overlap)
+    if (show_sc) plot_data <- bind_rows(plot_data, sc_overlap)
+
+    if (nrow(plot_data) == 0) return(NULL)
+
+    p <- ggplot(plot_data, aes(x = .data[[proxy_col]], fill = site, color = site)) +
+      geom_density(alpha = 0.4, linewidth = 0.8) +
+      geom_rug(alpha = 0.3, length = unit(0.02, "npc"), sides = "b") +
+      scale_fill_manual(values = site_colors, name = "Site") +
+      scale_color_manual(values = site_colors, name = "Site") +
+      labs(x = temporal_proxy_labels[proxy_col], y = "Density",
+           title = sprintf("Overlap Comparison: %s", temporal_proxy_labels[proxy_col]),
+           subtitle = sprintf("TAM n=%d, SC n=%d", nrow(tam_overlap), nrow(sc_overlap))) +
+      theme_bw(base_size = 11) +
+      theme(panel.grid.minor = element_blank(),
+            legend.position = c(0.02, 0.98), legend.justification = c(0, 1),
+            legend.background = element_rect(fill = "white", color = "gray80"))
+
+    if (input$temporal_log_scale) p <- p + scale_x_log10()
+
+    p
+  })
+
+  # Render temporal plot
+  output$temporal_plot <- renderPlot({
+    p <- generate_temporal_plot()
+    if (is.null(p)) {
+      plot.new()
+      text(0.5, 0.5, "Select at least one site and one proxy", cex = 1.5)
+    } else {
+      p
+    }
+  })
+
+  # Render overlap plot
+  output$overlap_plot <- renderPlot({
+    p <- generate_overlap_plot()
+    if (is.null(p)) {
+      plot.new()
+      text(0.5, 0.5, "No data in overlap period for selected sites", cex = 1.5)
+    } else {
+      p
+    }
+  })
+
+  # Temporal statistics
+  output$temporal_stats <- renderPrint({
+    req(input$temporal_proxies)
+
+    data <- temporal_data()
+    proxy_col <- input$temporal_proxies[1]
+
+    tam_overlap <- data$tam %>% filter(in_overlap)
+    sc_overlap <- data$sc %>% filter(in_overlap)
+
+    tam_vals <- tam_overlap[[proxy_col]] %>% na.omit()
+    sc_vals <- sc_overlap[[proxy_col]] %>% na.omit()
+
+    cat("=== OVERLAP STATISTICS ===\n")
+    cat(sprintf("Proxy: %s | Period: 13.275-13.446 Ma (171 kyr)\n\n", temporal_proxy_labels[proxy_col]))
+
+    if ("TAM" %in% input$temporal_sites && length(tam_vals) > 0) {
+      cat(sprintf("TAM: n=%d, median=%.3f, mean=%.3f\n",
+                  length(tam_vals), median(tam_vals), mean(tam_vals)))
+    }
+
+    if ("SC" %in% input$temporal_sites && length(sc_vals) > 0) {
+      cat(sprintf("SC:  n=%d, median=%.3f, mean=%.3f\n",
+                  length(sc_vals), median(sc_vals), mean(sc_vals)))
+    }
+
+    if (length(tam_vals) > 0 && length(sc_vals) > 0 &&
+        "TAM" %in% input$temporal_sites && "SC" %in% input$temporal_sites) {
+      test_result <- wilcox.test(tam_vals, sc_vals)
+      cat(sprintf("\nWilcoxon test: p = %.2e %s\n",
+                  test_result$p.value,
+                  if (test_result$p.value < 0.05) "(significant)" else "(not significant)"))
+    }
+  })
+
+  # Download temporal plot
+  output$download_temporal <- downloadHandler(
+    filename = function() {
+      paste0("temporal_evolution_", Sys.Date(), ".png")
+    },
+    content = function(file) {
+      if (input$temporal_view_mode == "cores") {
+        p <- generate_temporal_core_plot()
+        if (!is.null(p)) {
+          ggsave(file, p, width = input$temporal_width, height = input$temporal_height,
+                 dpi = 300, bg = "white")
+        }
+      } else {
+        p1 <- generate_temporal_plot()
+        p2 <- generate_overlap_plot()
+        if (!is.null(p1) && !is.null(p2)) {
+          combined <- p1 / p2 + plot_layout(heights = c(1.5, 1))
+          ggsave(file, combined, width = input$temporal_width, height = input$temporal_height,
+                 dpi = 300, bg = "white")
+        } else if (!is.null(p1)) {
+          ggsave(file, p1, width = input$temporal_width, height = input$temporal_height,
+                 dpi = 300, bg = "white")
+        }
+      }
+    }
+  )
+
+  # ==============================================================================
+  # TEMPORAL EVOLUTION: Core Comparison View
+  # ==============================================================================
+
+  # Section selectors for core comparison
+  output$temporal_tam_section_selector <- renderUI({
+    tam_sections <- section_config %>%
+      filter(site == "TAM") %>%
+      arrange(strat_order)
+
+    choices <- setNames(tam_sections$section,
+                        paste0(tam_sections$group, " - ", tam_sections$section))
+
+    selectInput("temporal_tam_section", "TAM Section",
+                choices = choices,
+                selected = choices[1])
+  })
+
+  output$temporal_sc_section_selector <- renderUI({
+    sc_sections <- section_config %>%
+      filter(site == "SC") %>%
+      arrange(strat_order)
+
+    choices <- setNames(sc_sections$section,
+                        paste0(sc_sections$group, " - ", sc_sections$section))
+
+    selectInput("temporal_sc_section", "SC Section",
+                choices = choices,
+                selected = choices[1])
+  })
+
+  # Generate vertical core plot for a single section
+  generate_section_core_plot <- function(section_name, site_label, proxies, brightness = 80, contrast = 25) {
+
+    # Get section info
+    sect_info <- section_config %>% filter(section == section_name)
+    if (nrow(sect_info) == 0) return(NULL)
+
+    # Get section data
+    sect_data <- xrf_valid %>%
+      filter(section == section_name) %>%
+      arrange(position_mm)
+
+    if (nrow(sect_data) == 0) return(NULL)
+
+    # Get data range
+    data_start <- min(sect_data$position_mm)
+    data_end <- max(sect_data$position_mm)
+    depth_cm <- (data_end - data_start) / 10
+
+    # Apply smoothing
+    smooth_window <- input$temporal_smooth
+    for (proxy_col in proxies) {
+      smooth_col <- paste0(proxy_col, "_smooth")
+      if (proxy_col %in% names(sect_data)) {
+        sect_data[[smooth_col]] <- zoo::rollmean(sect_data[[proxy_col]], smooth_window, fill = NA, align = "center")
+      }
+    }
+
+    # Theme for stratigraphic plots
+    theme_strat <- function(base_size = 10) {
+      theme_minimal(base_size = base_size) +
+        theme(
+          plot.title = element_text(size = base_size + 1, face = "bold"),
+          axis.title = element_text(size = base_size),
+          axis.text = element_text(size = base_size - 1),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(color = "gray90", linewidth = 0.3),
+          legend.position = "none",
+          plot.margin = margin(5, 5, 5, 5)
+        )
+    }
+
+    plot_list <- list()
+
+    # Core image panel
+    img_result <- tryCatch({
+      process_core_image(section_name, sect_info$optical_path, data_start, data_end,
+                         brightness = brightness, contrast = contrast, gamma = 2.0)
+    }, error = function(e) NULL)
+
+    if (!is.null(img_result)) {
+      # Rotate image 90 degrees for vertical display
+      img_rotated <- image_rotate(img_result$image, 90)
+      target_width <- 300
+      target_height <- round(depth_cm * 8)  # Scale factor for display
+      img_scaled <- image_resize(img_rotated, sprintf("%dx%d!", target_width, target_height))
+      core_raster <- as.raster(img_scaled)
+
+      core_plot <- ggplot() +
+        annotation_raster(core_raster, xmin = 0, xmax = 1, ymin = 0, ymax = depth_cm) +
+        scale_y_reverse(limits = c(depth_cm, 0), expand = c(0, 0)) +
+        scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+        labs(x = NULL, y = "Depth (cm)", title = site_label) +
+        theme_strat() +
+        theme(axis.text.x = element_blank(),
+              panel.background = element_rect(fill = "gray30", color = NA))
+
+      plot_list$core <- core_plot
+    }
+
+    # Proxy panels
+    for (proxy in proxies) {
+      if (!proxy %in% names(sect_data)) next
+
+      smooth_col <- paste0(proxy, "_smooth")
+      color <- temporal_proxy_colors[proxy]
+      label <- temporal_proxy_labels[proxy]
+
+      # Convert position to cm from start
+      sect_data_plot <- sect_data %>%
+        mutate(depth_cm = (position_mm - data_start) / 10)
+
+      p <- ggplot(sect_data_plot, aes(y = depth_cm))
+
+      if (input$temporal_show_points) {
+        p <- p + geom_point(aes(x = .data[[proxy]]), color = color, alpha = 0.4, size = 1)
+      }
+
+      if (smooth_col %in% names(sect_data_plot)) {
+        p <- p + geom_path(aes(x = .data[[smooth_col]]), color = color, linewidth = 1, na.rm = TRUE)
+      }
+
+      if (input$temporal_log_scale) {
+        p <- p + scale_x_log10()
+      }
+
+      p <- p +
+        scale_y_reverse(limits = c(depth_cm, 0), expand = c(0.01, 0)) +
+        labs(x = label, y = NULL, title = proxy) +
+        theme_strat() +
+        theme(axis.text.y = element_blank())
+
+      plot_list[[proxy]] <- p
+    }
+
+    if (length(plot_list) == 0) return(NULL)
+
+    # Combine plots
+    n_panels <- length(plot_list)
+    if ("core" %in% names(plot_list)) {
+      widths <- c(0.5, rep(1, n_panels - 1))
+    } else {
+      widths <- rep(1, n_panels)
+    }
+
+    wrap_plots(plot_list, nrow = 1, widths = widths)
+  }
+
+  # Generate side-by-side core comparison plot
+  generate_temporal_core_plot <- reactive({
+    req(input$temporal_proxies)
+
+    proxies <- input$temporal_proxies
+
+    plot_list <- list()
+
+    # Generate TAM plot if selected
+    if ("TAM" %in% input$temporal_sites && !is.null(input$temporal_tam_section)) {
+      tam_plot <- generate_section_core_plot(
+        input$temporal_tam_section,
+        paste0("TAM: ", input$temporal_tam_section),
+        proxies,
+        brightness = input$temporal_brightness,
+        contrast = input$temporal_contrast
+      )
+      if (!is.null(tam_plot)) {
+        plot_list$tam <- tam_plot
+      }
+    }
+
+    # Generate SC plot if selected
+    if ("SC" %in% input$temporal_sites && !is.null(input$temporal_sc_section)) {
+      sc_plot <- generate_section_core_plot(
+        input$temporal_sc_section,
+        paste0("SC: ", input$temporal_sc_section),
+        proxies,
+        brightness = input$temporal_brightness,
+        contrast = input$temporal_contrast
+      )
+      if (!is.null(sc_plot)) {
+        plot_list$sc <- sc_plot
+      }
+    }
+
+    if (length(plot_list) == 0) return(NULL)
+
+    # Stack TAM and SC vertically
+    if (length(plot_list) == 2) {
+      plot_list$tam / plot_list$sc +
+        plot_annotation(title = "Core Comparison: TAM vs SC",
+                        subtitle = paste("Proxies:", paste(temporal_proxy_labels[proxies], collapse = ", ")))
+    } else if (length(plot_list) == 1) {
+      plot_list[[1]] +
+        plot_annotation(title = "Core Section",
+                        subtitle = paste("Proxies:", paste(temporal_proxy_labels[proxies], collapse = ", ")))
+    }
+  })
+
+  # Render core comparison plot
+  output$temporal_core_plot <- renderPlot({
+    p <- generate_temporal_core_plot()
+    if (is.null(p)) {
+      plot.new()
+      text(0.5, 0.5, "Select at least one site and one proxy", cex = 1.5)
+    } else {
+      p
+    }
+  })
+
+  # Core comparison statistics
+  output$temporal_core_stats <- renderPrint({
+    req(input$temporal_proxies)
+
+    proxy_col <- input$temporal_proxies[1]
+    cat("=== SECTION COMPARISON ===\n")
+    cat(sprintf("Primary proxy: %s\n\n", temporal_proxy_labels[proxy_col]))
+
+    if ("TAM" %in% input$temporal_sites && !is.null(input$temporal_tam_section)) {
+      tam_data <- xrf_valid %>%
+        filter(section == input$temporal_tam_section)
+
+      if (nrow(tam_data) > 0 && proxy_col %in% names(tam_data)) {
+        vals <- tam_data[[proxy_col]] %>% na.omit()
+        cat(sprintf("TAM (%s):\n  n=%d, median=%.3f, mean=%.3f\n\n",
+                    input$temporal_tam_section, length(vals), median(vals), mean(vals)))
+      }
+    }
+
+    if ("SC" %in% input$temporal_sites && !is.null(input$temporal_sc_section)) {
+      sc_data <- xrf_valid %>%
+        filter(section == input$temporal_sc_section)
+
+      if (nrow(sc_data) > 0 && proxy_col %in% names(sc_data)) {
+        vals <- sc_data[[proxy_col]] %>% na.omit()
+        cat(sprintf("SC (%s):\n  n=%d, median=%.3f, mean=%.3f\n",
+                    input$temporal_sc_section, length(vals), median(vals), mean(vals)))
+      }
+    }
+  })
 
   # ==============================================================================
   # EXCLUSION EDITOR: Server Logic
