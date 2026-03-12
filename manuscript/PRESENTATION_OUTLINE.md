@@ -1,7 +1,18 @@
 # Pebas-XRF Presentation Outline
 ## Paleoenvironmental Reconstruction from XRF Core Scanning
 
-### Recommended Slide Organization (15-20 slides)
+### Recommended Slide Organization (18 slides)
+
+**Structure Overview:**
+| Part | Topic | Slides | Purpose |
+|------|-------|--------|---------|
+| 1 | Introduction | 1-3 | Context and research questions |
+| 2 | Instrumentation & Approach | 4-6 | How XRF works, element/proxy selection |
+| 3 | Data Quality | 7 | Core coverage and QC |
+| 4 | Results: Site Contrast | 8-9 | TAM vs SC fundamental differences |
+| 5 | Validation | 10-11 | Paleontological confirmation |
+| 6 | Key Intervals | 12-15 | Specific events and environmental modes |
+| 7 | Synthesis | 16-18 | Depositional model and conclusions |
 
 ---
 
@@ -51,34 +62,95 @@
 
 ---
 
-## PART 2: METHODS & PROXIES (2-3 slides)
+## PART 2: INSTRUMENTATION & ANALYTICAL APPROACH (3-4 slides)
 
-### Slide 4: XRF Proxy Framework
-| Proxy | Mechanism | Interpretation |
-|-------|-----------|----------------|
-| **Mn/Ti** (primary) | Mn precipitates under oxic conditions, Ti = detrital normalizer | High = oxic, Low = dysoxic |
-| **Ca/Ti** (independent) | Ca = biogenic carbonate, Ti = detrital | High = shell-rich / productive |
-| **Fe/Mn** (supporting) | Fe retained, Mn lost under anoxia | High = reducing (>70 threshold) |
+### Slide 4: XRF Core Scanning - How It Works
+**Visual: ITRAX schematic or photo of core scanner**
 
-**Methodological caveat**: Fe/Mn and Mn/Ti share Mn → not independent (Aitchison 1986)
+| Component | Specification | Significance |
+|-----------|---------------|--------------|
+| X-ray source | Mo tube, 30 kV, 45 mA | Excites K-lines for elements Al through Sr |
+| Detector | Si-drift detector (SDD) | Energy-dispersive, resolves individual elements |
+| Step size | 2 mm | Each measurement = ~3-5 years at Pebas sed rates |
+| Integration | 10 seconds/point | Adequate counts for trace elements |
+| Output | Counts per second (cps) | Semi-quantitative, relative abundances |
 
 **TALKING POINTS:**
-> "Manganese has a unique redox chemistry that makes it an ideal oxygen tracer. Under oxic conditions, Mn²⁺ oxidizes to Mn⁴⁺ and precipitates as MnO₂ - it's literally trapped in the sediment. But under reducing conditions, Mn⁴⁺ reduces back to soluble Mn²⁺ and diffuses away into the water column."
+> "XRF core scanning is non-destructive - the core stays intact. An X-ray beam hits the sediment surface, exciting atoms that fluoresce at characteristic energies. Each element has a fingerprint."
 
-> "We normalize to titanium because Ti is geochemically immobile - it doesn't respond to redox changes. It's locked in resistant minerals like rutile and ilmenite that simply track detrital input from erosion."
+> "We use a molybdenum X-ray tube because Mo excitation efficiently produces K-shell fluorescence for the elements we care about: manganese, iron, calcium, titanium. Lighter elements like aluminum are harder to detect - they're absorbed by air and water."
 
-> "Calcium is our independent check - it's not redox-sensitive at all. Ca comes from biogenic carbonate: mollusc shells, ostracods, and possibly authigenic calcite. When Ca/Ti rises, we're seeing increased shell production or preservation."
+> "The 2mm step size is a compromise. Finer resolution means more measurements but lower counts per point. At 2mm, we get excellent signal-to-noise while still capturing millimeter-scale environmental changes."
 
-**BACKGROUND - Why this matters for interpretation:**
-- Mn solubility shift occurs around 200 mV (Eh), roughly where O₂ drops below ~0.2 ml/L
-- Fe follows a similar pattern but at lower Eh (~0 mV), hence Fe/Mn ratio increases under anoxia
-- The closure problem: Fe/Mn = Fe/(Mn) and Mn/Ti = Mn/Ti share Mn, creating mathematical correlation regardless of true environmental signal
+> "Important caveat: XRF gives us counts, not concentrations. We report ratios to cancel out matrix effects and water content variations. The absolute numbers are semi-quantitative; the patterns are robust."
 
-### Slide 5: Core Sections & Data Quality
+**BACKGROUND - XRF physics:**
+- X-ray fluorescence: incident photons eject inner-shell electrons; outer electrons drop down, emitting characteristic X-rays
+- Energy-dispersive detection: SDD measures photon energies, software identifies elements by peak position
+- Matrix effects: heavier elements absorb X-rays from lighter elements; water attenuates signal
+- Why ratios work: matrix effects and geometry cancel when dividing element by element
+
+### Slide 5: Element Selection - Why These Elements?
+
+**Elements measured and their geochemical behavior:**
+
+| Element | Source | Behavior | Use in This Study |
+|---------|--------|----------|-------------------|
+| **Mn** | Authigenic | Redox-sensitive: precipitates when O₂ present, diffuses when absent | Primary redox indicator |
+| **Fe** | Detrital + authigenic | Less redox-sensitive than Mn; forms sulfides under anoxia | Supporting redox indicator |
+| **Ca** | Biogenic (shells) | Redox-insensitive; tracks carbonate production/preservation | Productivity/shell proxy |
+| **Ti** | Detrital only | Chemically inert; locked in rutile, ilmenite | Normalizing element |
+| **Al** | Detrital (clays) | Inert but poorly detected by XRF in wet sediment | Alternative normalizer (not used) |
+| **K, Rb** | Detrital (clays, feldspars) | Inert, track clay mineralogy | Considered but not primary |
+
+**TALKING POINTS:**
+> "Element selection isn't arbitrary. We need elements that respond to the environmental variable we're interested in - oxygen - and elements that don't respond, to use as normalizers."
+
+> "Manganese is the ideal redox tracer because its solubility changes dramatically at the oxic-anoxic boundary. Mn⁴⁺ in MnO₂ is insoluble - it stays put. Mn²⁺ is soluble - it diffuses into the water and is lost from the sediment."
+
+> "Titanium is nearly indestructible. It sits in heavy minerals like rutile and ilmenite that survive weathering, transport, and diagenesis. Ti doesn't care about oxygen, pH, or salinity - it just tracks how much detrital sediment arrived."
+
+> "We considered aluminum as a normalizer - it's the classic choice in marine geochemistry. But Al detection by XRF is poor in wet sediments because the low-energy Al X-rays are absorbed before reaching the detector. Ti is a better choice for core scanning."
+
+**BACKGROUND - Why not other elements?**
+- **Sr**: Tracks carbonate but also substitutes for Ca in shells; not independent of Ca
+- **S**: Would indicate sulfide formation under anoxia, but S detection by XRF is poor
+- **Zr**: Excellent detrital proxy (in zircon) but grain-size sensitive; coarse zircon creates spikes
+- **Si**: Dominated by quartz; detection issues similar to Al
+
+### Slide 6: Proxy Rationale - Building the Interpretive Framework
+
+| Proxy | Numerator Source | Denominator Source | Independence | Interpretation |
+|-------|------------------|-------------------|--------------|----------------|
+| **Mn/Ti** | Authigenic Mn oxides | Detrital Ti minerals | ✓ Primary | Oxic = high, Dysoxic = low |
+| **Ca/Ti** | Biogenic carbonate | Detrital Ti minerals | ✓ Independent | Shells/productivity = high |
+| **Fe/Mn** | Mixed Fe sources | Authigenic Mn | ✗ Shares Mn | Supporting only; high = reducing |
+| **Fe/Ti** | Mixed Fe sources | Detrital Ti minerals | ✓ Independent | Detrital + authigenic Fe input |
+
+**TALKING POINTS:**
+> "The key insight from compositional data analysis: ratios that share an element aren't statistically independent. Fe/Mn and Mn/Ti both contain Mn - if Mn drops, both ratios change even if Fe and Ti are constant."
+
+> "This is called the closure effect, described by Aitchison in 1986. It creates spurious correlations that can fool you into thinking two processes are linked when they're actually measuring the same thing."
+
+> "Our solution: Mn/Ti as the primary redox proxy, Ca/Ti as the independent productivity check. Ca and Mn have completely different source mechanisms - biogenic versus authigenic. When both move together, it's real."
+
+> "We report Fe/Mn for comparison with older literature that uses this ratio, but we interpret it cautiously. High Fe/Mn supports a reducing interpretation, but it's not independent evidence."
+
+**BACKGROUND - Compositional data constraints (Aitchison 1986):**
+- Closure: proportions must sum to 100%, creating negative correlations
+- Spurious correlation: shared denominators or numerators create mathematical relationships
+- Solution: use log-ratios (centered log-ratio, additive log-ratio) for formal statistics
+- Pragmatic approach: select ratios with independent source terms; interpret shared-element ratios cautiously
+
+---
+
+## PART 3: DATA QUALITY & CORE COVERAGE (1 slide)
+
+### Slide 7: Core Sections & Stratigraphic Coverage
 - **TAM**: 876 measurements across 11 sections (IQ26 site, MZ7-MZ8)
 - **SC**: 1,062 measurements across 16 sections
 - Quality control: excluded foam-filled zones, QC-failed measurements
-- Visual: Section locations on stratigraphic column
+- Visual: Section locations on stratigraphic column with mollusc zone boundaries
 
 **TALKING POINTS:**
 > "We collected nearly 2,000 XRF measurements at 2mm resolution - that's submillimeter-scale environmental reconstruction, far finer than traditional bulk sampling."
@@ -87,16 +159,22 @@
 
 > "Quality control matters: the ITRAX scanner flags measurements where X-ray counts are too low or the detector saturates. About 3% of our data was excluded by these automatic quality filters."
 
-**BACKGROUND - XRF scanning methodology:**
-- ITRAX core scanner uses Mo X-ray tube at 30kV, 45mA
-- Each measurement integrates signal over 10 seconds
-- Step size of 2mm provides ~3-5 year temporal resolution assuming typical Pebas sedimentation rates (0.5-1 mm/yr)
+> "The stratigraphic coverage spans mollusc zones MZ7 and MZ8 - this is the peak of Pebas biodiversity, when the endemic radiation reached its maximum diversity. We're asking: what were the environmental conditions during this remarkable evolutionary event?"
+
+**BACKGROUND - Data quality considerations:**
+- Foam-filled zones: friable organic-rich clay collapsed during storage; excluded from analysis
+- QC-failed measurements: low counts (<1000 cps total) or detector saturation; automatic exclusion
+- Edge effects: first/last 5mm of each section may show X-ray scatter artifacts
+- Replicate scans: selected sections scanned twice; reproducibility CV <5% for major elements
 
 ---
 
-## PART 3: SITE-LEVEL CONTRAST (2-3 slides)
+## PART 4: RESULTS - SITE-LEVEL CONTRAST (2-3 slides)
 
-### Slide 6: TAM vs SC - The Fundamental Difference
+**NARRATIVE TRANSITION:**
+> "Now that we understand the instrumentation and proxy framework, let's examine what the data reveal. The first and most striking result is the fundamental geochemical difference between our two sites - a difference that tells us about oxygen availability in this ancient ecosystem."
+
+### Slide 8: TAM vs SC - The Fundamental Difference
 **Key statistics to display:**
 
 | Parameter | TAM | SC | Ratio | Interpretation |
@@ -122,7 +200,7 @@
 - SC = proximal fluvio-lacustrine, closer to river inputs, seasonally ventilated
 - Same mega-wetland, completely different local environments separated by just 30 km
 
-### Slide 7: Site Contrast - Core Image Comparison
+### Slide 9: Site Contrast - Core Image Comparison
 **Use Shiny app to generate:**
 - TAM-1-2-3B-A (most dynamic TAM section)
 - SC-5-6-7ABC-B (best SC section)
@@ -143,9 +221,12 @@
 
 ---
 
-## PART 4: VALIDATION WITH PALEONTOLOGICAL EVIDENCE (2-3 slides)
+## PART 5: VALIDATION WITH PALEONTOLOGICAL EVIDENCE (2-3 slides)
 
-### Slide 8: Pachydon obliquus - The Dysoxia Indicator
+**NARRATIVE TRANSITION:**
+> "The site contrast is clear in the geochemistry. But is it real? Does it match what we know from 20 years of paleontological research on these same sediments? This is where independent validation becomes crucial."
+
+### Slide 10: Pachydon obliquus - The Dysoxia Indicator
 **Key quote** (Wesselingh 2006a):
 > "*Pachydon obliquus* dominates the faunas of dysoxic, organic-rich, clayish intervals"
 
@@ -171,7 +252,7 @@
 - Dominance in dysoxic facies suggests competitive exclusion of other taxa
 - Sister taxa (Anodontites) occupy normoxic riverine habitats today
 
-### Slide 9: Bivalve Shell Isotopes Confirm XRF Patterns
+### Slide 11: Bivalve Shell Isotopes Confirm XRF Patterns
 **From Kaandorp et al. (2005):**
 
 | Bivalve Group | Isotope Pattern | XRF Equivalent |
@@ -198,9 +279,12 @@
 
 ---
 
-## PART 5: KEY INTERVALS FOR PALEOENVIRONMENTAL INTERPRETATION (4-5 slides)
+## PART 6: KEY INTERVALS - THE STORY IN DETAIL (4-5 slides)
 
-### Slide 10: Dramatic Oxygenation Events
+**NARRATIVE TRANSITION:**
+> "Now let's dive into specific intervals that tell the most compelling stories. These are the moments when the Pebas system did something dramatic - and the XRF captured it."
+
+### Slide 12: Dramatic Oxygenation Events
 **Highlight these intervals (use Shiny app for visuals):**
 
 | Section | Depth | Mn/Ti Change | Interpretation |
@@ -224,7 +308,7 @@
 - Wind mixing depth scales with lake fetch and wind speed; large lakes resist mixing
 - Modern analogs: Lake Tanganyika shows similar episodic ventilation of anoxic deep waters
 
-### Slide 11: Shell-Rich Horizons (Coquinas)
+### Slide 13: Shell-Rich Horizons (Coquinas)
 **Highlight these intervals:**
 
 | Section | Depth | Ca/Ti | Mn/Ti | Environment |
@@ -250,7 +334,7 @@
 - In situ Pachydon beds show articulated valves, life-position orientations
 - Coquinas (shell beds) may represent: storm lags, hardgrounds, or winnowed residues
 
-### Slide 12: Concordant Oxic-Carbonate Events (Strongest Signal)
+### Slide 14: Concordant Oxic-Carbonate Events (Strongest Signal)
 **These intervals show INDEPENDENT proxy agreement:**
 
 | Section | Depth | Mn/Ti (z-score) | Ca/Ti (z-score) | Interpretation |
@@ -275,7 +359,7 @@
 - Most parsimonious interpretation: oxygenation events that (1) precipitated Mn and (2) allowed mollusc colonization
 - Z-scores normalize each proxy to its own variance, enabling comparison across different scales
 
-### Slide 13: Environmental Modes Summary
+### Slide 15: Environmental Modes Summary
 **Three distinct modes identified:**
 
 1. **Oxic-Carbonate Events** (Mn/Ti↑, Ca/Ti↑)
@@ -308,9 +392,12 @@
 
 ---
 
-## PART 6: SYNTHESIS & IMPLICATIONS (2-3 slides)
+## PART 7: SYNTHESIS & IMPLICATIONS (2-3 slides)
 
-### Slide 14: Depositional Model
+**NARRATIVE TRANSITION:**
+> "Let's step back and ask: what does all of this mean? How do these geochemical patterns fit into our understanding of the Pebas mega-wetland as a whole?"
+
+### Slide 16: Depositional Model
 **Visual: Cross-section showing TAM and SC positions in Pebas system**
 
 | Setting | Site | Characteristics | XRF Signature |
@@ -333,7 +420,7 @@
 - Brackish marine incursions from the north (Caribbean/Venezuela) documented by Sr isotopes
 - Basin evolved from open seaway to enclosed mega-wetland between ~23 and 8 Ma
 
-### Slide 15: Drivers of Variability
+### Slide 17: Drivers of Variability
 **Proposed mechanisms for oxygenation events:**
 1. **Andean runoff pulses** - Oxygenated river water entering lake
 2. **Lake-level changes** - Shallowing increases mixing
@@ -358,7 +445,7 @@
 - Sequence stratigraphic analysis could test lake-level control
 - Currently available data cannot definitively distinguish these mechanisms
 
-### Slide 16: Conclusions
+### Slide 18: Conclusions
 1. XRF Mn/Ti successfully detects dysoxic conditions independently documented by Pachydon ecology
 2. Site-level contrast (TAM vs SC) matches lacustrine vs. fluvio-lacustrine interpretations from paleontology
 3. Concordant Mn/Ti + Ca/Ti events provide strongest paleoenvironmental signals
