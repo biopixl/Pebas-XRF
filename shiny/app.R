@@ -456,6 +456,7 @@ ui <- fluidPage(
                      pickerInput("temporal_proxies", NULL,
                                  choices = c("Mn/Ti (Redox)" = "Mn_Ti",
                                              "Ca/Ti (Carbonate)" = "Ca_Ti",
+                                             "Fe/Ti (Iron)" = "Fe_Ti",
                                              "Fe/Mn (Reducing)" = "Fe_Mn",
                                              "K/Ti (Weathering)" = "K_Ti",
                                              "Zr/Rb (Grain size)" = "Zr_Rb",
@@ -1573,12 +1574,12 @@ server <- function(input, output, session) {
 
   # Proxy labels and colors
   temporal_proxy_labels <- c(
-    "Mn_Ti" = "Mn/Ti", "Ca_Ti" = "Ca/Ti", "Fe_Mn" = "Fe/Mn",
+    "Mn_Ti" = "Mn/Ti", "Ca_Ti" = "Ca/Ti", "Fe_Ti" = "Fe/Ti", "Fe_Mn" = "Fe/Mn",
     "K_Ti" = "K/Ti", "Zr_Rb" = "Zr/Rb", "Sr_Ca" = "Sr/Ca"
   )
 
   temporal_proxy_colors <- c(
-    "Mn_Ti" = "#637939", "Ca_Ti" = "#2166ac", "Fe_Mn" = "#7b3294",
+    "Mn_Ti" = "#637939", "Ca_Ti" = "#2166ac", "Fe_Ti" = "#b2182b", "Fe_Mn" = "#7b3294",
     "K_Ti" = "#e08214", "Zr_Rb" = "#1a9850", "Sr_Ca" = "#d95f02"
   )
 
