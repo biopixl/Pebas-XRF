@@ -121,6 +121,84 @@ Following recommendations from compositional data analysis literature, we adopt 
 
 The \textbf{Ca/Ti ratio} provides a genuinely independent signal, as Ca and Ti have distinct geochemical behaviors: Ca reflects biogenic carbonate production and/or authigenic precipitation, while Ti tracks conservative lithogenic input. Concordance between Mn/Ti and Ca/Ti therefore represents robust multi-proxy evidence for environmental change.
 
+\subsection{Selection of Normalizing Elements}
+
+Normalization to a conservative lithogenic element is standard practice in sediment geochemistry to correct for variable dilution by organic matter, biogenic carbonate, and other non-detrital phases \citep{Loring1991}. The choice of denominator element significantly affects paleoenvironmental interpretations. We evaluated five candidate normalizers available in our XRF dataset: aluminum (Al), titanium (Ti), zirconium (Zr), rubidium (Rb), and potassium (K).
+
+\subsubsection{Candidate Denominator Elements}
+
+\begin{description}
+\item[Aluminum (Al):] The most commonly used normalizer in marine geochemistry, Al is a major component of clay minerals and aluminosilicates with minimal anthropogenic input \citep{Loring1991}. However, Al is a light element (Z = 13) with lower XRF sensitivity, and measurements can be affected by water content and matrix effects in wet sediments \citep{Lowemark2011}. In our dataset, Al shows moderate variability (CV = 0.43) with a 23\% difference between sites.
+
+\item[Titanium (Ti):] Frequently used as a detrital proxy because Ti resides primarily in heavy minerals (ilmenite, rutile, titanite) and is immobile during diagenesis \citep{Calvert2007}. Ti provides excellent XRF signal strength (median 11,408 cps) but shows the \textit{largest site difference} in our dataset (SC 43\% higher than TAM), indicating that Ti tracks genuine depositional differences rather than serving as a passive normalizer.
+
+\item[Zirconium (Zr):] Concentrated in zircon, a highly resistant heavy mineral, Zr is exceptionally immobile during weathering and diagenesis. Zr shows the \textit{smallest site difference} (SC only 11\% higher than TAM), suggesting it may be the most conservative element available. However, Zr can fractionate with grain size due to hydrodynamic sorting of zircon crystals \citep{Kryc2003}.
+
+\item[Rubidium (Rb):] Substitutes for K in clay minerals (especially illite) and tracks fine-grained siliciclastic input. Rb shows the \textit{lowest coefficient of variation} (CV = 0.29--0.31) of any candidate normalizer, indicating the most stable XRF measurements. Site difference is moderate (SC 22\% higher than TAM).
+
+\item[Potassium (K):] Concentrated in K-feldspars and illite, K serves as a weathering and clay mineral proxy. K shows moderate variability (CV = 0.40--0.44) and site differences (SC 30\% higher), similar to Al but with better XRF sensitivity.
+\end{description}
+
+\subsubsection{Evaluation Criteria and Results}
+
+We assessed denominator suitability using four criteria (Table~\ref{tab:normalizers}):
+
+\begin{enumerate}
+\item \textbf{Measurement stability (CV):} Lower coefficient of variation indicates more precise, reproducible measurements. Rb performs best (CV = 0.29).
+
+\item \textbf{Site invariance (SC/TAM ratio):} Values closer to 1.0 indicate the element is unaffected by depositional environment differences. Zr performs best (ratio = 1.11), while Ti performs worst (ratio = 1.43).
+
+\item \textbf{Independence from target elements:} Lower correlation with Mn, Ca, and Fe indicates the normalizer tracks different processes. Zr shows lowest correlations with other detrital indicators (r = 0.21--0.37 with Al, Ti, Rb, K).
+
+\item \textbf{Diagenetic immobility:} Elements should not be affected by post-depositional redox changes or dissolution. All candidates are generally immobile, though Fe contamination of Ti-bearing minerals is possible under highly reducing conditions.
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\caption{Evaluation of candidate normalizing elements. SC/TAM ratio indicates site difference (ideal = 1.0). CV = coefficient of variation across full dataset.}
+\label{tab:normalizers}
+\small
+\begin{tabular}{lccccp{4cm}}
+\toprule
+Element & CV & SC/TAM & XRF Signal & Grain-Size Bias & Primary Mineralogical Host \\
+\midrule
+Al & 0.43 & 1.23 & Low & Clay-enriched & Clay minerals, feldspars \\
+Ti & 0.42 & 1.43 & High & Silt-enriched & Ilmenite, rutile, titanite \\
+Zr & 0.44 & 1.11 & High & Sand-enriched & Zircon \\
+Rb & 0.29 & 1.22 & High & Clay-enriched & Illite, micas \\
+K & 0.43 & 1.30 & High & Clay-enriched & Illite, K-feldspar \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Rationale for Ti Selection}
+
+Despite Zr showing the smallest site difference and Rb showing the lowest CV, we select \textbf{Ti as the primary normalizing element} for the following reasons:
+
+\begin{enumerate}
+\item \textbf{Ti tracks the environmental signal of interest.} The 43\% higher Ti at SC reflects genuinely higher detrital input to that site---the same signal we seek to correct for when interpreting Mn and Ca variations. Normalizing by Ti explicitly removes this detrital dilution effect.
+
+\item \textbf{Zr's grain-size fractionation is problematic.} Zr concentrates in the sand fraction due to hydrodynamic sorting of dense zircon crystals \citep{Kryc2003}. In our lacustrine setting with variable grain size, Zr/element ratios may reflect hydraulic energy rather than true enrichment/depletion.
+
+\item \textbf{Rb correlates too strongly with clay content.} While Rb provides stable measurements, its concentration in illite means Rb/element ratios track clay mineral abundance rather than total detrital input. This could introduce spurious signals in intervals with varying clay/silt ratios.
+
+\item \textbf{Ti is the community standard for XRF core scanning.} Ti-normalization is widely used in lacustrine XRF studies \citep{Lowemark2011, Davies2015}, facilitating comparison with other Amazonian and tropical lake records.
+
+\item \textbf{Ti has excellent XRF response.} With median counts of 11,408 cps and CV similar to other candidates, Ti provides reliable, high-signal measurements across our full dataset.
+\end{enumerate}
+
+\subsubsection{Alternative Normalizations for Sensitivity Testing}
+
+We recommend that future statistical analyses include sensitivity tests using Zr and Rb as alternative normalizers:
+
+\begin{itemize}
+\item \textbf{Mn/Zr} may provide a more conservative redox proxy if grain-size effects are minimal.
+\item \textbf{Mn/Rb} may better track redox changes in clay-dominated intervals.
+\item \textbf{Concordance among Mn/Ti, Mn/Zr, and Mn/Rb} at major transitions would strengthen paleoenvironmental interpretations by demonstrating normalizer-independence.
+\end{itemize}
+
+For the primary analyses presented here, we retain Ti-normalization for consistency with established lacustrine XRF methodology while acknowledging that Ti itself varies with depositional environment.
+
 \subsection{Stratigraphic Transitions and Proxy Relationships}
 
 Major environmental transitions were identified using a rolling-window analysis (5-point window) to detect shifts $>50\%$ in key proxy values. In the stratigraphic profiles, depth increases downward following standard convention; shallower depths represent younger sediments and greater depths represent older sediments. The strongest paleoenvironmental interpretations arise when Mn/Ti (redox) and Ca/Ti (carbonate) change concordantly, providing independent lines of evidence for environmental shifts. Three exemplary sections illustrate different transition styles (Figure~\ref{fig:stratigraphic_profiles}).
