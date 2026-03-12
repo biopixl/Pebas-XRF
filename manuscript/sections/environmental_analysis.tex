@@ -108,80 +108,111 @@ SC-5-6-7ABC-B & SC & 173 & 408 & 19--115 & Best SC section \\
 \label{fig:section_quality}
 \end{figure}
 
-\subsection{Stratigraphic Transitions and Multi-Proxy Concordance}
+\subsection{Methodological Considerations: Compositional Data Constraints}
 
-Major environmental transitions were identified using a rolling-window analysis (5-point window) to detect shifts $>50\%$ in key proxy values. In the stratigraphic profiles, depth increases downward following standard convention; shallower depths represent younger sediments and greater depths represent older sediments. The strongest paleoenvironmental interpretations arise when multiple independent proxies change in phase, providing concordant lines of evidence for environmental shifts. Three exemplary sections illustrate different transition styles (Figure~\ref{fig:stratigraphic_profiles}).
+Geochemical ratio data are subject to the ``closure effect'' described by \citet{Aitchison1986}, wherein ratios sharing a common element exhibit mathematically induced correlations independent of environmental signal. This constraint is particularly relevant when interpreting Fe/Mn and Mn/Ti together, as both ratios contain Mn:
+
+\begin{itemize}
+\item When Mn increases (e.g., under oxic conditions promoting Mn precipitation), Fe/Mn \textit{decreases} and Mn/Ti \textit{increases} purely through arithmetic, regardless of Fe or Ti behavior.
+\item The strong inverse correlations observed ($r = -0.54$ to $-0.77$) therefore reflect both genuine redox signal \textit{and} mathematical artifact from the shared element.
+\end{itemize}
+
+Following recommendations from compositional data analysis literature, we adopt \textbf{Mn/Ti as the primary redox proxy} because Ti-normalization corrects for detrital dilution while avoiding the interpretive ambiguity of Fe/Mn, where Fe variability may reflect both redox processes and terrigenous input \citep{Naher2013, Makri2020}. Fe/Mn is retained as a supporting indicator but should not be considered an independent confirmation of Mn/Ti trends.
+
+The \textbf{Ca/Ti ratio} provides a genuinely independent signal, as Ca and Ti have distinct geochemical behaviors: Ca reflects biogenic carbonate production and/or authigenic precipitation, while Ti tracks conservative lithogenic input. Concordance between Mn/Ti and Ca/Ti therefore represents robust multi-proxy evidence for environmental change.
+
+\subsection{Stratigraphic Transitions and Proxy Relationships}
+
+Major environmental transitions were identified using a rolling-window analysis (5-point window) to detect shifts $>50\%$ in key proxy values. In the stratigraphic profiles, depth increases downward following standard convention; shallower depths represent younger sediments and greater depths represent older sediments. The strongest paleoenvironmental interpretations arise when Mn/Ti (redox) and Ca/Ti (carbonate) change concordantly, providing independent lines of evidence for environmental shifts. Three exemplary sections illustrate different transition styles (Figure~\ref{fig:stratigraphic_profiles}).
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/environmental_analysis/fig3_stratigraphic_profiles.pdf}
-\caption{Stratigraphic profiles of key proxies in the three highest-quality sections. Depth increases downward (younger sediments at top, older at base). Each column shows Fe/Mn (top), Mn/Ti (middle), and Ca/Ti (bottom) for one section. Dashed horizontal line on Fe/Mn panels indicates the reducing threshold ($\sim$70). Note the different scales reflecting distinct environmental conditions at each locality.}
+\caption{Stratigraphic profiles of key proxies in the three highest-quality sections. Depth increases downward (younger sediments at top, older at base). Each column shows Fe/Mn (top), Mn/Ti (middle), and Ca/Ti (bottom) for one section. Dashed horizontal line on Fe/Mn panels indicates the reducing threshold ($\sim$70). Note that Fe/Mn and Mn/Ti share Mn and thus are not independent; Ca/Ti provides the independent carbonate signal.}
 \label{fig:stratigraphic_profiles}
 \end{figure}
 
-\subsubsection{Multi-Proxy Phase Relationships}
+\subsubsection{Proxy Relationships and Interpretation Framework}
 
-Within-section correlation analysis reveals systematic phase relationships among proxies that strengthen paleoenvironmental interpretations:
+The mechanistic basis for Mn-based redox proxies is well established: under anoxic conditions, Mn(IV) oxides are reduced to soluble Mn(II), which diffuses out of sediments; under oxic conditions, Mn(II) is oxidized and precipitates as Mn oxyhydroxides \citep{Tribovillard2006}. Because Mn oxidizes more slowly than Fe, high sedimentary Mn accumulation requires sustained bottom-water oxygenation.
 
 \begin{itemize}
-\item \textbf{Fe/Mn and Mn/Ti show strong inverse correlation} ($r = -0.54$ to $-0.77$), as expected since both track redox conditions through different mechanisms: Fe/Mn increases under reducing conditions (Fe retention, Mn loss), while Mn/Ti increases under oxidizing conditions (Mn precipitation). This inverse relationship validates both proxies as independent redox indicators.
+\item \textbf{Mn/Ti (primary redox proxy):} Higher values indicate oxic bottom waters with Mn precipitation; lower values indicate reducing conditions with Mn loss. Ti-normalization corrects for variable detrital dilution.
 
-\item \textbf{Ca/Ti correlates positively with Mn/Ti} ($r = +0.24$ to $+0.45$) in TAM sections, suggesting that carbonate enrichment events often coincide with improved oxygenation---possibly reflecting periods of enhanced biological productivity and/or reduced organic matter loading.
+\item \textbf{Ca/Ti (independent carbonate proxy):} Tracks biogenic carbonate (shell material) and/or authigenic carbonate precipitation relative to siliciclastic input. High values may reflect productive, shell-rich intervals or reduced detrital flux.
 
-\item \textbf{Ca/Ti correlates inversely with Fe/Mn} ($r = -0.20$ to $-0.53$), indicating that carbonate-rich intervals tend to be less reducing, consistent with shell-rich facies accumulating under better-ventilated conditions.
+\item \textbf{Fe/Mn (supporting redox indicator):} Classic redox proxy where high values ($>70$) indicate reducing conditions. However, Fe variability may also reflect detrital input, making this ratio less diagnostic than Mn/Ti for sites with variable terrigenous flux.
 \end{itemize}
+
+Concordance between Mn/Ti and Ca/Ti---where both increase together---represents the strongest evidence for oxic, productive environmental conditions, as these proxies track genuinely independent processes (redox-controlled Mn cycling vs. carbonate production).
 
 \subsubsection{TAM-1-2-3B-A (123--660 mm)}
 
-This section records the most extreme redox variability in the dataset, with strong multi-proxy concordance ($r_{\text{Fe/Mn vs Mn/Ti}} = -0.54$; $r_{\text{Ca/Ti vs Mn/Ti}} = +0.45$):
+This section records the most extreme Mn/Ti variability in the dataset (CV = 1.28), with genuine Mn/Ti--Ca/Ti concordance ($r = +0.45$):
 
 \begin{itemize}
-\item \textbf{129--135 mm depth:} Concordant transition where Ca/Ti increases sharply while Mn/Ti rises and Fe/Mn falls, recording a \textbf{coupled carbonate--oxygenation event} with three proxies changing in phase.
+\item \textbf{519--522 mm depth:} \textbf{Strongest concordant oxic-carbonate interval} at TAM---Mn/Ti reaches 1.62--1.68 (3.2--3.4$\sigma$ above mean) while Ca/Ti peaks at 13--14 (2.0--2.3$\sigma$ above mean). This represents a clear \textbf{oxygenation event with enhanced carbonate production}.
 
-\item \textbf{177--183 mm depth:} Ca/Ti increases by 164\% coincident with Fe/Mn increase (49\%) and Mn/Ti decrease (36\%), indicating a \textbf{carbonate pulse under reducing conditions}---a distinctly different environmental mode.
+\item \textbf{336--348 mm depth:} Major carbonate pulse with Ca/Ti = 22--30 (among highest in dataset), though Mn/Ti remains moderate (0.17--0.22), suggesting \textbf{shell accumulation without corresponding bottom-water oxygenation}---possibly transported shells or authigenic carbonate.
 
-\item \textbf{327--339 mm depth:} Mn/Ti increases by 60--85\% while Fe/Mn decreases by 52\%, with Ca/Ti relatively stable. This \textbf{pure redox transition} (two proxies in phase, carbonate unchanged) suggests ventilation without productivity change.
-
-\item Fe/Mn ranges from 89 to 1327 across the full section, spanning nearly two orders of magnitude and demonstrating the section's exceptional sensitivity to redox fluctuations.
+\item Mn/Ti ranges from 0.04 to 1.68, spanning two orders of magnitude and demonstrating exceptional sensitivity to redox fluctuations.
 \end{itemize}
 
-\subsubsection{TAM-3A-4-5CDE-B (448--1012 mm)}
+\subsubsection{TAM-5AB-6-7-B-RUN2 (122--660 mm)}
 
-This section shows the strongest redox proxy coupling ($r_{\text{Fe/Mn vs Mn/Ti}} = -0.75$) and well-defined carbonate pulses with multi-proxy concordance:
+This section contains the most dramatic single-point Mn/Ti transitions and clear concordant intervals:
 
 \begin{itemize}
-\item \textbf{472--478 mm depth:} \textbf{Three-proxy concordant event}---Ca/Ti increases dramatically (191--218\%), Mn/Ti increases (68--182\%), and Fe/Mn decreases (9--44\%). This represents the clearest example of a \textbf{major carbonate--oxygenation event} with all three proxies changing in expected phase relationships.
+\item \textbf{648 mm depth:} \textbf{Most abrupt oxygenation event in dataset}---Mn/Ti increases 482\% (from 0.50 to 2.89) across a single 3~mm measurement interval, recording a \textbf{rapid ventilation event}.
 
-\item \textbf{457--463 mm depth:} Inverse pattern where Ca/Ti decreases (43--44\%) while Fe/Mn increases (68--82\%) and Mn/Ti decreases (37--52\%), recording a \textbf{return to reducing, carbonate-poor conditions}.
+\item \textbf{264--285 mm depth:} \textbf{Sustained oxic-carbonate interval}---Mn/Ti = 1.0--2.0 and Ca/Ti = 12--15 across 20~mm, representing prolonged favorable conditions for both Mn precipitation and carbonate accumulation.
 
-\item The strong Fe/Mn--Mn/Ti coupling ($r = -0.75$) throughout this section indicates consistent redox-driven geochemistry, making it ideal for reconstructing oxygenation history.
+\item \textbf{525--606 mm depth:} High carbonate zone (Ca/Ti = 22--30) with variable Mn/Ti, suggesting fluctuating redox conditions during a period of enhanced shell production.
+\end{itemize}
+
+\subsubsection{SC-1ABC-2-3C-A-RUN1 (122--493 mm)}
+
+This SC section shows the most dynamic Mn/Ti signal (CV = 1.24) with spectacular transitions:
+
+\begin{itemize}
+\item \textbf{367 mm depth:} \textbf{Most extreme Mn/Ti transition in entire dataset}---833\% increase (from 0.25 to 2.31) across a single measurement interval, recording an \textbf{abrupt oxygenation event} unmatched elsewhere.
+
+\item \textbf{184 mm depth:} Second major transition (337\% Mn/Ti increase), demonstrating that this section captures multiple discrete ventilation events.
+
+\item The extreme Mn/Ti variability at SC supports the interpretation of a more dynamic, periodically ventilated environment compared to the persistently reducing TAM setting.
 \end{itemize}
 
 \subsubsection{SC-5-6-7ABC-B (284--692 mm)}
 
-The best SC section shows the strongest redox proxy concordance ($r_{\text{Fe/Mn vs Mn/Ti}} = -0.77$) and multiple coupled transitions:
+The most data-rich SC section ($n = 170$) with the highest single-point Ca/Ti value:
 
 \begin{itemize}
-\item \textbf{290--298 mm depth:} \textbf{Sustained three-proxy concordant interval}---across 8~mm of section, Ca/Ti increases (64--156\%), Mn/Ti increases (58--104\%), and Fe/Mn decreases (35--48\%) in consistent phase. This represents a \textbf{major environmental transition} to more oxic, carbonate-rich conditions sustained over multiple measurement points.
+\item \textbf{704--706 mm depth:} \textbf{Extreme carbonate event}---Ca/Ti reaches 48.4, the highest value in the entire dataset, with moderate Mn/Ti (0.37--0.50). This records a \textbf{major shell-rich horizon} possibly representing a condensed shell lag or storm deposit.
 
-\item Unlike TAM sections, SC shows weaker Ca/Ti correlation with redox proxies ($r \approx 0$), suggesting that carbonate and redox cycles may be partially decoupled at this site---consistent with a more dynamic, fluvially-influenced setting where detrital carbonate input may vary independently of bottom-water oxygenation.
+\item The 4.5-unit Mn/Ti range (0.17--4.67) across this section demonstrates the full spectrum of redox conditions preserved at SC.
+\end{itemize}
 
-\item The exceptional Fe/Mn--Mn/Ti coupling ($r = -0.77$) confirms robust redox signal preservation despite the more variable depositional environment.
+\subsubsection{SC-3AB-4ABCD-RUN2-F (1177--1371 mm)}
+
+This section contains the clearest examples of concordant Mn/Ti--Ca/Ti events:
+
+\begin{itemize}
+\item \textbf{1254--1260 mm depth:} \textbf{Textbook oxic-carbonate event}---both Mn/Ti (1.6--2.6, 3--6$\sigma$) and Ca/Ti (11--13, 1.5--2$\sigma$) elevated simultaneously, representing the strongest independent proxy concordance in the dataset.
+
+\item \textbf{1338 mm depth:} Second concordant event (Mn/Ti = 1.81, Ca/Ti = 12.6), confirming that this section reliably records coupled oxygenation-productivity events.
 \end{itemize}
 
 \subsubsection{Implications for Paleoenvironmental Reconstruction}
 
-The multi-proxy concordance analysis identifies three distinct environmental modes recorded in the Pebas Formation:
+Based on truly independent proxy concordance (Mn/Ti and Ca/Ti), we identify two distinct environmental modes:
 
 \begin{enumerate}
-\item \textbf{Carbonate--oxygenation events:} Ca/Ti$\uparrow$, Mn/Ti$\uparrow$, Fe/Mn$\downarrow$ changing in phase. These likely represent periods of enhanced productivity and/or improved ventilation, with shell accumulation under oxic bottom waters.
+\item \textbf{Oxic-carbonate events:} Mn/Ti$\uparrow$ and Ca/Ti$\uparrow$ changing together. These represent periods of improved bottom-water oxygenation coinciding with enhanced carbonate production or preservation. The mechanism may involve: (a) lake-level lowering increasing ventilation and carbonate saturation; (b) reduced organic matter loading decreasing oxygen demand; or (c) increased productivity under oxic conditions favoring shell growth.
 
-\item \textbf{Pure redox transitions:} Mn/Ti and Fe/Mn change inversely while Ca/Ti remains stable. These reflect oxygenation changes independent of carbonate production, possibly driven by water column mixing or circulation changes.
-
-\item \textbf{Reducing carbonate events:} Ca/Ti increases while Fe/Mn increases and Mn/Ti decreases. These record carbonate accumulation under oxygen-depleted conditions, possibly from authigenic carbonate precipitation or shell transport from shallower, oxic waters.
+\item \textbf{Decoupled carbonate events:} Ca/Ti$\uparrow$ while Mn/Ti remains low or decreases. These record carbonate accumulation under reducing conditions, possibly from authigenic carbonate precipitation in anoxic porewaters, shell transport from shallower oxic zones, or condensed shell lags during periods of low sedimentation.
 \end{enumerate}
 
-The strongest paleoenvironmental interpretations derive from intervals where $\geq$3 proxies change concordantly, as single-proxy excursions may reflect local diagenesis or analytical artifacts. We identify 15 such multi-proxy concordant intervals across the three key sections, providing robust anchor points for environmental reconstruction.
+The strongest paleoenvironmental interpretations derive from intervals where Mn/Ti and Ca/Ti change concordantly, as these represent independent confirmation of environmental change. Single-proxy excursions should be interpreted cautiously.
 
 \subsection{Redox Environment Interpretation}
 
@@ -230,15 +261,65 @@ The geochemical data support a model where TAM and SC represent distinct deposit
 
 The preserved geochemical variability within sections (particularly TAM-1-2-3B-A) indicates that environmental conditions fluctuated substantially through time, as recorded in the stratigraphic succession from older (deeper) to younger (shallower) sediments. Individual core sections span timescales estimated at $10^2$--$10^4$ years based on typical Pebas Formation sedimentation rates. These temporal fluctuations likely reflect climate-driven changes in lake level, productivity, and/or runoff intensity.
 
+\subsection{Key Intervals for Presentation}
+
+For paleoenvironmental presentations highlighting the Pebas Formation's dynamic environmental history, we recommend the following intervals based on signal strength and interpretive clarity (Table~\ref{tab:presentation_intervals}).
+
+\begin{table}[htbp]
+\centering
+\caption{Recommended core intervals for presentation, ranked by signal clarity and paleoenvironmental significance.}
+\label{tab:presentation_intervals}
+\small
+\begin{tabular}{llcp{5.5cm}}
+\toprule
+Section & Depth (mm) & Signal Type & Paleoenvironmental Interpretation \\
+\midrule
+\multicolumn{4}{l}{\textit{Dramatic Redox Transitions}} \\
+SC-1ABC-2-3C-A-RUN1 & 367 & Mn/Ti +833\% & Most extreme oxygenation event \\
+TAM-5AB-6-7-B-RUN2 & 648 & Mn/Ti +482\% & Abrupt ventilation event \\
+SC-1ABC-2-3C-A-RUN1 & 184 & Mn/Ti +337\% & Second major oxygenation pulse \\
+\midrule
+\multicolumn{4}{l}{\textit{Concordant Oxic-Carbonate Events (Independent Proxies)}} \\
+SC-3AB-4ABCD-RUN2-F & 1254--1260 & Mn/Ti + Ca/Ti & Textbook oxygenation-productivity coupling \\
+SC-5-6-7ABC-C & 848 & Mn/Ti + Ca/Ti & Clear concordant event \\
+TAM-5AB-6-7-B-RUN2 & 264--285 & Mn/Ti + Ca/Ti & Sustained favorable conditions \\
+TAM-1-2-3B-A & 519--522 & Mn/Ti + Ca/Ti & Strongest TAM concordant interval \\
+\midrule
+\multicolumn{4}{l}{\textit{Extreme Carbonate Events}} \\
+SC-5-6-7ABC-B & 704 & Ca/Ti = 48 & Highest carbonate; shell-rich horizon \\
+TAM-1-2-3B-B & 1204--1213 & Ca/Ti = 34--42 & Major TAM carbonate pulse \\
+\midrule
+\multicolumn{4}{l}{\textit{Site Contrast Demonstrations}} \\
+TAM-1-2-3B-A & Full section & High variability & Most dynamic TAM section (CV = 1.28) \\
+SC-5-6-7ABC-B & Full section & High variability & Best SC section; widest Mn/Ti range \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Presentation Strategy}
+
+For maximum visual impact in presentations:
+
+\begin{enumerate}
+\item \textbf{Site contrast:} Display TAM-1-2-3B-A alongside SC-5-6-7ABC-B to illustrate the fundamental environmental difference between reducing (TAM) and periodically oxic (SC) settings. The 2-fold difference in median Mn/Ti (0.18 vs 0.37) is immediately apparent.
+
+\item \textbf{Dramatic transitions:} The SC-1ABC-2-3C-A-RUN1 section at 367~mm shows an 833\% Mn/Ti increase---the most extreme single-point transition in the dataset. This visually demonstrates the rapidity of environmental change in the Pebas system.
+
+\item \textbf{Independent proxy concordance:} The SC-3AB-4ABCD-RUN2-F interval at 1254--1260~mm shows simultaneous Mn/Ti and Ca/Ti peaks, demonstrating genuine multi-proxy evidence for oxic, productive conditions without the spurious correlation concerns of Fe/Mn--Mn/Ti comparisons.
+
+\item \textbf{Carbonate events:} The SC-5-6-7ABC-B shell horizon at 704~mm (Ca/Ti = 48.4) provides a striking visual anchor for discussing shell-rich facies and their paleoenvironmental significance.
+\end{enumerate}
+
 \subsection{Recommendations for Future Work}
 
 Based on this analysis, we recommend:
 
 \begin{enumerate}
-\item Use \textbf{Fe/Mn} as the primary redox proxy (highest significance)
-\item Normalize elements to \textbf{Ti} for detrital correction (most reliable element)
-\item Focus detailed paleoenvironmental reconstruction on \textbf{TAM-1-2-3B-A} (extreme variability) and \textbf{TAM-3A-4-5CDE-B} (clear events)
-\item Use \textbf{SC-5-6-7ABC-B} as the representative SC comparison section
+\item Use \textbf{Mn/Ti as the primary redox proxy} (detrital-corrected, avoids Fe ambiguity)
+\item Pair with \textbf{Ca/Ti as an independent carbonate proxy} for multi-proxy confirmation
+\item Interpret \textbf{Fe/Mn as supporting evidence only}, acknowledging shared-element constraints with Mn/Ti
+\item Focus detailed paleoenvironmental reconstruction on \textbf{TAM-1-2-3B-A} (extreme variability), \textbf{TAM-5AB-6-7-B-RUN2} (clear transitions), and \textbf{SC-1ABC-2-3C-A-RUN1} (dramatic events)
+\item Use \textbf{SC-5-6-7ABC-B} as the representative SC comparison section (highest $n$, widest dynamic range)
 \item Avoid sections with $<30$ measurements or $<100$ mm stratigraphic coverage
-\item Consider paired Fe/Mn--Mn/Ti analysis for comprehensive redox interpretation
+\item Consider log-ratio transformations (centered log-ratio or isometric log-ratio) for formal statistical analysis of compositional data
 \end{enumerate}
